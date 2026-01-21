@@ -12,6 +12,10 @@ public class Task {
         this.finished = true;
     }
 
+    public void undo() {
+        this.finished = false;
+    }
+
     public boolean isFinished() {
         return finished;
     }
