@@ -27,13 +27,26 @@ public class Advisor {
         System.out.println("Hello. I am " + name);
         System.out.println("What do you want me to do?");
 
-        String command = getCommand();
+        boolean endSession = false;
+
+        while (!endSession) {
+            String command = getCommand();
 
 
-        System.out.println(command);
+            if (command.equals("bye")) {
+                System.out.println(line);
+                System.out.println("End of Session. Goodbye.");
+                System.out.println(line);
+                endSession = true;
+                return;
+            }
 
-        System.out.println(line);
-        System.out.println("End of Session. Goodbye.");
+            System.out.println(line);
+            System.out.println(command);
+            System.out.println(line);
+
+
+        }
 
 
     }
