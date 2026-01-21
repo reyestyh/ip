@@ -30,11 +30,7 @@ public class Task {
 
     @Override
     public String toString() {
-        if (this.finished) {
-            return "[X] " + this.taskName;
-        } else {
-            return "[ ] " + this.taskName;
-        }
+        return "[" + this.getStatus() + "] " + this.taskName;
     }
 
 }
