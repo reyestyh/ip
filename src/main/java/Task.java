@@ -8,10 +8,6 @@ public class Task {
         this.finished = false;
     }
 
-    public String getTaskName() {
-        return taskName;
-    }
-
     public void finishTask() {
         this.finished = true;
     }
@@ -20,6 +16,9 @@ public class Task {
         return finished;
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
 
     public String getStatus() {
         return finished ? "X" : " ";
