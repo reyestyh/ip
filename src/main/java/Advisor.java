@@ -1,11 +1,17 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Advisor {
 
     static Scanner input = new Scanner(System.in);
+    static ArrayList<String> todo = new ArrayList<>();
 
     public static String getInput() {
         return input.nextLine().strip().toLowerCase();
+    }
+
+    public static void updateToDoList(String task) {
+        todo.add(task);
     }
 
     public static void main(String[] args) {
@@ -38,11 +44,12 @@ public class Advisor {
                 System.out.println(line);
                 endSession = true;
                 return;
+            } else {
+                System.out.println(line);
+                updateToDoList(input);
+                System.out.println("added: " + input);
+                System.out.println(line);
             }
-
-            System.out.println(line);
-            System.out.println(command);
-            System.out.println(line);
 
 
         }
