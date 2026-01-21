@@ -20,6 +20,11 @@ public class Task {
         return finished;
     }
 
+
+    public String getStatus() {
+        return finished ? "X" : " ";
+    }
+
     @Override
     public String toString() {
         if (this.finished) {
