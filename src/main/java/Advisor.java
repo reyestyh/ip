@@ -11,5 +11,17 @@ public class Advisor {
         String name = "Advisor";
         String line = "____________________________________________________________";
 
+
+
+        System.out.println(logo);
+        System.out.println(line);
+        System.out.println("Hello. I am "+ name);
+        System.out.println("What do you want me to do?");
+
+
+
+        System.out.println(line);
+        System.out.println("End of Session. Goodbye.");
+
     }
 }
