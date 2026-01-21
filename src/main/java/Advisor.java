@@ -51,6 +51,14 @@ public class Advisor {
                     System.out.println((i + 1) + ". " + currTask.toString());
                 }
                 System.out.println(line);
+            } else if (input.startsWith("mark")) {
+                System.out.println(line);
+                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task toUpdate = todo.get(idx);
+                toUpdate.finishTask();
+                System.out.println("This following task is now marked as done:");
+                System.out.println(toUpdate);
+                System.out.println(line);
             } else {
                 System.out.println(line);
                 updateToDoList(input);
