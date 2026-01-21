@@ -4,8 +4,7 @@ public class Advisor {
 
     static Scanner input = new Scanner(System.in);
 
-    public static String getCommand() {
-        System.out.println("Enter a command:");
+    public static String getInput() {
         return input.nextLine().strip().toLowerCase();
     }
 
@@ -30,10 +29,10 @@ public class Advisor {
         boolean endSession = false;
 
         while (!endSession) {
-            String command = getCommand();
+            System.out.println("Enter a command:");
+            String input = getInput();
 
-
-            if (command.equals("bye")) {
+            if (input.equals("bye")) {
                 System.out.println(line);
                 System.out.println("End of Session. Goodbye.");
                 System.out.println(line);
