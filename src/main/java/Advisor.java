@@ -59,6 +59,14 @@ public class Advisor {
                 System.out.println("This following task is now marked as done:");
                 System.out.println(toUpdate);
                 System.out.println(line);
+            } else if (input.startsWith("unmark")) {
+                System.out.println(line);
+                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task toUpdate = todo.get(idx);
+                toUpdate.undo();
+                System.out.println("This following task is now marked as undone:");
+                System.out.println(toUpdate);
+                System.out.println(line);
             } else {
                 System.out.println(line);
                 updateToDoList(input);
