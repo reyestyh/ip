@@ -44,6 +44,13 @@ public class Advisor {
                 System.out.println(line);
                 endSession = true;
                 return;
+            } else if (input.equals("list")) {
+                System.out.println(line);
+                for (int i = 0; i < todo.size(); i += 1) {
+                    String task = todo.get(i);
+                    System.out.println((i + 1) + ". " + task);
+                }
+                System.out.println(line);
             } else {
                 System.out.println(line);
                 updateToDoList(input);
