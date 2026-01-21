@@ -4,14 +4,14 @@ import java.util.Scanner;
 public class Advisor {
 
     static Scanner input = new Scanner(System.in);
-    static ArrayList<String> todo = new ArrayList<>();
+    static ArrayList<Task> todo = new ArrayList<>();
 
     public static String getInput() {
         return input.nextLine().strip().toLowerCase();
     }
 
-    public static void updateToDoList(String task) {
-        todo.add(task);
+    public static void updateToDoList(String taskName) {
+        todo.add(new Task(taskName));
     }
 
     public static void main(String[] args) {
@@ -47,8 +47,8 @@ public class Advisor {
             } else if (input.equals("list")) {
                 System.out.println(line);
                 for (int i = 0; i < todo.size(); i += 1) {
-                    String task = todo.get(i);
-                    System.out.println((i + 1) + ". " + task);
+                    Task currTask = todo.get(i);
+                    System.out.println((i + 1) + ". " + currTask.toString());
                 }
                 System.out.println(line);
             } else {
