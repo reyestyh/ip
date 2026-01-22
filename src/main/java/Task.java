@@ -30,13 +30,13 @@ public class Task {
         return taskName;
     }
 
-    public String getStatus() {
+    public String getStatusAsString() {
         return isFinished() ? "X" : " ";
     }
 
     @Override
     public String toString() {
-        return "[" + this.getStatus() + "] " + this.taskName;
+        return "[" + this.getStatusAsString() + "] " + this.taskName;
     }
 
 }
