@@ -21,8 +21,13 @@ public class Advisor {
         return input.nextLine().strip().toLowerCase();
     }
 
-    public static void updateToDoList(String taskName) {
-        todo.add(new Task(taskName));
+    public static void updateToDoList(Task toAdd) {
+        todo.add(toAdd);
+        System.out.println(line);
+        System.out.println("The following task has been added:");
+        System.out.println(toAdd.toString());
+        System.out.println("There are now " + todo.size() + " tasks in the list:");
+        System.out.println(line);
     }
 
     public static void main(String[] args) {
@@ -39,13 +44,17 @@ public class Advisor {
             String input = getInput();
 
             if (input.equals("bye")) {
+
                 System.out.println(line);
                 System.out.println("End of Session. Goodbye.");
                 System.out.println(line);
                 endSession = true;
                 return;
+
             } else if (input.equals("list")) {
+
                 System.out.println(line);
+                System.out.println("Current Tasks:");
                 for (int i = 0; i < todo.size(); i += 1) {
                     Task currTask = todo.get(i);
                     System.out.println((i + 1) + ". " + currTask.toString());
@@ -70,13 +79,18 @@ public class Advisor {
                 System.out.println("This following task is now marked as undone:");
                 System.out.println(toUpdate);
                 System.out.println(line);
-            } else {
-                System.out.println(line);
-                updateToDoList(input);
-                System.out.println("added: " + input);
-                System.out.println(line);
-            }
 
+            } else if (input.startsWith("todo")) {
+                String desc = InputParser.todoParser(input);
+                updateToDoList(new ToDoTask(desc));
+
+            } else if (input.startsWith("deadline")) {
+                String[] dd = InputParser.deadlineParser(input);
+                updateToDoList(new DeadlineTask(dd[0], dd[1]));
+            } else if (input.startsWith("event")) {
+                String[] dd = InputParser.eventParser(input);
+                updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
+            }
 
         }
 
