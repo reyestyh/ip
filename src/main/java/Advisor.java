@@ -26,7 +26,7 @@ public class Advisor {
         System.out.println(line);
         System.out.println("The following task has been added:");
         System.out.println(toAdd.toString());
-        System.out.println("There are now " + taskList.size() + " tasks in the list:");
+        System.out.println("There are now " + taskList.size() + " tasks in the list");
         System.out.println(line);
     }
 
