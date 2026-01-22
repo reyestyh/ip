@@ -2,6 +2,14 @@ import java.util.Arrays;
 
 public class InputParser {
 
+    public static Integer deleteParser(String input) {
+        try {
+            return Integer.parseInt(input.substring(7));
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            return -1;
+        }
+    }
+
     public static Integer markParser(String input) {
         try {
             return Integer.parseInt(input.substring(5));
