@@ -1,7 +1,82 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+            _       _                
+           | |     (_)               
+   __ _  __| |_   ___ ___  ___  _ __ 
+  / _` |/ _` \ \ / / / __|/ _ \| '__|
+ | (_| | (_| |\ V /| \__ \ (_) | |   
+  \__,_|\__,_| \_/ |_|___/\___/|_|   
+                                     
+                                     
+____________________________________________________________
+Hello. I am Advisor
+What do you want me to do?
+Enter a command:
+____________________________________________________________
+The following task has been added:
+    [T][ ] Buy Groceries
+There are now 1 tasks in the list
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+The following task has been added:
+    [D][ ] Submit job application (by: 8pm)
+There are now 2 tasks in the list
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+The following task has been added:
+    [E][ ] Birthday (from: 4th Jan 2pm to: 6pm)
+There are now 3 tasks in the list
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Current Tasks:
+1. [T][ ] Buy Groceries
+2. [D][ ] Submit job application (by: 8pm)
+3. [E][ ] Birthday (from: 4th Jan 2pm to: 6pm)
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+The following task has been added:
+    [T][ ] Laundry
+There are now 4 tasks in the list
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+This following task is now marked as done:
+[T][X] Buy Groceries
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+This following task is now marked as done:
+[T][X] Laundry
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+This following task is now marked as done:
+[D][X] Submit job application (by: 8pm)
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Current Tasks:
+1. [T][X] Buy Groceries
+2. [D][X] Submit job application (by: 8pm)
+3. [E][ ] Birthday (from: 4th Jan 2pm to: 6pm)
+4. [T][X] Laundry
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+This following task is now marked as undone:
+[D][ ] Submit job application (by: 8pm)
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Current Tasks:
+1. [T][X] Buy Groceries
+2. [D][ ] Submit job application (by: 8pm)
+3. [E][ ] Birthday (from: 4th Jan 2pm to: 6pm)
+4. [T][X] Laundry
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+End of Session. Goodbye.
+____________________________________________________________
