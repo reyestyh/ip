@@ -42,7 +42,8 @@ public class Advisor {
         while (!endSession) {
             System.out.println("Enter a command:");
             String input = getInput();
-            String command = input.split(" ")[0].toLowerCase();
+            String[] inputStrs = input.split(" ");
+            String command = inputStrs[0];
 
             if (input.equals("bye")) {
 
@@ -62,7 +63,7 @@ public class Advisor {
                 }
                 System.out.println(line);
 
-            } else if (command.startsWith("mark")) {
+            } else if (command.equals("mark")) {
 
                 System.out.println(line);
                 int idx = InputParser.markParser(input) - 1;
@@ -72,7 +73,7 @@ public class Advisor {
                 System.out.println(toUpdate);
                 System.out.println(line);
 
-            } else if (command.startsWith("unmark")) {
+            } else if (command.equals("unmark")) {
                 System.out.println(line);
                 int idx = InputParser.unmarkParser(input) - 1;
                 Task toUpdate = taskList.get(idx);
@@ -81,16 +82,18 @@ public class Advisor {
                 System.out.println(toUpdate);
                 System.out.println(line);
 
-            } else if (command.startsWith("todo")) {
+            } else if (command.equals("todo")) {
                 String desc = InputParser.todoParser(input);
                 updateToDoList(new ToDoTask(desc));
 
-            } else if (command.startsWith("deadline")) {
+            } else if (command.equals("deadline")) {
                 String[] dd = InputParser.deadlineParser(input);
                 updateToDoList(new DeadlineTask(dd[0], dd[1]));
-            } else if (command.startsWith("event")) {
+
+            } else if (command.equals("event")) {
                 String[] dd = InputParser.eventParser(input);
                 updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
+
             } else {
                 System.out.println(line);
                 System.out.println("Invalid command. Try again.");
