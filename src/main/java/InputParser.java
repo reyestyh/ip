@@ -9,7 +9,11 @@ public class InputParser {
     }
 
     public static Integer unmarkParser(String input) {
-        return Integer.parseInt(input.substring(7));
+        try {
+            return Integer.parseInt(input.substring(7));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public static String todoParser(String input) {
