@@ -1,7 +1,11 @@
 public class InputParser {
 
     public static Integer markParser(String input) {
-        return Integer.parseInt(input.substring(5));
+        try {
+            return Integer.parseInt(input.substring(5));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public static Integer unmarkParser(String input) {

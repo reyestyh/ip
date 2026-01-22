@@ -65,13 +65,31 @@ public class Advisor {
 
             } else if (command.equals("mark")) {
 
-                System.out.println(line);
-                int idx = InputParser.markParser(input) - 1;
-                Task toUpdate = taskList.get(idx);
-                toUpdate.finishTask();
-                System.out.println("This following task is now marked as done:");
-                System.out.println(toUpdate);
-                System.out.println(line);
+                int idx = InputParser.markParser(input);
+
+                if (idx == -1) {
+                    System.out.println(line);
+                    System.out.println("Not a number.");
+                    System.out.println("Usage: mark <task number>");
+                    System.out.println(line);
+
+                } else {
+                    idx -= 1;
+                    String feedback = "";
+
+                    try {
+                        Task toUpdate = taskList.get(idx);
+                        toUpdate.finishTask();
+                        feedback = "The following task has been marked as done:\n" + toUpdate;
+                    } catch (IndexOutOfBoundsException e) {
+                        feedback = "Out of range. \nType a number within the range of current tasks";
+                    } finally {
+                        System.out.println(line);
+                        System.out.println(feedback);
+                        System.out.println(line);
+                    }
+
+                }
 
             } else if (command.equals("unmark")) {
                 System.out.println(line);
