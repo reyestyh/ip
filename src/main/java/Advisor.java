@@ -120,7 +120,7 @@ public class Advisor {
 
             } else if (command.equals("todo")) {
                 String desc = InputParser.todoParser(input);
-                if (desc.equals("")) {
+                if (desc.isEmpty()) {
                     System.out.println(line);
                     System.out.println("Missing description.");
                     System.out.println("Usage: todo <task description>");
