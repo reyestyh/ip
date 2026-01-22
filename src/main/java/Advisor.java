@@ -15,18 +15,18 @@ public class Advisor {
     static String line = "____________________________________________________________";
 
     static Scanner input = new Scanner(System.in);
-    static ArrayList<Task> todo = new ArrayList<>();
+    static ArrayList<Task> taskList = new ArrayList<>();
 
     public static String getInput() {
         return input.nextLine().strip().toLowerCase();
     }
 
     public static void updateToDoList(Task toAdd) {
-        todo.add(toAdd);
+        taskList.add(toAdd);
         System.out.println(line);
         System.out.println("The following task has been added:");
         System.out.println(toAdd.toString());
-        System.out.println("There are now " + todo.size() + " tasks in the list:");
+        System.out.println("There are now " + taskList.size() + " tasks in the list:");
         System.out.println(line);
     }
 
@@ -55,8 +55,8 @@ public class Advisor {
 
                 System.out.println(line);
                 System.out.println("Current Tasks:");
-                for (int i = 0; i < todo.size(); i += 1) {
-                    Task currTask = todo.get(i);
+                for (int i = 0; i < taskList.size(); i += 1) {
+                    Task currTask = taskList.get(i);
                     System.out.println((i + 1) + ". " + currTask.toString());
                 }
                 System.out.println(line);
@@ -65,7 +65,7 @@ public class Advisor {
 
                 System.out.println(line);
                 int idx = InputParser.markParser(input) - 1;
-                Task toUpdate = todo.get(idx);
+                Task toUpdate = taskList.get(idx);
                 toUpdate.finishTask();
                 System.out.println("This following task is now marked as done:");
                 System.out.println(toUpdate);
@@ -74,7 +74,7 @@ public class Advisor {
             } else if (input.startsWith("unmark")) {
                 System.out.println(line);
                 int idx = InputParser.unmarkParser(input) - 1;
-                Task toUpdate = todo.get(idx);
+                Task toUpdate = taskList.get(idx);
                 toUpdate.undo();
                 System.out.println("This following task is now marked as undone:");
                 System.out.println(toUpdate);
