@@ -1,6 +1,15 @@
+banana
 todo Buy Groceries
-Deadline Submit job application /by 8pm
-Event Birthday /from 4th Jan 2pm /to 6pm
+deadline
+deadline do work
+deadline do work /by
+deadline Submit job application /by 8pm
+event
+event wedding
+event wedding /from
+event wedding /from 4pm
+event wedding /from 4pm /to
+event Birthday /from 4th Jan 2pm /to 6pm
 list
 todo Laundry
 mark 1
@@ -8,5 +17,7 @@ mark 4
 mark 2
 list
 unmark 2
+list
+delete 3
 list
 bye

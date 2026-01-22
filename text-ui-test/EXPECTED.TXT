@@ -11,15 +11,59 @@ Hello. I am Advisor
 What do you want me to do?
 Enter a command:
 ____________________________________________________________
+Invalid command. Try again.
+____________________________________________________________
+Enter a command:
+____________________________________________________________
 The following task has been added:
     [T][ ] Buy Groceries
 There are now 1 tasks in the list
 ____________________________________________________________
 Enter a command:
 ____________________________________________________________
+Incorrect format
+Usage: deadline <task description> /by <deadline>
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Incorrect format
+Usage: deadline <task description> /by <deadline>
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Incorrect format
+Usage: deadline <task description> /by <deadline>
+____________________________________________________________
+Enter a command:
+____________________________________________________________
 The following task has been added:
     [D][ ] Submit job application (by: 8pm)
 There are now 2 tasks in the list
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Incorrect format
+Usage: event <task description> /from <start time> /to <end time>
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Incorrect format
+Usage: event <task description> /from <start time> /to <end time>
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Incorrect format
+Usage: event <task description> /from <start time> /to <end time>
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Incorrect format
+Usage: event <task description> /from <start time> /to <end time>
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Incorrect format
+Usage: event <task description> /from <start time> /to <end time>
 ____________________________________________________________
 Enter a command:
 ____________________________________________________________
@@ -75,6 +119,19 @@ Current Tasks:
 2. [D][ ] Submit job application (by: 8pm)
 3. [E][ ] Birthday (from: 4th Jan 2pm to: 6pm)
 4. [T][X] Laundry
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+The following task has been removed:
+[E][ ] Birthday (from: 4th Jan 2pm to: 6pm)
+Remaining tasks stored: 3
+____________________________________________________________
+Enter a command:
+____________________________________________________________
+Current Tasks:
+1. [T][X] Buy Groceries
+2. [D][ ] Submit job application (by: 8pm)
+3. [T][X] Laundry
 ____________________________________________________________
 Enter a command:
 ____________________________________________________________
