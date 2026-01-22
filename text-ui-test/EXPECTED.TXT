@@ -42,17 +42,17 @@ There are now 4 tasks in the list
 ____________________________________________________________
 Enter a command:
 ____________________________________________________________
-This following task is now marked as done:
+The following task is now marked as done:
 [T][X] Buy Groceries
 ____________________________________________________________
 Enter a command:
 ____________________________________________________________
-This following task is now marked as done:
+The following task is now marked as done:
 [T][X] Laundry
 ____________________________________________________________
 Enter a command:
 ____________________________________________________________
-This following task is now marked as done:
+The following task is now marked as done:
 [D][X] Submit job application (by: 8pm)
 ____________________________________________________________
 Enter a command:
@@ -65,7 +65,7 @@ Current Tasks:
 ____________________________________________________________
 Enter a command:
 ____________________________________________________________
-This following task is now marked as undone:
+The following task is now marked as undone:
 [D][ ] Submit job application (by: 8pm)
 ____________________________________________________________
 Enter a command:
