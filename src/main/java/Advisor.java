@@ -107,7 +107,7 @@ public class Advisor {
                     try {
                         Task toUpdate = taskList.get(idx);
                         toUpdate.undo();
-                        feedback = "The following task has been marked as undone:\n" + toUpdate;
+                        feedback = "The following task is now marked as undone:\n" + toUpdate;
                     } catch (IndexOutOfBoundsException e) {
                         feedback = "Out of range. \nType a number within the range of current tasks";
                     } finally {
