@@ -91,6 +91,10 @@ public class Advisor {
             } else if (command.startsWith("event")) {
                 String[] dd = InputParser.eventParser(input);
                 updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
+            } else {
+                System.out.println(line);
+                System.out.println("Invalid command. Try again.");
+                System.out.println(line);
             }
 
         }
