@@ -1,23 +1,29 @@
 public class Task {
 
+    protected enum TaskStatus {
+        NOT_DONE,
+        IN_PROGRESS,
+        COMPLETED,
+    }
+
     protected String taskName;
-    protected boolean finished;
+    protected TaskStatus finished;
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.finished = false;
+        this.finished = TaskStatus.NOT_DONE;
     }
 
     public void finishTask() {
-        this.finished = true;
+        this.finished = TaskStatus.COMPLETED;
     }
 
     public void undo() {
-        this.finished = false;
+        this.finished = TaskStatus.NOT_DONE;
     }
 
     public boolean isFinished() {
-        return finished;
+        return this.finished == TaskStatus.COMPLETED;
     }
 
     public String getTaskName() {
@@ -25,7 +31,7 @@ public class Task {
     }
 
     public String getStatus() {
-        return finished ? "X" : " ";
+        return isFinished() ? "X" : " ";
     }
 
     @Override
