@@ -43,7 +43,7 @@ public class Advisor {
             System.out.println("Enter a command:");
             String input = getInput();
             String[] inputStrs = input.split(" ");
-            String command = inputStrs[0];
+            String command = inputStrs[0].toLowerCase();
 
             if (input.equals("bye")) {
 
