@@ -84,7 +84,15 @@ public class Advisor {
 
             } else if (command.equals("todo")) {
                 String desc = InputParser.todoParser(input);
-                updateToDoList(new ToDoTask(desc));
+                if (desc.equals("")) {
+                    System.out.println(line);
+                    System.out.println("Missing description.");
+                    System.out.println("Usage: todo <task description>");
+                    System.out.println(line);
+                } else {
+                    updateToDoList(new ToDoTask(desc));
+                }
+
 
             } else if (command.equals("deadline")) {
                 String[] dd = InputParser.deadlineParser(input);

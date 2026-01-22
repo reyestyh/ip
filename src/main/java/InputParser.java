@@ -9,7 +9,11 @@ public class InputParser {
     }
 
     public static String todoParser(String input) {
-        return input.substring(5);
+        try {
+            return input.substring(5);
+        } catch (StringIndexOutOfBoundsException e) {
+            return "";
+        }
     }
 
     public static String[] deadlineParser(String input) {
