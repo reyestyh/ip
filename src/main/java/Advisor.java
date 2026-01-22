@@ -153,6 +153,35 @@ public class Advisor {
                 }
 
 
+            } else if (command.equals("delete")) {
+
+                int idx = InputParser.deleteParser(input);
+
+                if (idx == -1) {
+                    System.out.println(line);
+                    System.out.println("Not a number.");
+                    System.out.println("Usage: mark <task number>");
+                    System.out.println(line);
+
+                } else {
+                    idx -= 1;
+                    String feedback = "";
+
+                    try {
+                        Task removed = taskList.remove(idx);
+                        feedback = "The following task has been removed:\n" + removed.toString() +
+                                "\nRemaining tasks stored: " + taskList.size();
+                    } catch (IndexOutOfBoundsException e) {
+                        feedback = "Out of range. \nType a number within the range of current tasks";
+                    } finally {
+                        System.out.println(line);
+                        System.out.println(feedback);
+                        System.out.println(line);
+                    }
+
+                }
+
+
             } else {
                 System.out.println(line);
                 System.out.println("Invalid command. Try again.");
