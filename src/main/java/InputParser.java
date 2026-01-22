@@ -25,7 +25,12 @@ public class InputParser {
     }
 
     public static String[] deadlineParser(String input) {
-        String temp = input.substring(9);
+        String temp = "";
+        try {
+            temp = input.substring(9);
+        } catch (StringIndexOutOfBoundsException e) {
+            return null;
+        }
         return temp.split(" /by ");
     }
 
