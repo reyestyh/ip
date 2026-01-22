@@ -150,7 +150,22 @@ public class Advisor {
 
             } else if (command.equals("event")) {
                 String[] dd = InputParser.eventParser(input);
-                updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
+                if (dd == null) {
+                    System.out.println(line);
+                    System.out.println("Incorrect format");
+                    System.out.println("Usage: event <task description> /from <start time> /to <end time>");
+                    System.out.println(line);
+                } else {
+                    if (dd.length != 3) {
+                        System.out.println(line);
+                        System.out.println("Incorrect format");
+                        System.out.println("Usage: event <task description> /from <start time> /to <end time>");
+                        System.out.println(line);
+                    } else {
+                        updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
+                    }
+                }
+
 
             } else {
                 System.out.println(line);

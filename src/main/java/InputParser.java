@@ -35,11 +35,35 @@ public class InputParser {
     }
 
     public static String[] eventParser(String input) {
-        String[] tmp = input.substring(6).split(" /from ");
-        String taskDesc = tmp[0];
-        String[] times = tmp[1].split(" /to ");
+        String[] temp = null;
+        try {
+            temp = input.substring(6).split(" /from ");
+        } catch (StringIndexOutOfBoundsException e) {
+            return null;
+        }
+        String taskDesc = temp[0];
+        if (temp.length != 2) {
+            return null;
+        }
+
+        String[] times = null;
+        try {
+            times = temp[1].split(" /to ");
+        } catch (ArrayIndexOutOfBoundsException e) {
+           return null;
+        }
+        if  (times.length != 2) {
+            return null;
+        }
+
         String startTime = times[0];
-        String endTime = times[1];
+        String endTime = "";
+
+        try {
+            endTime = times[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
         return new String[]{taskDesc, startTime, endTime};
     }
 
