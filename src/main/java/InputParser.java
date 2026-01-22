@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class InputParser {
 
     public static Integer markParser(String input) {
@@ -31,7 +33,20 @@ public class InputParser {
         } catch (StringIndexOutOfBoundsException e) {
             return null;
         }
-        return temp.split(" /by ");
+        String[] tt = temp.split("/by");
+        if (tt.length != 2) {
+            return null;
+        }
+        try {
+            tt[0] = tt[0].strip();
+            tt[1] = tt[1].strip();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+        if (tt[0].isEmpty() || tt[1].isEmpty()) {
+            return null;
+        }
+        return tt;
     }
 
     public static String[] eventParser(String input) {
@@ -50,9 +65,9 @@ public class InputParser {
         try {
             times = temp[1].split(" /to ");
         } catch (ArrayIndexOutOfBoundsException e) {
-           return null;
+            return null;
         }
-        if  (times.length != 2) {
+        if (times.length != 2) {
             return null;
         }
 

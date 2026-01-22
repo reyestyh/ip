@@ -138,14 +138,7 @@ public class Advisor {
                     System.out.println("Usage: deadline <task description> /by <deadline>");
                     System.out.println(line);
                 } else {
-                    if (dd.length != 2) {
-                        System.out.println(line);
-                        System.out.println("Incorrect format");
-                        System.out.println("Usage: deadline <task description> /by <deadline>");
-                        System.out.println(line);
-                    } else {
-                        updateToDoList(new DeadlineTask(dd[0], dd[1]));
-                    }
+                    updateToDoList(new DeadlineTask(dd[0], dd[1]));
                 }
 
             } else if (command.equals("event")) {
