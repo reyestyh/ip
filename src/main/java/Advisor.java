@@ -51,17 +51,20 @@ public class Advisor {
                     System.out.println((i + 1) + ". " + currTask.toString());
                 }
                 System.out.println(line);
+
             } else if (input.startsWith("mark")) {
+
                 System.out.println(line);
-                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+                int idx = InputParser.markParser(input) - 1;
                 Task toUpdate = todo.get(idx);
                 toUpdate.finishTask();
                 System.out.println("This following task is now marked as done:");
                 System.out.println(toUpdate);
                 System.out.println(line);
+
             } else if (input.startsWith("unmark")) {
                 System.out.println(line);
-                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+                int idx = InputParser.unmarkParser(input) - 1;
                 Task toUpdate = todo.get(idx);
                 toUpdate.undo();
                 System.out.println("This following task is now marked as undone:");
