@@ -1,3 +1,6 @@
+/**
+ * A class to indicate an event with a specified start and end time
+ */
 public class EventTask extends Task {
 
     protected String startTime;

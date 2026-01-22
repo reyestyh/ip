@@ -1,3 +1,6 @@
+/**
+ * A class to indicate a Task object with a deadline
+ */
 public class DeadlineTask extends Task {
 
     protected String deadline;
