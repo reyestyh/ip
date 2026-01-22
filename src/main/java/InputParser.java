@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class InputParser {
 
     public static Integer deleteParser(String input) {
