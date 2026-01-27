@@ -42,6 +42,10 @@ public class Task {
         return this.isFinished;
     }
 
+    public String getTaskType() {
+        return "";
+    }
+
 
     /**
      * @return String taskName
