@@ -7,6 +7,10 @@ public class ToDoTask extends Task {
         super(taskName);
     }
 
+    public ToDoTask(String taskName, boolean isDone) {
+        super(taskName, isDone);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
