@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -53,7 +54,6 @@ public class TaskList {
             return new EventTask(data[2], data[3], data[4], isDone);
         default:
             System.out.println("Error: Invalid task type.");
-            System.exit(0);
             break;
         }
         return null;
@@ -93,4 +93,72 @@ public class TaskList {
         return res.toString();
     }
 
+    public boolean updateDataFile() {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(DATA_FILE_NAME);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
+            return false;
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        for (Task toAdd : tasks) {
+            StringBuilder res = new StringBuilder();
+            String taskType = toAdd.getTaskType();
+
+            if (taskType.equals("T")) {
+                res.append(taskType);
+                res.append(";;;");
+                res.append((toAdd.isFinished() ? "1" : "0"));
+                res.append(";;;");
+                res.append(toAdd.getTaskName());
+
+            } else if (taskType.equals("D")) {
+                res.append(taskType);
+                res.append(";;;");
+                res.append((toAdd.isFinished() ? "1" : "0"));
+                res.append(";;;");
+                res.append(toAdd.getTaskName());
+                res.append(";;;");
+                res.append(((DeadlineTask) toAdd).getDeadline());
+
+            } else if (taskType.equals("E")) {
+                res.append(taskType);
+                res.append(";;;");
+                res.append((toAdd.isFinished() ? "1" : "0"));
+                res.append(";;;");
+                res.append(toAdd.getTaskName());
+                res.append(";;;");
+                String[] times = ((EventTask) toAdd).getTimes();
+                res.append(times[0] + ";;;" + times[1]);
+            } else {
+                System.out.println("Error: Invalid task type.");
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    System.out.println("Something went wrong while closing the file writer.");
+                }
+                return false;
+            }
+            try {
+                writer.write(res.toString());
+                writer.write("\n");
+            } catch (IOException e) {
+                System.out.println("Something went wrong while writing to the file.");
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong while closing the file writer.");
+        }
+
+        return true;
+    }
+    
 }
