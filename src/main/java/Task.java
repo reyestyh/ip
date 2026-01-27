@@ -3,14 +3,8 @@
  */
 public class Task {
 
-    protected enum TaskStatus {
-        NOT_DONE,
-        IN_PROGRESS,
-        COMPLETED,
-    }
-
     protected String taskName;
-    protected TaskStatus finished;
+    protected boolean isFinished;
 
     /**
      * Constructor for Task object
@@ -18,21 +12,21 @@ public class Task {
      */
     public Task(String taskName) {
         this.taskName = taskName;
-        this.finished = TaskStatus.NOT_DONE;
+        this.isFinished = false;
     }
 
     /**
      * Marks Task object as complete
      */
     public void finishTask() {
-        this.finished = TaskStatus.COMPLETED;
+        this.isFinished = true;
     }
 
     /**
      * Marks Task object as incomplete
      */
     public void undo() {
-        this.finished = TaskStatus.NOT_DONE;
+        this.isFinished = false;
     }
 
 
@@ -40,7 +34,7 @@ public class Task {
      * @return boolean indicating task completion
      */
     public boolean isFinished() {
-        return this.finished == TaskStatus.COMPLETED;
+        return this.isFinished;
     }
 
 
