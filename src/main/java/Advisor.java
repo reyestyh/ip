@@ -47,6 +47,12 @@ public class Advisor {
 
             if (input.equals("bye")) {
 
+                if (taskList.updateDataFile()) {
+                    System.out.println("Data file successfully updated.");
+                } else {
+                    System.out.println("An error occurred while updating the data file.");
+                }
+
                 System.out.println(line);
                 System.out.println("End of Session. Goodbye.");
                 System.out.println(line);
