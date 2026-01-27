@@ -8,6 +8,25 @@ public class TaskList {
 
     }
 
+    private Task createTask(String[] data) {
+        String taskType = data[0];
+        boolean isDone = data[1].equals("1");
+        switch (taskType) {
+        case "T":
+            return new ToDoTask(data[2], isDone);
+        case "D":
+            return new DeadlineTask(data[2], data[3], isDone);
+        case "E":
+            return new EventTask(data[2], data[3], data[4], isDone);
+        default:
+            System.out.println("Error: Invalid task type.");
+            System.exit(0);
+            break;
+        }
+        return null;
+    }
+
+
     public void addTask(Task task) {
         tasks.add(task);
     }
