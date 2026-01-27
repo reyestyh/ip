@@ -18,6 +18,10 @@ public class EventTask extends Task {
         this.endTime = endTime;
     }
 
+    public String[] getTimes() {
+        return new String[]{startTime, endTime};
+    }
+
     @Override
     public String getTaskType() {
         return "E";
