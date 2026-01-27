@@ -8,11 +8,12 @@ import java.io.IOException;
 
 public class TaskList {
 
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
     public static String DATA_FILE_NAME = "./AdvisorTaskData.txt";
 
     public TaskList() {
 
+        this.tasks = new ArrayList<>();
     }
 
     public void readDataFile() {
@@ -160,5 +161,5 @@ public class TaskList {
 
         return true;
     }
-    
+
 }
