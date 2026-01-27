@@ -86,6 +86,9 @@ public class TaskList {
     }
 
     public String getTasksString() {
+        if (this.tasks.isEmpty()) {
+            return "";
+        }
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < tasks.size() - 1; i++) {
             res.append(this.tasks.get(i).toString()).append("\n");
