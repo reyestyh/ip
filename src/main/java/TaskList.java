@@ -12,8 +12,8 @@ public class TaskList {
     public static String DATA_FILE_NAME = "./AdvisorTaskData.txt";
 
     public TaskList() {
-
         this.tasks = new ArrayList<>();
+        this.readDataFile();
     }
 
     public void readDataFile() {
