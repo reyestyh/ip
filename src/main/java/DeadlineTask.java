@@ -10,6 +10,20 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    public DeadlineTask(String taskName, String deadline, boolean isDone) {
+        super(taskName,  isDone);
+        this.deadline = deadline;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "D";
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline + ")";

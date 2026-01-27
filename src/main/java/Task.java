@@ -15,6 +15,11 @@ public class Task {
         this.isFinished = false;
     }
 
+    public Task(String taskName, boolean isDone) {
+        this.taskName = taskName;
+        this.isFinished = isDone;
+    }
+
     /**
      * Marks Task object as complete
      */
@@ -35,6 +40,10 @@ public class Task {
      */
     public boolean isFinished() {
         return this.isFinished;
+    }
+
+    public String getTaskType() {
+        return "";
     }
 
 

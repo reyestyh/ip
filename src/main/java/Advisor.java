@@ -15,18 +15,18 @@ public class Advisor {
     static String line = "____________________________________________________________";
 
     static Scanner input = new Scanner(System.in);
-    static ArrayList<Task> taskList = new ArrayList<>();
+    static TaskList taskList = new TaskList();
 
     public static String getInput() {
         return input.nextLine().strip();
     }
 
     public static void updateToDoList(Task toAdd) {
-        taskList.add(toAdd);
+        taskList.addTask(toAdd);
         System.out.println(line);
         System.out.println("The following task has been added:");
         System.out.println("    " + toAdd.toString());
-        System.out.println("There are now " + taskList.size() + " tasks in the list");
+        System.out.println("There are now " + taskList.getNumTasks()+ " tasks in the list");
         System.out.println(line);
     }
 
@@ -47,6 +47,12 @@ public class Advisor {
 
             if (input.equals("bye")) {
 
+                if (taskList.updateDataFile()) {
+                    System.out.println("Data file successfully updated.");
+                } else {
+                    System.out.println("An error occurred while updating the data file.");
+                }
+
                 System.out.println(line);
                 System.out.println("End of Session. Goodbye.");
                 System.out.println(line);
@@ -57,10 +63,7 @@ public class Advisor {
 
                 System.out.println(line);
                 System.out.println("Current Tasks:");
-                for (int i = 0; i < taskList.size(); i += 1) {
-                    Task currTask = taskList.get(i);
-                    System.out.println((i + 1) + ". " + currTask.toString());
-                }
+                System.out.println(taskList.getTasksString());
                 System.out.println(line);
 
             } else if (command.equals("mark")) {
@@ -78,9 +81,9 @@ public class Advisor {
                     String feedback = "";
 
                     try {
-                        Task toUpdate = taskList.get(idx);
-                        toUpdate.finishTask();
-                        feedback = "The following task is now marked as done:\n" + toUpdate;
+                        taskList.completeTask(idx);
+                        Task fin = taskList.getTask(idx);
+                        feedback = "The following task is now marked as done:\n" + fin.toString();
                     } catch (IndexOutOfBoundsException e) {
                         feedback = "Out of range. \nType a number within the range of current tasks";
                     } finally {
@@ -105,9 +108,9 @@ public class Advisor {
                     String feedback = "";
 
                     try {
-                        Task toUpdate = taskList.get(idx);
-                        toUpdate.undo();
-                        feedback = "The following task is now marked as undone:\n" + toUpdate;
+                        taskList.undoTask(idx);
+                        Task undone = taskList.getTask(idx);
+                        feedback = "The following task is now marked as undone:\n" + undone.toString();
                     } catch (IndexOutOfBoundsException e) {
                         feedback = "Out of range. \nType a number within the range of current tasks";
                     } finally {
@@ -168,9 +171,9 @@ public class Advisor {
                     String feedback = "";
 
                     try {
-                        Task removed = taskList.remove(idx);
+                        Task removed = taskList.deleteTask(idx);
                         feedback = "The following task has been removed:\n" + removed.toString() +
-                                "\nRemaining tasks stored: " + taskList.size();
+                                "\nRemaining tasks stored: " + taskList.getNumTasks();
                     } catch (IndexOutOfBoundsException e) {
                         feedback = "Out of range. \nType a number within the range of current tasks";
                     } finally {
