@@ -3,59 +3,60 @@ import java.util.Scanner;
 
 public class Advisor {
 
+    private Storage storage;
+    private TaskList taskList;
+    private Ui userInterface;
 
-    static Scanner input = new Scanner(System.in);
-    static Storage storage = new Storage();
-    static TaskList taskList = new TaskList(storage);
-    static Ui userInterface = new Ui();
-    
-
-    public static void updateToDoList(Task toAdd) {
-        taskList.addTask(toAdd);
-        userInterface.showNewTask(toAdd, taskList.getNumTasks());
+    public Advisor() {
+        this.userInterface = new Ui();
+        this.storage = new Storage();
+        this.taskList = new TaskList(this.storage);
     }
 
-    public static void main(String[] args) {
+    public void updateToDoList(Task toAdd) {
+        this.taskList.addTask(toAdd);
+        this.userInterface.showNewTask(toAdd, this.taskList.getNumTasks());
+    }
 
-        taskList.populateList();
-
-        userInterface.showStart();
+    public void run() {
+        this.taskList.populateList();
+        this.userInterface.showStart();
 
         boolean endSession = false;
 
         while (!endSession) {
-            String input = userInterface.readInput();
-            String command = userInterface.readCommand(input);
+            String input = this.userInterface.readInput();
+            String command = this.userInterface.readCommand(input);
 
             if (input.equals("bye")) {
 
-                boolean updateSuccess = taskList.updateStorage();
+                boolean updateSuccess = this.taskList.updateStorage();
 
-                userInterface.showUpdateFile(updateSuccess);
-                userInterface.showExit();
+                this.userInterface.showUpdateFile(updateSuccess);
+                this.userInterface.showExit();
                 endSession = true;
                 return;
 
             } else if (command.equals("list")) {
 
-                userInterface.showTasks(taskList);
+                this.userInterface.showTasks(this.taskList);
 
             } else if (command.equals("mark")) {
 
                 int idx = InputParser.markParser(input);
 
                 if (idx == -1) {
-                    userInterface.showNotNumber("mark");
+                    this.userInterface.showNotNumber("mark");
 
                 } else {
                     idx -= 1;
 
                     try {
-                        taskList.completeTask(idx);
-                        Task fin = taskList.getTask(idx);
-                        userInterface.showMarked(fin);
+                        this.taskList.completeTask(idx);
+                        Task fin = this.taskList.getTask(idx);
+                        this.userInterface.showMarked(fin);
                     } catch (IndexOutOfBoundsException e) {
-                        userInterface.showOutOfRange();
+                        this.userInterface.showOutOfRange();
                     }
 
                 }
@@ -64,24 +65,24 @@ public class Advisor {
                 int idx = InputParser.unmarkParser(input);
 
                 if (idx == -1) {
-                    userInterface.showNotNumber("unmark");
+                    this.userInterface.showNotNumber("unmark");
 
                 } else {
                     idx -= 1;
 
                     try {
-                        taskList.undoTask(idx);
-                        Task undone = taskList.getTask(idx);
-                        userInterface.showUnmarked(undone);
+                        this.taskList.undoTask(idx);
+                        Task undone = this.taskList.getTask(idx);
+                        this.userInterface.showUnmarked(undone);
                     } catch (IndexOutOfBoundsException e) {
-                        userInterface.showOutOfRange();
+                        this.userInterface.showOutOfRange();
                     }
                 }
 
             } else if (command.equals("todo")) {
                 String desc = InputParser.todoParser(input);
                 if (desc.isEmpty()) {
-                    userInterface.showInvalidTodo();
+                    this.userInterface.showInvalidTodo();
                 } else {
                     updateToDoList(new ToDoTask(desc));
                 }
@@ -90,24 +91,24 @@ public class Advisor {
             } else if (command.equals("deadline")) {
                 String[] dd = InputParser.deadlineParser(input);
                 if (dd == null) {
-                    userInterface.showInvalidDeadline();
+                    this.userInterface.showInvalidDeadline();
                 } else {
                     try {
                         updateToDoList(new DeadlineTask(dd[0], dd[1]));
                     } catch (DateTimeParseException e) {
-                        userInterface.showInvalidDeadline();
+                        this.userInterface.showInvalidDeadline();
                     }
                 }
 
             } else if (command.equals("event")) {
                 String[] dd = InputParser.eventParser(input);
                 if (dd == null) {
-                    userInterface.showInvalidEvent();
+                    this.userInterface.showInvalidEvent();
                 } else {
                     try {
                         updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
                     } catch (DateTimeParseException e) {
-                        userInterface.showInvalidEvent();
+                        this.userInterface.showInvalidEvent();
                     }
                 }
 
@@ -116,23 +117,24 @@ public class Advisor {
 
                 int idx = InputParser.deleteParser(input);
                 if (idx == -1) {
-                    userInterface.showNotNumber("delete");
+                    this.userInterface.showNotNumber("delete");
                 } else {
                     idx -= 1;
                     try {
                         Task removed = taskList.deleteTask(idx);
-                        userInterface.showTaskDeleted(removed, taskList.getNumTasks());
+                        this.userInterface.showTaskDeleted(removed, taskList.getNumTasks());
                     } catch (IndexOutOfBoundsException e) {
-                        userInterface.showOutOfRange();
+                        this.userInterface.showOutOfRange();
                     }
                 }
 
             } else {
-                userInterface.showInvalidCommand();
+                this.userInterface.showInvalidCommand();
             }
+        }
+    }
 
         }
 
 
-    }
 }
