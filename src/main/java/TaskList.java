@@ -76,9 +76,9 @@ public class TaskList {
         }
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < tasks.size() - 1; i++) {
-            res.append(this.tasks.get(i).toString()).append("\n");
+            res.append(i + 1).append("  ").append(this.tasks.get(i).toString()).append("\n");
         }
-        res.append(tasks.get(tasks.size() - 1).toString());
+        res.append(tasks.size()).append("  ").append(tasks.get(tasks.size() - 1).toString());
         return res.toString();
     }
 
