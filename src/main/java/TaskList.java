@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -24,7 +25,10 @@ public class TaskList {
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 String[] temp = data.split(";;;");
-                this.addTask(createTask(temp));
+                Task toAdd = createTask(temp);
+                if (toAdd != null) {
+                    this.addTask(toAdd);
+                }
             }
             reader.close();
         } catch (FileNotFoundException e) {
@@ -46,16 +50,21 @@ public class TaskList {
     private Task createTask(String[] data) {
         String taskType = data[0];
         boolean isDone = data[1].equals("1");
-        switch (taskType) {
-        case "T":
-            return new ToDoTask(data[2], isDone);
-        case "D":
-            return new DeadlineTask(data[2], data[3], isDone);
-        case "E":
-            return new EventTask(data[2], data[3], data[4], isDone);
-        default:
-            System.out.println("Error: Invalid task type.");
-            break;
+        try {
+            switch (taskType) {
+            case "T":
+                return new ToDoTask(data[2], isDone);
+            case "D":
+                return new DeadlineTask(data[2], data[3], isDone);
+            case "E":
+                return new EventTask(data[2], data[3], data[4], isDone);
+            default:
+                System.out.println("Error: Invalid task type.");
+                break;
+            }
+        } catch (DateTimeParseException d) {
+            System.out.println("Error: Incorrect date format when reading from file.");
+            return null;
         }
         return null;
     }
@@ -126,7 +135,7 @@ public class TaskList {
                 res.append(";;;");
                 res.append(toAdd.getTaskName());
                 res.append(";;;");
-                res.append(((DeadlineTask) toAdd).getDeadline());
+                res.append(((DeadlineTask) toAdd).getDeadlineInput());
 
             } else if (taskType.equals("E")) {
                 res.append(taskType);
@@ -135,7 +144,7 @@ public class TaskList {
                 res.append(";;;");
                 res.append(toAdd.getTaskName());
                 res.append(";;;");
-                String[] times = ((EventTask) toAdd).getTimes();
+                String[] times = ((EventTask) toAdd).getTimesInput();
                 res.append(times[0] + ";;;" + times[1]);
             } else {
                 System.out.println("Error: Invalid task type.");

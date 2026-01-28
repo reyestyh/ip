@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Advisor {
@@ -141,7 +141,13 @@ public class Advisor {
                     System.out.println("Usage: deadline <task description> /by <deadline>");
                     System.out.println(line);
                 } else {
-                    updateToDoList(new DeadlineTask(dd[0], dd[1]));
+                    try {
+                        updateToDoList(new DeadlineTask(dd[0], dd[1]));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Incorrect format");
+                        System.out.println("Usage: deadline <task description> /by <deadline>");
+                        System.out.println("Deadline: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
+                    }
                 }
 
             } else if (command.equals("event")) {
@@ -152,7 +158,13 @@ public class Advisor {
                     System.out.println("Usage: event <task description> /from <start time> /to <end time>");
                     System.out.println(line);
                 } else {
-                    updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
+                    try {
+                        updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Incorrect format");
+                        System.out.println("Usage: event <task description> /from <start time> /to <end time>");
+                        System.out.println("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
+                    }
                 }
 
 
