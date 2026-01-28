@@ -8,7 +8,7 @@ public class Advisor {
     static Scanner input = new Scanner(System.in);
     static Storage storage = new Storage();
     static TaskList taskList = new TaskList(storage);
-
+    static Ui userInterface = new Ui();
 
 
     public static String getInput() {
@@ -28,39 +28,27 @@ public class Advisor {
 
         taskList.populateList();
 
-        System.out.println(logo);
-        System.out.println(line);
-        System.out.println("Hello. I am " + name);
-        System.out.println("What do you want me to do?");
+        userInterface.showStart();
 
         boolean endSession = false;
 
         while (!endSession) {
-            System.out.println("Enter a command:");
-            String input = getInput();
+            String input = userInterface.readInput();
             String[] inputStrs = input.split(" ");
             String command = inputStrs[0].toLowerCase();
 
             if (input.equals("bye")) {
 
-                if (taskList.updateStorage()) {
-                    System.out.println("Data file successfully updated.");
-                } else {
-                    System.out.println("An error occurred while updating the data file.");
-                }
+                boolean updateSuccess = taskList.updateStorage();
 
-                System.out.println(line);
-                System.out.println("End of Session. Goodbye.");
-                System.out.println(line);
+                userInterface.showUpdateFile(updateSuccess);
+                userInterface.showExit();
                 endSession = true;
                 return;
 
             } else if (command.equals("list")) {
 
-                System.out.println(line);
-                System.out.println("Current Tasks:");
-                System.out.println(taskList.getTasksString());
-                System.out.println(line);
+                userInterface.showTasks(taskList);
 
             } else if (command.equals("mark")) {
 
@@ -194,9 +182,7 @@ public class Advisor {
 
 
             } else {
-                System.out.println(line);
-                System.out.println("Invalid command. Try again.");
-                System.out.println(line);
+                userInterface.showInvalidCommand();
             }
 
         }
