@@ -3,93 +3,60 @@ import java.util.Scanner;
 
 public class Advisor {
 
-    static String logo = "            _       _                \n" +
-            "           | |     (_)               \n" +
-            "   __ _  __| |_   ___ ___  ___  _ __ \n" +
-            "  / _` |/ _` \\ \\ / / / __|/ _ \\| '__|\n" +
-            " | (_| | (_| |\\ V /| \\__ \\ (_) | |   \n" +
-            "  \\__,_|\\__,_| \\_/ |_|___/\\___/|_|   \n" +
-            "                                     \n" +
-            "                                     ";
-    static String name = "Advisor";
-    static String line = "____________________________________________________________";
+    private Storage storage;
+    private TaskList taskList;
+    private Ui userInterface;
 
-    static Scanner input = new Scanner(System.in);
-    static TaskList taskList = new TaskList();
-
-    public static String getInput() {
-        return input.nextLine().strip();
+    public Advisor() {
+        this.userInterface = new Ui();
+        this.storage = new Storage();
+        this.taskList = new TaskList(this.storage);
     }
 
-    public static void updateToDoList(Task toAdd) {
-        taskList.addTask(toAdd);
-        System.out.println(line);
-        System.out.println("The following task has been added:");
-        System.out.println("    " + toAdd.toString());
-        System.out.println("There are now " + taskList.getNumTasks()+ " tasks in the list");
-        System.out.println(line);
+    public void updateToDoList(Task toAdd) {
+        this.taskList.addTask(toAdd);
+        this.userInterface.showNewTask(toAdd, this.taskList.getNumTasks());
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(logo);
-        System.out.println(line);
-        System.out.println("Hello. I am " + name);
-        System.out.println("What do you want me to do?");
+    public void run() {
+        this.taskList.populateList();
+        this.userInterface.showStart();
 
         boolean endSession = false;
 
         while (!endSession) {
-            System.out.println("Enter a command:");
-            String input = getInput();
-            String[] inputStrs = input.split(" ");
-            String command = inputStrs[0].toLowerCase();
+            String input = this.userInterface.readInput();
+            String command = this.userInterface.readCommand(input);
 
             if (input.equals("bye")) {
 
-                if (taskList.updateDataFile()) {
-                    System.out.println("Data file successfully updated.");
-                } else {
-                    System.out.println("An error occurred while updating the data file.");
-                }
+                boolean updateSuccess = this.taskList.updateStorage();
 
-                System.out.println(line);
-                System.out.println("End of Session. Goodbye.");
-                System.out.println(line);
+                this.userInterface.showUpdateFile(updateSuccess);
+                this.userInterface.showExit();
                 endSession = true;
                 return;
 
             } else if (command.equals("list")) {
 
-                System.out.println(line);
-                System.out.println("Current Tasks:");
-                System.out.println(taskList.getTasksString());
-                System.out.println(line);
+                this.userInterface.showTasks(this.taskList);
 
             } else if (command.equals("mark")) {
 
                 int idx = InputParser.markParser(input);
 
                 if (idx == -1) {
-                    System.out.println(line);
-                    System.out.println("Not a number.");
-                    System.out.println("Usage: mark <task number>");
-                    System.out.println(line);
+                    this.userInterface.showNotNumber("mark");
 
                 } else {
                     idx -= 1;
-                    String feedback = "";
 
                     try {
-                        taskList.completeTask(idx);
-                        Task fin = taskList.getTask(idx);
-                        feedback = "The following task is now marked as done:\n" + fin.toString();
+                        this.taskList.completeTask(idx);
+                        Task fin = this.taskList.getTask(idx);
+                        this.userInterface.showMarked(fin);
                     } catch (IndexOutOfBoundsException e) {
-                        feedback = "Out of range. \nType a number within the range of current tasks";
-                    } finally {
-                        System.out.println(line);
-                        System.out.println(feedback);
-                        System.out.println(line);
+                        this.userInterface.showOutOfRange();
                     }
 
                 }
@@ -98,36 +65,24 @@ public class Advisor {
                 int idx = InputParser.unmarkParser(input);
 
                 if (idx == -1) {
-                    System.out.println(line);
-                    System.out.println("Not a number.");
-                    System.out.println("Usage: mark <task number>");
-                    System.out.println(line);
+                    this.userInterface.showNotNumber("unmark");
 
                 } else {
                     idx -= 1;
-                    String feedback = "";
 
                     try {
-                        taskList.undoTask(idx);
-                        Task undone = taskList.getTask(idx);
-                        feedback = "The following task is now marked as undone:\n" + undone.toString();
+                        this.taskList.undoTask(idx);
+                        Task undone = this.taskList.getTask(idx);
+                        this.userInterface.showUnmarked(undone);
                     } catch (IndexOutOfBoundsException e) {
-                        feedback = "Out of range. \nType a number within the range of current tasks";
-                    } finally {
-                        System.out.println(line);
-                        System.out.println(feedback);
-                        System.out.println(line);
+                        this.userInterface.showOutOfRange();
                     }
-
                 }
 
             } else if (command.equals("todo")) {
                 String desc = InputParser.todoParser(input);
                 if (desc.isEmpty()) {
-                    System.out.println(line);
-                    System.out.println("Missing description.");
-                    System.out.println("Usage: todo <task description>");
-                    System.out.println(line);
+                    this.userInterface.showInvalidTodo();
                 } else {
                     updateToDoList(new ToDoTask(desc));
                 }
@@ -136,34 +91,24 @@ public class Advisor {
             } else if (command.equals("deadline")) {
                 String[] dd = InputParser.deadlineParser(input);
                 if (dd == null) {
-                    System.out.println(line);
-                    System.out.println("Incorrect format");
-                    System.out.println("Usage: deadline <task description> /by <deadline>");
-                    System.out.println(line);
+                    this.userInterface.showInvalidDeadline();
                 } else {
                     try {
                         updateToDoList(new DeadlineTask(dd[0], dd[1]));
                     } catch (DateTimeParseException e) {
-                        System.out.println("Incorrect format");
-                        System.out.println("Usage: deadline <task description> /by <deadline>");
-                        System.out.println("Deadline: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
+                        this.userInterface.showInvalidDeadline();
                     }
                 }
 
             } else if (command.equals("event")) {
                 String[] dd = InputParser.eventParser(input);
                 if (dd == null) {
-                    System.out.println(line);
-                    System.out.println("Incorrect format");
-                    System.out.println("Usage: event <task description> /from <start time> /to <end time>");
-                    System.out.println(line);
+                    this.userInterface.showInvalidEvent();
                 } else {
                     try {
                         updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
                     } catch (DateTimeParseException e) {
-                        System.out.println("Incorrect format");
-                        System.out.println("Usage: event <task description> /from <start time> /to <end time>");
-                        System.out.println("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
+                        this.userInterface.showInvalidEvent();
                     }
                 }
 
@@ -171,40 +116,27 @@ public class Advisor {
             } else if (command.equals("delete")) {
 
                 int idx = InputParser.deleteParser(input);
-
                 if (idx == -1) {
-                    System.out.println(line);
-                    System.out.println("Not a number.");
-                    System.out.println("Usage: mark <task number>");
-                    System.out.println(line);
-
+                    this.userInterface.showNotNumber("delete");
                 } else {
                     idx -= 1;
-                    String feedback = "";
-
                     try {
                         Task removed = taskList.deleteTask(idx);
-                        feedback = "The following task has been removed:\n" + removed.toString() +
-                                "\nRemaining tasks stored: " + taskList.getNumTasks();
+                        this.userInterface.showTaskDeleted(removed, taskList.getNumTasks());
                     } catch (IndexOutOfBoundsException e) {
-                        feedback = "Out of range. \nType a number within the range of current tasks";
-                    } finally {
-                        System.out.println(line);
-                        System.out.println(feedback);
-                        System.out.println(line);
+                        this.userInterface.showOutOfRange();
                     }
-
                 }
 
-
             } else {
-                System.out.println(line);
-                System.out.println("Invalid command. Try again.");
-                System.out.println(line);
+                this.userInterface.showInvalidCommand();
             }
-
         }
-
-
     }
+
+    public static void main(String[] args) {
+        new Advisor().run();
+    }
+
+
 }

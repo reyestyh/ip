@@ -27,7 +27,7 @@ public class InputParser {
     public static Integer markParser(String input) {
         try {
             return Integer.parseInt(input.substring(5));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             return -1;
         }
     }
@@ -41,7 +41,7 @@ public class InputParser {
     public static Integer unmarkParser(String input) {
         try {
             return Integer.parseInt(input.substring(7));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             return -1;
         }
     }
