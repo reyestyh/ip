@@ -18,7 +18,6 @@ public class TaskList {
     }
 
     public void readDataFile() {
-        System.out.println(System.getProperty("user.dir"));
         File dataFile = new File(DATA_FILE_NAME);
         try {
             Scanner reader = new Scanner(dataFile);
