@@ -93,5 +93,12 @@ public class Ui {
         System.out.println(line);
     }
 
+    public void showInvalidTodo() {
+        System.out.println(line);
+        System.out.println("Missing description.");
+        System.out.println("Usage: todo <task description>");
+        System.out.println(line);
+    }
+
 
 }
