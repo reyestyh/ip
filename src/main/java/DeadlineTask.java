@@ -18,7 +18,10 @@ public class DeadlineTask extends Task {
         this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
-    public String getDeadline() {
+    public String getDeadlineInput() {
+        return deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
     public String getDeadlineString() {
         return this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
     }

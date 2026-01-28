@@ -21,7 +21,12 @@ public class EventTask extends Task {
         this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
-    public String[] getTimes() {
+    public String[] getTimesInput() {
+        String start = this.startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        String end = this.endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return new String[]{start, end};
+    }
+
     public String[] getTimesStr() {
         String start = this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
         String end = this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
