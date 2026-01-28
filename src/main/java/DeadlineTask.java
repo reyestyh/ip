@@ -1,22 +1,25 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * A class to indicate a Task object with a deadline
  */
 public class DeadlineTask extends Task {
 
-    protected String deadline;
+    protected LocalDateTime deadline;
 
     public DeadlineTask(String taskName, String deadline) {
         super(taskName);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     public DeadlineTask(String taskName, String deadline, boolean isDone) {
-        super(taskName,  isDone);
-        this.deadline = deadline;
+        super(taskName, isDone);
+        this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     public String getDeadline() {
-        return deadline;
+        return this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
     }
 
     @Override
@@ -26,6 +29,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.getDeadline() + ")";
     }
 }
