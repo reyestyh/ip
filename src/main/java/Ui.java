@@ -66,10 +66,10 @@ public class Ui {
         System.out.println(line);
     }
 
-    public void showMarkNotNumber(String mark) {
+    public void showNotNumber(String command) {
         System.out.println(line);
         System.out.println("Not a number.");
-        System.out.println("Usage: " + mark + " <task number>");
+        System.out.println("Usage: " + command + " <task number>");
         System.out.println(line);
     }
 

@@ -51,7 +51,7 @@ public class Advisor {
                 int idx = InputParser.markParser(input);
 
                 if (idx == -1) {
-                    userInterface.showMarkNotNumber("mark");
+                    userInterface.showNotNumber("mark");
 
                 } else {
                     idx -= 1;
@@ -70,7 +70,7 @@ public class Advisor {
                 int idx = InputParser.unmarkParser(input);
 
                 if (idx == -1) {
-                    userInterface.showMarkNotNumber("unmark");
+                    userInterface.showNotNumber("unmark");
 
                 } else {
                     idx -= 1;
