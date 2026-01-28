@@ -10,9 +10,11 @@ import java.io.IOException;
 public class TaskList {
 
     private ArrayList<Task> tasks;
+    private Storage storage;
 
-    public TaskList() {
+    public TaskList(Storage sto) {
         this.tasks = new ArrayList<>();
+        this.storage = sto;
     }
 
 
@@ -75,7 +77,5 @@ public class TaskList {
         res.append(tasks.get(tasks.size() - 1).toString());
         return res.toString();
     }
-
-
 
 }
