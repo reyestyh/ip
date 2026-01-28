@@ -30,8 +30,7 @@ public class Advisor {
 
         while (!endSession) {
             String input = userInterface.readInput();
-            String[] inputStrs = input.split(" ");
-            String command = inputStrs[0].toLowerCase();
+            String command = userInterface.readCommand(input);
 
             if (input.equals("bye")) {
 
@@ -132,7 +131,7 @@ public class Advisor {
                         userInterface.showOutOfRange();
                     }
                 }
-                
+
             } else {
                 userInterface.showInvalidCommand();
             }

@@ -18,6 +18,10 @@ public class Ui {
         this.input = new Scanner(System.in);
     }
 
+    public String readCommand(String input) {
+        return input.split(" ")[0];
+    }
+
     public void showStart() {
         System.out.println(logo);
         System.out.println(line);
