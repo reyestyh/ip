@@ -96,17 +96,12 @@ public class Advisor {
             } else if (command.equals("deadline")) {
                 String[] dd = InputParser.deadlineParser(input);
                 if (dd == null) {
-                    System.out.println(line);
-                    System.out.println("Incorrect format");
-                    System.out.println("Usage: deadline <task description> /by <deadline>");
-                    System.out.println(line);
+                    userInterface.showInvalidDeadline();
                 } else {
                     try {
                         updateToDoList(new DeadlineTask(dd[0], dd[1]));
                     } catch (DateTimeParseException e) {
-                        System.out.println("Incorrect format");
-                        System.out.println("Usage: deadline <task description> /by <deadline>");
-                        System.out.println("Deadline: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
+                        userInterface.showInvalidDeadline();
                     }
                 }
 
