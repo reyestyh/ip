@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * A class to indicate a To do task
  */
