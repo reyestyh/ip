@@ -79,7 +79,7 @@ public class Ui {
 
     public void showOutOfRange() {
         System.out.println(line);
-        System.out.println("Out of range.\nType a number within the range of current tasks\"");
+        System.out.println("Out of range.\nType a number within the range of current tasks");
         System.out.println(line);
     }
 
