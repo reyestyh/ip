@@ -8,11 +8,7 @@ public class Advisor {
     static Storage storage = new Storage();
     static TaskList taskList = new TaskList(storage);
     static Ui userInterface = new Ui();
-
-
-    public static String getInput() {
-        return input.nextLine().strip();
-    }
+    
 
     public static void updateToDoList(Task toAdd) {
         taskList.addTask(toAdd);
