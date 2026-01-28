@@ -11,6 +11,12 @@ public class TaskList {
         this.storage = sto;
     }
 
+    public void populateList() {
+        ArrayList<String[]> dataArr = this.storage.readDataFile();
+        for (int i = 0; i < dataArr.size(); i++) {
+            tasks.add(createTask(dataArr.get(i)));
+        }
+    }
 
 
     private Task createTask(String[] data) {
