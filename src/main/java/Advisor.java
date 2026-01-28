@@ -125,7 +125,7 @@ public class Advisor {
                 if (idx == -1) {
                     System.out.println(line);
                     System.out.println("Not a number.");
-                    System.out.println("Usage: mark <task number>");
+                    System.out.println("Usage: delete <task number>");
                     System.out.println(line);
 
                 } else {
