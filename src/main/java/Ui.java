@@ -104,7 +104,7 @@ public class Ui {
         System.out.println(line);
         System.out.println("Incorrect format");
         System.out.println("Usage: deadline <task description> /by <deadline>");
-        System.out.println("Deadline: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
+        System.out.println("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
         System.out.println(line);
     }
 
