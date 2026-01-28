@@ -134,7 +134,9 @@ public class Advisor {
         }
     }
 
-        }
+    public static void main(String[] args) {
+        new Advisor().run();
+    }
 
 
 }
