@@ -17,11 +17,7 @@ public class Advisor {
 
     public static void updateToDoList(Task toAdd) {
         taskList.addTask(toAdd);
-        System.out.println(line);
-        System.out.println("The following task has been added:");
-        System.out.println("    " + toAdd.toString());
-        System.out.println("There are now " + taskList.getNumTasks()+ " tasks in the list");
-        System.out.println(line);
+        userInterface.showNewTask(toAdd, taskList.getNumTasks());
     }
 
     public static void main(String[] args) {
