@@ -108,5 +108,12 @@ public class Ui {
         System.out.println(line);
     }
 
+    public void showInvalidEvent() {
+        System.out.println(line);
+        System.out.println("Incorrect format");
+        System.out.println("Usage: event <task description> /from <start time> /to <end time>");
+        System.out.println("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
+        System.out.println(line);
+    }
 
 }

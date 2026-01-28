@@ -108,17 +108,12 @@ public class Advisor {
             } else if (command.equals("event")) {
                 String[] dd = InputParser.eventParser(input);
                 if (dd == null) {
-                    System.out.println(line);
-                    System.out.println("Incorrect format");
-                    System.out.println("Usage: event <task description> /from <start time> /to <end time>");
-                    System.out.println(line);
+                    userInterface.showInvalidEvent();
                 } else {
                     try {
                         updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
                     } catch (DateTimeParseException e) {
-                        System.out.println("Incorrect format");
-                        System.out.println("Usage: event <task description> /from <start time> /to <end time>");
-                        System.out.println("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
+                        userInterface.showInvalidEvent();
                     }
                 }
 
