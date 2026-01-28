@@ -10,41 +10,12 @@ import java.io.IOException;
 public class TaskList {
 
     private ArrayList<Task> tasks;
-    public static String DATA_FILE_NAME = "./AdvisorTaskData.txt";
 
     public TaskList() {
         this.tasks = new ArrayList<>();
-        this.readDataFile();
     }
 
-    public void readDataFile() {
-        File dataFile = new File(DATA_FILE_NAME);
-        try {
-            Scanner reader = new Scanner(dataFile);
-            while (reader.hasNextLine()) {
-                String data = reader.nextLine();
-                String[] temp = data.split(";;;");
-                Task toAdd = createTask(temp);
-                if (toAdd != null) {
-                    this.addTask(toAdd);
-                }
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
-            System.out.println("Creating " + DATA_FILE_NAME + " in the current directory: "
-                    + System.getProperty("user.dir"));
 
-            try {
-                dataFile.createNewFile();
-            } catch (IOException d) {
-                System.out.println("An error occurred.");
-                d.printStackTrace();
-            }
-
-        }
-
-    }
 
     private Task createTask(String[] data) {
         String taskType = data[0];
