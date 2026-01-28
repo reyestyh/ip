@@ -3,15 +3,6 @@ import java.util.Scanner;
 
 public class Advisor {
 
-    static String logo = "            _       _                \n" +
-            "           | |     (_)               \n" +
-            "   __ _  __| |_   ___ ___  ___  _ __ \n" +
-            "  / _` |/ _` \\ \\ / / / __|/ _ \\| '__|\n" +
-            " | (_| | (_| |\\ V /| \\__ \\ (_) | |   \n" +
-            "  \\__,_|\\__,_| \\_/ |_|___/\\___/|_|   \n" +
-            "                                     \n" +
-            "                                     ";
-    static String name = "Advisor";
     static String line = "____________________________________________________________";
 
     static Scanner input = new Scanner(System.in);
