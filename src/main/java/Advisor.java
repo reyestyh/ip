@@ -15,7 +15,10 @@ public class Advisor {
     static String line = "____________________________________________________________";
 
     static Scanner input = new Scanner(System.in);
-    static TaskList taskList = new TaskList();
+    static Storage storage = new Storage();
+    static TaskList taskList = new TaskList(storage);
+
+
 
     public static String getInput() {
         return input.nextLine().strip();
@@ -32,6 +35,8 @@ public class Advisor {
 
     public static void main(String[] args) {
 
+        taskList.populateList();
+
         System.out.println(logo);
         System.out.println(line);
         System.out.println("Hello. I am " + name);
@@ -47,7 +52,7 @@ public class Advisor {
 
             if (input.equals("bye")) {
 
-                if (taskList.updateDataFile()) {
+                if (taskList.updateStorage()) {
                     System.out.println("Data file successfully updated.");
                 } else {
                     System.out.println("An error occurred while updating the data file.");
