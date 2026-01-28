@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Base Task class containing task description and completion status
  */

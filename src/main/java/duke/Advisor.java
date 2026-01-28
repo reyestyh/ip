@@ -1,5 +1,6 @@
+package duke;
+
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class Advisor {
 
