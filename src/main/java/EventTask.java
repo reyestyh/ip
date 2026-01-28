@@ -22,6 +22,7 @@ public class EventTask extends Task {
     }
 
     public String[] getTimes() {
+    public String[] getTimesStr() {
         String start = this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
         String end = this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
         return new String[]{start, end};
@@ -34,7 +35,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        String[] dt = this.getTimes();
+        String[] dt = this.getTimesStr();
         return "[E]" + super.toString() + " (from: " + dt[0] + " || to: " + dt[1] + ")";
     }
 
