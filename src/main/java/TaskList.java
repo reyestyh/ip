@@ -135,7 +135,7 @@ public class TaskList {
                 res.append(";;;");
                 res.append(toAdd.getTaskName());
                 res.append(";;;");
-                res.append(((DeadlineTask) toAdd).getDeadline());
+                res.append(((DeadlineTask) toAdd).getDeadlineInput());
 
             } else if (taskType.equals("E")) {
                 res.append(taskType);
@@ -144,7 +144,7 @@ public class TaskList {
                 res.append(";;;");
                 res.append(toAdd.getTaskName());
                 res.append(";;;");
-                String[] times = ((EventTask) toAdd).getTimes();
+                String[] times = ((EventTask) toAdd).getTimesInput();
                 res.append(times[0] + ";;;" + times[1]);
             } else {
                 System.out.println("Error: Invalid task type.");
