@@ -57,6 +57,32 @@ public class Ui {
         System.out.println(line);
     }
 
+    public void showMarkNotNumber(String mark) {
+        System.out.println(line);
+        System.out.println("Not a number.");
+        System.out.println("Usage: " + mark + " <task number>");
+        System.out.println(line);
+    }
+
+    public void showOutOfRange() {
+        System.out.println(line);
+        System.out.println("Out of range.\nType a number within the range of current tasks\"");
+        System.out.println(line);
+    }
+
+    public void showMarked(Task tt) {
+        System.out.println(line);
+        System.out.println("The following task is now marked as done:");
+        System.out.println(tt.toString());
+        System.out.println(line);
+    }
+
+    public void showUnmarked(Task tt) {
+        System.out.println(line);
+        System.out.println("The following task is now marked as undone:");
+        System.out.println(tt.toString());
+        System.out.println(line);
+    }
 
 
 }

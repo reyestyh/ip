@@ -55,25 +55,17 @@ public class Advisor {
                 int idx = InputParser.markParser(input);
 
                 if (idx == -1) {
-                    System.out.println(line);
-                    System.out.println("Not a number.");
-                    System.out.println("Usage: mark <task number>");
-                    System.out.println(line);
+                    userInterface.showMarkNotNumber("mark");
 
                 } else {
                     idx -= 1;
-                    String feedback = "";
 
                     try {
                         taskList.completeTask(idx);
                         Task fin = taskList.getTask(idx);
-                        feedback = "The following task is now marked as done:\n" + fin.toString();
+                        userInterface.showMarked(fin);
                     } catch (IndexOutOfBoundsException e) {
-                        feedback = "Out of range. \nType a number within the range of current tasks";
-                    } finally {
-                        System.out.println(line);
-                        System.out.println(feedback);
-                        System.out.println(line);
+                        userInterface.showOutOfRange();
                     }
 
                 }
@@ -82,27 +74,18 @@ public class Advisor {
                 int idx = InputParser.unmarkParser(input);
 
                 if (idx == -1) {
-                    System.out.println(line);
-                    System.out.println("Not a number.");
-                    System.out.println("Usage: mark <task number>");
-                    System.out.println(line);
+                    userInterface.showMarkNotNumber("unmark");
 
                 } else {
                     idx -= 1;
-                    String feedback = "";
 
                     try {
                         taskList.undoTask(idx);
                         Task undone = taskList.getTask(idx);
-                        feedback = "The following task is now marked as undone:\n" + undone.toString();
+                        userInterface.showUnmarked(undone);
                     } catch (IndexOutOfBoundsException e) {
-                        feedback = "Out of range. \nType a number within the range of current tasks";
-                    } finally {
-                        System.out.println(line);
-                        System.out.println(feedback);
-                        System.out.println(line);
+                        userInterface.showOutOfRange();
                     }
-
                 }
 
             } else if (command.equals("todo")) {
