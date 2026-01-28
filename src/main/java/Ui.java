@@ -116,4 +116,12 @@ public class Ui {
         System.out.println(line);
     }
 
+    public void showTaskDeleted(Task tt, int numTasks) {
+        System.out.println(line);
+        System.out.println("The following task has been removed:");
+        System.out.println(tt.toString());
+        System.out.println("Remaining tasks stored: " + numTasks);
+        System.out.println(line);
+    }
+
 }
