@@ -25,7 +25,10 @@ public class TaskList {
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 String[] temp = data.split(";;;");
-                this.addTask(createTask(temp));
+                Task toAdd = createTask(temp);
+                if (toAdd != null) {
+                    this.addTask(toAdd);
+                }
             }
             reader.close();
         } catch (FileNotFoundException e) {
