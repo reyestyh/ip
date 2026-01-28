@@ -66,6 +66,10 @@ public class TaskList {
         tasks.get(index).undo();
     }
 
+    public boolean updateStorage() {
+        return storage.updateDataFile(this.tasks);
+    }
+
     public String getTasksString() {
         if (this.tasks.isEmpty()) {
             return "";
