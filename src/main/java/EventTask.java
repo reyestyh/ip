@@ -1,25 +1,30 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * A class to indicate an event with a specified start and end time
  */
 public class EventTask extends Task {
 
-    protected String startTime;
-    protected String endTime;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
     public EventTask(String taskName, String startTime, String endTime) {
         super(taskName);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
-    public EventTask(String taskName,String startTime, String endTime, boolean isDone) {
+    public EventTask(String taskName, String startTime, String endTime, boolean isDone) {
         super(taskName, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     public String[] getTimes() {
-        return new String[]{startTime, endTime};
+        String start = this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
+        String end = this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
+        return new String[]{start, end};
     }
 
     @Override
@@ -29,7 +34,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        String[] dt = this.getTimes();
+        return "[E]" + super.toString() + " (from: " + dt[0] + " || to: " + dt[1] + ")";
     }
 
 }
