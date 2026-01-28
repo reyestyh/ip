@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Advisor {
 
-    static String line = "____________________________________________________________";
 
     static Scanner input = new Scanner(System.in);
     static Storage storage = new Storage();
