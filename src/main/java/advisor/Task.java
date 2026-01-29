@@ -38,6 +38,7 @@ public class Task {
 
 
     /**
+     * Returns a boolean indicating if task is complete
      * @return boolean indicating task completion
      */
     public boolean isFinished() {
@@ -50,13 +51,15 @@ public class Task {
 
 
     /**
-     * @return String taskName
+     * Returns a description of task object
+     * @return String taskName description of the task
      */
     public String getTaskName() {
         return taskName;
     }
 
     /**
+     * Returns a string indicating if a Task is complete or not
      * @return String of either "X" or an empty string to indicate task completion
      */
     public String getStatusAsString() {

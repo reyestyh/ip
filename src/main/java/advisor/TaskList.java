@@ -13,6 +13,9 @@ public class TaskList {
         this.storage = sto;
     }
 
+    /**
+     * Updates tasks ArrayList after reading tasks stored in data file
+     */
     public void populateList() {
         ArrayList<String[]> dataArr = this.storage.readDataFile();
         for (int i = 0; i < dataArr.size(); i++) {
@@ -20,7 +23,11 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Returns a Task from given parameters for creation
+     * @param data Array containing task type, description and relevant data required for creation
+     * @return a new Task object
+     */
     private Task createTask(String[] data) {
         String taskType = data[0];
         boolean isDone = data[1].equals("1");
@@ -43,35 +50,68 @@ public class TaskList {
         return null;
     }
 
-
+    /**
+     * Adds a task into the ArrayList
+     * @param task The task to be added
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes a task from the ArrayList
+     * @param index index of file position in ArrayList (0 based)
+     * @return the removed Task
+     */
     public Task deleteTask(int index) {
         return tasks.remove(index);
     }
 
+    /**
+     * Returns number of tasks in ArrayList
+     * @return number of tasks in current session
+     */
     public int getNumTasks() {
         return tasks.size();
     }
 
+    /**
+     * Returns a given task at the specified index
+     * @param index index of file position in ArrayList (0 based)
+     * @return Task object at index
+     */
     public Task getTask(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Marks a task as complete
+     * @param index index of task to be marked as complete (0 based)
+     */
     public void completeTask(int index) {
         tasks.get(index).finishTask();
     }
 
+    /**
+     * Marks a task as incomplete
+     * @param index index of task to be marked as incomplete (0 based)
+     */
     public void undoTask(int index) {
         tasks.get(index).undo();
     }
 
+    /**
+     * Updates file used to store tasks between sessions
+     * @return a boolean indicating successful update
+     */
     public boolean updateStorage() {
         return storage.updateDataFile(this.tasks);
     }
 
+    /**
+     * Returns a string of all the current tasks stored
+     * @return String of all tasks
+     */
     public String getTasksString() {
         if (this.tasks.isEmpty()) {
             return "";

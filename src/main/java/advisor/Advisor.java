@@ -14,11 +14,19 @@ public class Advisor {
         this.taskList = new TaskList(this.storage);
     }
 
+    /**
+     * Updates taskList with Task object
+     * Prints message for user indicating task being added
+     * @param toAdd Task being added
+     */
     public void updateToDoList(Task toAdd) {
         this.taskList.addTask(toAdd);
         this.userInterface.showNewTask(toAdd, this.taskList.getNumTasks());
     }
 
+    /**
+     * Main program of advisor chatbot
+     */
     public void run() {
         this.taskList.populateList();
         this.userInterface.showStart();

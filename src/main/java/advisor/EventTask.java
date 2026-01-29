@@ -23,12 +23,20 @@ public class EventTask extends Task {
         this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    /**
+     * Returns Strings of start and end times in format of input
+     * @return String array of start and end times
+     */
     public String[] getTimesInput() {
         String start = this.startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         String end = this.endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         return new String[]{start, end};
     }
 
+    /**
+     * Returns Strings of start and end time in format of "Month Date Year Time"
+     * @return String array of start and end time
+     */
     public String[] getTimesStr() {
         String start = this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
         String end = this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));

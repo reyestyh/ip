@@ -11,6 +11,11 @@ public class Storage {
 
     public static String DATA_FILE_NAME = "./AdvisorTaskData.txt";
 
+    /**
+     * Reads from DATA_FILE_NAME and returns tasks stored.
+     * If file is not found, creates a new data file
+     * @return an ArrayList of String arrays containing parameters for each task
+     */
     public ArrayList<String[]> readDataFile() {
         ArrayList<String[]> res = new ArrayList<>();
         File dataFile = new File(DATA_FILE_NAME);
@@ -43,6 +48,11 @@ public class Storage {
         return res;
     }
 
+    /**
+     * Updates the data file with changes in TaskList from current session
+     * @param tasks ArrayList of current tasks in session
+     * @return boolean indicating success/failure of updating data file
+     */
     public boolean updateDataFile(ArrayList<Task> tasks) {
         FileWriter writer = null;
         try {

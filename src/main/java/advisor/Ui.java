@@ -24,6 +24,9 @@ public class Ui {
         return input.split(" ")[0];
     }
 
+    /**
+     * Prints startup logo and welcome message
+     */
     public void showStart() {
         System.out.println(logo);
         System.out.println(line);
@@ -31,17 +34,28 @@ public class Ui {
         System.out.println("What do you want me to do?");
     }
 
+    /**
+     * Prints exit message
+     */
     public void showExit() {
         System.out.println(line);
         System.out.println("End of Session. Goodbye.");
         System.out.println(line);
     }
 
+    /**
+     * Prints prompt for user input, and returns a stripped input from user
+     * @return String (stripped) of user input to interface
+     */
     public String readInput() {
         System.out.println("Enter a command:");
         return input.nextLine().strip();
     }
 
+    /**
+     * Prints success/failure message for updating data file AdvisorTaskData.txt
+     * @param successfulUpdate boolean of whether file was updated successfully
+     */
     public void showUpdateFile(boolean successfulUpdate) {
         System.out.println(line);
         if (successfulUpdate) {
@@ -51,18 +65,30 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints current tasks in TaskList
+     * @param taskList TaskList object storing tasks in current session
+     */
     public void showTasks(TaskList taskList) {
         System.out.println(line);
         System.out.println(taskList.getTasksString());
         System.out.println(line);
     }
 
+    /**
+     * Prints error message for invalid command
+     */
     public void showInvalidCommand() {
         System.out.println(line);
         System.out.println("Invalid command. Try again.");
         System.out.println(line);
     }
 
+    /**
+     * Prints new task added from todo, deadline, or event commands
+     * @param toAdd Task object being added
+     * @param numTasks number of tasks in TaskList
+     */
     public void showNewTask(Task toAdd, int numTasks) {
         System.out.println(line);
         System.out.println(line);
@@ -72,6 +98,10 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message for command if a non-number was inputted
+     * @param command command which failed (delete, mark, unmark)
+     */
     public void showNotNumber(String command) {
         System.out.println(line);
         System.out.println("Not a number.");
@@ -79,12 +109,20 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message for command if index was out of range
+     * (delete, mark, unmark)
+     */
     public void showOutOfRange() {
         System.out.println(line);
         System.out.println("Out of range.\nType a number within the range of current tasks");
         System.out.println(line);
     }
 
+    /**
+     * Prints message when task is marked as done
+     * @param tt Task object marked as done
+     */
     public void showMarked(Task tt) {
         System.out.println(line);
         System.out.println("The following task is now marked as done:");
@@ -92,6 +130,10 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints message when task is marked as undone
+     * @param tt Task object marked as undone
+     */
     public void showUnmarked(Task tt) {
         System.out.println(line);
         System.out.println("The following task is now marked as undone:");
@@ -99,6 +141,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message for incorrect todo command usage
+     */
     public void showInvalidTodo() {
         System.out.println(line);
         System.out.println("Missing description.");
@@ -106,6 +151,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message for incorrect deadline command usage
+     */
     public void showInvalidDeadline() {
         System.out.println(line);
         System.out.println("Incorrect format");
@@ -114,6 +162,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message for incorrect event command usage
+     */
     public void showInvalidEvent() {
         System.out.println(line);
         System.out.println("Incorrect format");
@@ -122,6 +173,11 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints message when task is deleted from TaskList
+     * @param tt Task object removed from TaskList
+     * @param numTasks number of tasks remaining in TaskList
+     */
     public void showTaskDeleted(Task tt, int numTasks) {
         System.out.println(line);
         System.out.println("The following task has been removed:");

@@ -20,10 +20,18 @@ public class DeadlineTask extends Task {
         this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    /**
+     * Returns String of deadline in format of input
+     * @return String of deadline
+     */
     public String getDeadlineInput() {
         return deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    /**
+     * Returns String of deadline in format of "Month Date Year Time"
+     * @return String of deadline
+     */
     public String getDeadlineString() {
         return this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
     }
