@@ -133,4 +133,12 @@ public class InputParser {
         return new String[]{taskDesc, startTime, endTime};
     }
 
+    public static String findParser(String input) {
+        try {
+            return input.substring(5);
+        } catch (StringIndexOutOfBoundsException e) {
+            return "";
+        }
+    }
+
 }
