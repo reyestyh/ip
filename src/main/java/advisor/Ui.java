@@ -187,6 +187,13 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints tasks found for the term searched for using 'find'
+     * If no tasks are found, print message indicating no match
+     *
+     * @param foundTasks List containing matching tasks containing the search term
+     * @param term String of search term
+     */
     public void showFoundTasks(List<Task> foundTasks, String term) {
         System.out.println(line);
 
@@ -202,6 +209,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints message when find command is in invalid format
+     */
     public void showInvalidFind() {
         System.out.println(line);
         System.out.println("Invalid format");

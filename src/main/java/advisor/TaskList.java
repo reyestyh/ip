@@ -102,8 +102,11 @@ public class TaskList {
     }
 
     /**
-     * Updates file used to store tasks between sessions
-     * @return a boolean indicating successful update
+     * Finds tasks containing a search term in the task description
+     * Returns a list containing matching tasks
+     *
+     * @param term search term
+     * @return List containing matching tasks
      */
     public List<Task> findTasks(String term) {
         return this.tasks.stream().filter(task -> task.getTaskName().toLowerCase().contains(term.toLowerCase())).toList();
