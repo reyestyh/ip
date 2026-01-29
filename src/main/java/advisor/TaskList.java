@@ -2,6 +2,7 @@ package advisor;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
 
@@ -104,6 +105,10 @@ public class TaskList {
      * Updates file used to store tasks between sessions
      * @return a boolean indicating successful update
      */
+    public List<Task> findTasks(String term) {
+        return this.tasks.stream().filter(task -> task.getTaskName().toLowerCase().contains(term.toLowerCase())).toList();
+    }
+
     public boolean updateStorage() {
         return storage.updateDataFile(this.tasks);
     }
