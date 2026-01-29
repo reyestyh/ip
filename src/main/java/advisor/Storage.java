@@ -60,14 +60,16 @@ public class Storage {
             StringBuilder res = new StringBuilder();
             String taskType = toAdd.getTaskType();
 
-            if (taskType.equals("T")) {
+            switch(taskType) {
+            case "T":
                 res.append(taskType);
                 res.append(";;;");
                 res.append((toAdd.isFinished() ? "1" : "0"));
                 res.append(";;;");
                 res.append(toAdd.getTaskName());
+                break;
 
-            } else if (taskType.equals("D")) {
+            case "D":
                 res.append(taskType);
                 res.append(";;;");
                 res.append((toAdd.isFinished() ? "1" : "0"));
@@ -75,8 +77,9 @@ public class Storage {
                 res.append(toAdd.getTaskName());
                 res.append(";;;");
                 res.append(((DeadlineTask) toAdd).getDeadlineInput());
+                break;
 
-            } else if (taskType.equals("E")) {
+            case "E":
                 res.append(taskType);
                 res.append(";;;");
                 res.append((toAdd.isFinished() ? "1" : "0"));
@@ -85,7 +88,9 @@ public class Storage {
                 res.append(";;;");
                 String[] times = ((EventTask) toAdd).getTimesInput();
                 res.append(times[0]).append(";;;").append(times[1]);
-            } else {
+                break;
+
+            default:
                 System.out.println("Error: Invalid task type.");
                 try {
                     writer.close();
@@ -94,6 +99,7 @@ public class Storage {
                 }
                 return false;
             }
+
             try {
                 writer.write(res.toString());
                 writer.write("\n");
