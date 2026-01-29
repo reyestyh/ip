@@ -37,8 +37,8 @@ public class Advisor {
             String input = this.userInterface.readInput();
             String command = this.userInterface.readCommand(input);
 
-            if (input.equals("bye")) {
-
+            switch (command) {
+            case "bye":
                 boolean updateSuccess = this.taskList.updateStorage();
 
                 this.userInterface.showUpdateFile(updateSuccess);
@@ -46,98 +46,100 @@ public class Advisor {
                 endSession = true;
                 return;
 
-            } else if (command.equals("list")) {
-
+            case "list":
                 this.userInterface.showTasks(this.taskList);
+                break;
 
-            } else if (command.equals("mark")) {
+            case "mark":
+                int markIdx = InputParser.markParser(input);
 
-                int idx = InputParser.markParser(input);
-
-                if (idx == -1) {
+                if (markIdx == -1) {
                     this.userInterface.showNotNumber("mark");
 
                 } else {
-                    idx -= 1;
+                    markIdx -= 1;
 
                     try {
-                        this.taskList.completeTask(idx);
-                        Task fin = this.taskList.getTask(idx);
+                        this.taskList.completeTask(markIdx);
+                        Task fin = this.taskList.getTask(markIdx);
                         this.userInterface.showMarked(fin);
                     } catch (IndexOutOfBoundsException e) {
                         this.userInterface.showOutOfRange();
                     }
 
                 }
+                break;
 
-            } else if (command.equals("unmark")) {
-                int idx = InputParser.unmarkParser(input);
+            case "unmark":
+                int unamrkIdx = InputParser.unmarkParser(input);
 
-                if (idx == -1) {
+                if (unamrkIdx == -1) {
                     this.userInterface.showNotNumber("unmark");
 
                 } else {
-                    idx -= 1;
+                    unamrkIdx -= 1;
 
                     try {
-                        this.taskList.undoTask(idx);
-                        Task undone = this.taskList.getTask(idx);
+                        this.taskList.undoTask(unamrkIdx);
+                        Task undone = this.taskList.getTask(unamrkIdx);
                         this.userInterface.showUnmarked(undone);
                     } catch (IndexOutOfBoundsException e) {
                         this.userInterface.showOutOfRange();
                     }
                 }
+                break;
 
-            } else if (command.equals("todo")) {
+            case "todo":
                 String desc = InputParser.todoParser(input);
                 if (desc.isEmpty()) {
                     this.userInterface.showInvalidTodo();
                 } else {
                     updateToDoList(new ToDoTask(desc));
                 }
+                break;
 
-
-            } else if (command.equals("deadline")) {
-                String[] dd = InputParser.deadlineParser(input);
-                if (dd == null) {
+            case "deadline":
+                String[] deadlineData = InputParser.deadlineParser(input);
+                if (deadlineData == null) {
                     this.userInterface.showInvalidDeadline();
                 } else {
                     try {
-                        updateToDoList(new DeadlineTask(dd[0], dd[1]));
+                        updateToDoList(new DeadlineTask(deadlineData[0], deadlineData[1]));
                     } catch (DateTimeParseException e) {
                         this.userInterface.showInvalidDeadline();
                     }
                 }
+                break;
 
-            } else if (command.equals("event")) {
-                String[] dd = InputParser.eventParser(input);
-                if (dd == null) {
+            case "event":
+                String[] taskData = InputParser.eventParser(input);
+                if (taskData == null) {
                     this.userInterface.showInvalidEvent();
                 } else {
                     try {
-                        updateToDoList(new EventTask(dd[0], dd[1], dd[2]));
+                        updateToDoList(new EventTask(taskData[0], taskData[1], taskData[2]));
                     } catch (DateTimeParseException e) {
                         this.userInterface.showInvalidEvent();
                     }
                 }
+                break;
 
-
-            } else if (command.equals("delete")) {
-
-                int idx = InputParser.deleteParser(input);
-                if (idx == -1) {
+            case "delete":
+                int deleteIdx = InputParser.deleteParser(input);
+                if (deleteIdx == -1) {
                     this.userInterface.showNotNumber("delete");
                 } else {
-                    idx -= 1;
+                    deleteIdx -= 1;
                     try {
-                        Task removed = taskList.deleteTask(idx);
+                        Task removed = taskList.deleteTask(deleteIdx);
                         this.userInterface.showTaskDeleted(removed, taskList.getNumTasks());
                     } catch (IndexOutOfBoundsException e) {
                         this.userInterface.showOutOfRange();
                     }
                 }
+                break;
 
-            } else {
+            default:
                 this.userInterface.showInvalidCommand();
             }
         }
