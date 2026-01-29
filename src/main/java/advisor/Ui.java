@@ -1,5 +1,6 @@
 package advisor;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -127,6 +128,28 @@ public class Ui {
         System.out.println("The following task has been removed:");
         System.out.println(tt.toString());
         System.out.println("Remaining tasks stored: " + numTasks);
+        System.out.println(line);
+    }
+
+    public void showFoundTasks(List<Task> foundTasks, String term) {
+        System.out.println(line);
+
+        if (foundTasks.isEmpty()) {
+            System.out.println("No matching tasks found for '" + term + "'");
+        } else {
+            System.out.println("Matching tasks found for '" + term + "':");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println(foundTasks.get(i).toString());
+            }
+        }
+
+        System.out.println(line);
+    }
+
+    public void showInvalidFind() {
+        System.out.println(line);
+        System.out.println("Invalid format");
+        System.out.println("Usage: find <search term>");
         System.out.println(line);
     }
 
