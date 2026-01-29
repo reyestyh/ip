@@ -55,7 +55,8 @@ public class Storage {
             e.printStackTrace();
             return false;
         }
-        for (Task toAdd : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task toAdd =  tasks.get(i);
             StringBuilder res = new StringBuilder();
             String taskType = toAdd.getTaskType();
 
