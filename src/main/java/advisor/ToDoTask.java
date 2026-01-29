@@ -1,4 +1,4 @@
-package duke;
+package advisor;
 
 /**
  * A class to indicate a To do task

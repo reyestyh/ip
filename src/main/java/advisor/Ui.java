@@ -1,4 +1,4 @@
-package duke;
+package advisor;
 
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ public class Ui {
             "  \\__,_|\\__,_| \\_/ |_|___/\\___/|_|   \n" +
             "                                     \n" +
             "                                     ";
-    private final String name = "Advisor";
+    private final String name = "advisor";
     private final String line = "____________________________________________________________";
     private Scanner input;
 

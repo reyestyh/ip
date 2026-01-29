@@ -1,4 +1,4 @@
-package duke;
+package advisor;
 
 import java.time.format.DateTimeParseException;
 

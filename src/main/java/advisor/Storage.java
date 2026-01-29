@@ -1,4 +1,4 @@
-package duke;
+package advisor;
 
 import java.io.File;
 import java.io.FileNotFoundException;

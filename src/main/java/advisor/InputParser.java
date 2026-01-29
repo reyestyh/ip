@@ -1,4 +1,4 @@
-package duke;
+package advisor;
 
 /**
  * Class containing static methods to parse user input for Advisor

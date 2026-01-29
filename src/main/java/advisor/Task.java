@@ -1,4 +1,4 @@
-package duke;
+package advisor;
 
 /**
  * Base Task class containing task description and completion status
