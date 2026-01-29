@@ -2,6 +2,7 @@ package advisor;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
 
@@ -66,6 +67,10 @@ public class TaskList {
 
     public void undoTask(int index) {
         tasks.get(index).undo();
+    }
+
+    public List<Task> findTasks(String term) {
+        return this.tasks.stream().filter(task -> task.getTaskName().toLowerCase().contains(term.toLowerCase())).toList();
     }
 
     public boolean updateStorage() {
