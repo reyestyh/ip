@@ -109,6 +109,10 @@ public class TaskList {
         return this.tasks.stream().filter(task -> task.getTaskName().toLowerCase().contains(term.toLowerCase())).toList();
     }
 
+    /**
+     * Updates file used to store tasks between sessions
+     * @return a boolean indicating successful update
+     */
     public boolean updateStorage() {
         return storage.updateDataFile(this.tasks);
     }
