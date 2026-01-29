@@ -129,6 +129,14 @@ public class Advisor {
                     }
                 }
 
+            } else if (command.equals("find")) {
+                String term = InputParser.findParser(input);
+                if (!term.isEmpty()) {
+                    this.userInterface.showFoundTasks(this.taskList.findTasks(term), term);
+                } else {
+                    this.userInterface.showInvalidFind();
+                }
+
             } else {
                 this.userInterface.showInvalidCommand();
             }
