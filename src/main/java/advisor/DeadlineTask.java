@@ -10,11 +10,24 @@ public class DeadlineTask extends Task {
 
     protected LocalDateTime deadline;
 
+    /**
+     * Creates DeadlineTask object with a given description and deadline
+     *
+     * @param taskName description of task
+     * @param deadline deadline of task in format of "yyyy-MM-dd HHmm"
+     */
     public DeadlineTask(String taskName, String deadline) {
         super(taskName);
         this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    /**
+     * Creates DeadlineTask object with a given description and deadline
+     *
+     * @param taskName description of task
+     * @param deadline deadline of task in format of "yyyy-MM-dd HHmm"
+     * @param isDone completion status of task
+     */
     public DeadlineTask(String taskName, String deadline, boolean isDone) {
         super(taskName, isDone);
         this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
@@ -22,6 +35,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns String of deadline in format of input
+     *
      * @return String of deadline
      */
     public String getDeadlineInput() {
@@ -30,6 +44,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns String of deadline in format of "Month Date Year Time"
+     *
      * @return String of deadline
      */
     public String getDeadlineString() {

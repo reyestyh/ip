@@ -11,12 +11,27 @@ public class EventTask extends Task {
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
 
+    /**
+     * Creates EventTask object with a given description, start and end times for the event
+     *
+     * @param taskName description of task
+     * @param startTime start time of event in format "yyyy-MM-dd HHmm"
+     * @param endTime end time of event in format "yyyy-MM-dd HHmm"
+     */
     public EventTask(String taskName, String startTime, String endTime) {
         super(taskName);
         this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
+    /**
+     * Creates EventTask object with a given description, start and end times for the event, and task completion status
+     *
+     * @param taskName description of task
+     * @param startTime start time of event in format "yyyy-MM-dd HHmm"
+     * @param endTime end time of event in format "yyyy-MM-dd HHmm"
+     * @param isDone completion status of task
+     */
     public EventTask(String taskName, String startTime, String endTime, boolean isDone) {
         super(taskName, isDone);
         this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
@@ -25,6 +40,7 @@ public class EventTask extends Task {
 
     /**
      * Returns Strings of start and end times in format of input
+     *
      * @return String array of start and end times
      */
     public String[] getTimesInput() {
@@ -35,6 +51,7 @@ public class EventTask extends Task {
 
     /**
      * Returns Strings of start and end time in format of "Month Date Year Time"
+     *
      * @return String array of start and end time
      */
     public String[] getTimesStr() {

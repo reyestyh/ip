@@ -141,6 +141,12 @@ public class InputParser {
         return new String[]{taskDesc, startTime, endTime};
     }
 
+    /**
+     * Returns the search term used for the find command
+     *
+     * @param input user input from find command
+     * @return String search term
+     */
     public static String findParser(String input) {
         try {
             return input.substring(5);

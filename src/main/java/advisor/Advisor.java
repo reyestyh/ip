@@ -17,6 +17,7 @@ public class Advisor {
     /**
      * Updates taskList with Task object
      * Prints message for user indicating task being added
+     *
      * @param toAdd Task being added
      */
     public void updateToDoList(Task toAdd) {

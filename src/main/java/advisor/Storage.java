@@ -14,6 +14,7 @@ public class Storage {
     /**
      * Reads from DATA_FILE_NAME and returns tasks stored.
      * If file is not found, creates a new data file
+     *
      * @return an ArrayList of String arrays containing parameters for each task
      */
     public ArrayList<String[]> readDataFile() {
@@ -50,6 +51,7 @@ public class Storage {
 
     /**
      * Updates the data file with changes in TaskList from current session
+     *
      * @param tasks ArrayList of current tasks in session
      * @return boolean indicating success/failure of updating data file
      */

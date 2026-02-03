@@ -9,7 +9,8 @@ public class Task {
     protected boolean isFinished;
 
     /**
-     * Constructor for Task object
+     * Creates a Task object with a given description
+     *
      * @param taskName description of task
      */
     public Task(String taskName) {
@@ -17,6 +18,12 @@ public class Task {
         this.isFinished = false;
     }
 
+    /**
+     * Creates a Task object with a given description and completion status
+     *
+     * @param taskName description of task
+     * @param isDone completion status of task
+     */
     public Task(String taskName, boolean isDone) {
         this.taskName = taskName;
         this.isFinished = isDone;
@@ -39,6 +46,7 @@ public class Task {
 
     /**
      * Returns a boolean indicating if task is complete
+     *
      * @return boolean indicating task completion
      */
     public boolean isFinished() {
@@ -52,6 +60,7 @@ public class Task {
 
     /**
      * Returns a description of task object
+     *
      * @return String taskName description of the task
      */
     public String getTaskName() {
@@ -60,6 +69,7 @@ public class Task {
 
     /**
      * Returns a string indicating if a Task is complete or not
+     *
      * @return String of either "X" or an empty string to indicate task completion
      */
     public String getStatusAsString() {

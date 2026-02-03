@@ -46,6 +46,7 @@ public class Ui {
 
     /**
      * Prints prompt for user input, and returns a stripped input from user
+     *
      * @return String (stripped) of user input to interface
      */
     public String readInput() {
@@ -55,6 +56,7 @@ public class Ui {
 
     /**
      * Prints success/failure message for updating data file AdvisorTaskData.txt
+     *
      * @param successfulUpdate boolean of whether file was updated successfully
      */
     public void showUpdateFile(boolean successfulUpdate) {
@@ -68,6 +70,7 @@ public class Ui {
 
     /**
      * Prints current tasks in TaskList
+     *
      * @param taskList TaskList object storing tasks in current session
      */
     public void showTasks(TaskList taskList) {
@@ -87,6 +90,7 @@ public class Ui {
 
     /**
      * Prints new task added from todo, deadline, or event commands
+     *
      * @param toAdd Task object being added
      * @param numTasks number of tasks in TaskList
      */
@@ -101,6 +105,7 @@ public class Ui {
 
     /**
      * Prints error message for command if a non-number was inputted
+     *
      * @param command command which failed (delete, mark, unmark)
      */
     public void showNotNumber(String command) {
@@ -122,6 +127,7 @@ public class Ui {
 
     /**
      * Prints message when task is marked as done
+     *
      * @param tt Task object marked as done
      */
     public void showMarked(Task tt) {
@@ -133,6 +139,7 @@ public class Ui {
 
     /**
      * Prints message when task is marked as undone
+     *
      * @param tt Task object marked as undone
      */
     public void showUnmarked(Task tt) {
@@ -176,6 +183,7 @@ public class Ui {
 
     /**
      * Prints message when task is deleted from TaskList
+     *
      * @param tt Task object removed from TaskList
      * @param numTasks number of tasks remaining in TaskList
      */

@@ -26,6 +26,7 @@ public class TaskList {
 
     /**
      * Returns a Task from given parameters for creation
+     *
      * @param data Array containing task type, description and relevant data required for creation
      * @return a new Task object
      */
@@ -53,6 +54,7 @@ public class TaskList {
 
     /**
      * Adds a task into the ArrayList
+     *
      * @param task The task to be added
      */
     public void addTask(Task task) {
@@ -61,6 +63,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the ArrayList
+     *
      * @param index index of file position in ArrayList (0 based)
      * @return the removed Task
      */
@@ -70,6 +73,7 @@ public class TaskList {
 
     /**
      * Returns number of tasks in ArrayList
+     *
      * @return number of tasks in current session
      */
     public int getNumTasks() {
@@ -78,6 +82,7 @@ public class TaskList {
 
     /**
      * Returns a given task at the specified index
+     *
      * @param index index of file position in ArrayList (0 based)
      * @return Task object at index
      */
@@ -87,6 +92,7 @@ public class TaskList {
 
     /**
      * Marks a task as complete
+     *
      * @param index index of task to be marked as complete (0 based)
      */
     public void completeTask(int index) {
@@ -95,6 +101,7 @@ public class TaskList {
 
     /**
      * Marks a task as incomplete
+     *
      * @param index index of task to be marked as incomplete (0 based)
      */
     public void undoTask(int index) {
@@ -114,6 +121,7 @@ public class TaskList {
 
     /**
      * Updates file used to store tasks between sessions
+     *
      * @return a boolean indicating successful update
      */
     public boolean updateStorage() {
@@ -122,6 +130,7 @@ public class TaskList {
 
     /**
      * Returns a string of all the current tasks stored
+     *
      * @return String of all tasks
      */
     public String getTasksString() {
