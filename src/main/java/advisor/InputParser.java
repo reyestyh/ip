@@ -13,11 +13,11 @@ public class InputParser {
      * @param input user input from delete command
      * @return integer of index of Task in taskList
      */
-    public static Integer deleteParser(String input) {
+    public static Integer deleteParser(String input) throws AdvisorException {
         try {
             return Integer.parseInt(input.substring(7));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            return -1;
+            throw new AdvisorException("An error occurred when parsing the input for 'delete'");
         }
     }
 
@@ -28,11 +28,11 @@ public class InputParser {
      * @param input user input from mark command
      * @return integer of index of Task in taskList
      */
-    public static Integer markParser(String input) {
+    public static Integer markParser(String input) throws AdvisorException {
         try {
             return Integer.parseInt(input.substring(5));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            return -1;
+            throw new AdvisorException("An error occurred when parsing the input for 'mark'");
         }
     }
 
@@ -43,11 +43,11 @@ public class InputParser {
      * @param input user input from unmark command
      * @return integer of index of Task in taskList
      */
-    public static Integer unmarkParser(String input) {
+    public static Integer unmarkParser(String input) throws AdvisorException {
         try {
             return Integer.parseInt(input.substring(7));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            return -1;
+            throw new AdvisorException("An error occurred when parsing the input for 'unmark'");
         }
     }
 
@@ -57,11 +57,11 @@ public class InputParser {
      * @param input user input from todo command
      * @return description of task
      */
-    public static String todoParser(String input) {
+    public static String todoParser(String input) throws AdvisorException {
         try {
             return input.substring(5);
         } catch (StringIndexOutOfBoundsException e) {
-            return "";
+            throw new AdvisorException("No description passed");
         }
     }
 
@@ -147,11 +147,11 @@ public class InputParser {
      * @param input user input from find command
      * @return String search term
      */
-    public static String findParser(String input) {
+    public static String findParser(String input) throws AdvisorException {
         try {
             return input.substring(5);
         } catch (StringIndexOutOfBoundsException e) {
-            return "";
+            throw new AdvisorException("No search term found");
         }
     }
 

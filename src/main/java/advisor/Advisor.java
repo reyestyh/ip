@@ -52,51 +52,59 @@ public class Advisor {
                 break;
 
             case "mark":
-                int markIdx = InputParser.markParser(input);
+                int markIdx = 0;
 
-                if (markIdx == -1) {
+                try {
+                    markIdx = InputParser.markParser(input);
+                } catch (AdvisorException e) {
                     this.userInterface.showNotNumber("mark");
+                    break;
+                }
 
-                } else {
-                    markIdx -= 1;
+                markIdx -= 1;
 
-                    try {
-                        this.taskList.completeTask(markIdx);
-                        Task fin = this.taskList.getTask(markIdx);
-                        this.userInterface.showMarked(fin);
-                    } catch (IndexOutOfBoundsException e) {
-                        this.userInterface.showOutOfRange();
-                    }
-
+                try {
+                    this.taskList.completeTask(markIdx);
+                    Task fin = this.taskList.getTask(markIdx);
+                    this.userInterface.showMarked(fin);
+                } catch (IndexOutOfBoundsException e) {
+                    this.userInterface.showOutOfRange();
                 }
                 break;
 
             case "unmark":
-                int unamrkIdx = InputParser.unmarkParser(input);
+                int unmarkIdx = 0;
 
-                if (unamrkIdx == -1) {
+                try {
+                    unmarkIdx = InputParser.unmarkParser(input);
+                } catch (AdvisorException e) {
                     this.userInterface.showNotNumber("unmark");
-
-                } else {
-                    unamrkIdx -= 1;
-
-                    try {
-                        this.taskList.undoTask(unamrkIdx);
-                        Task undone = this.taskList.getTask(unamrkIdx);
-                        this.userInterface.showUnmarked(undone);
-                    } catch (IndexOutOfBoundsException e) {
-                        this.userInterface.showOutOfRange();
-                    }
+                    break;
                 }
+
+                unmarkIdx -= 1;
+
+                try {
+                    this.taskList.undoTask(unmarkIdx);
+                    Task undone = this.taskList.getTask(unmarkIdx);
+                    this.userInterface.showUnmarked(undone);
+                } catch (IndexOutOfBoundsException e) {
+                    this.userInterface.showOutOfRange();
+                }
+
                 break;
 
             case "todo":
-                String desc = InputParser.todoParser(input);
-                if (desc.isEmpty()) {
+                String desc = "";
+                try {
+                    desc = InputParser.todoParser(input);
+                } catch (AdvisorException e) {
                     this.userInterface.showInvalidTodo();
-                } else {
-                    updateToDoList(new ToDoTask(desc));
+                    break;
                 }
+
+                updateToDoList(new ToDoTask(desc));
+
                 break;
 
             case "deadline":
@@ -126,28 +134,35 @@ public class Advisor {
                 break;
 
             case "delete":
-                int deleteIdx = InputParser.deleteParser(input);
-                if (deleteIdx == -1) {
+                int deleteIdx = 0;
+                try {
+                    deleteIdx = InputParser.deleteParser(input);
+                } catch (AdvisorException e) {
                     this.userInterface.showNotNumber("delete");
-                } else {
-                    deleteIdx -= 1;
-                    try {
-                        Task removed = taskList.deleteTask(deleteIdx);
-                        this.userInterface.showTaskDeleted(removed, taskList.getNumTasks());
-                    } catch (IndexOutOfBoundsException e) {
-                        this.userInterface.showOutOfRange();
-                    }
+                    break;
                 }
+                deleteIdx -= 1;
+                try {
+                    Task removed = taskList.deleteTask(deleteIdx);
+                    this.userInterface.showTaskDeleted(removed, taskList.getNumTasks());
+                } catch (IndexOutOfBoundsException e) {
+                    this.userInterface.showOutOfRange();
+                }
+
                 break;
 
             case "find":
-                String term = InputParser.findParser(input);
-                if (!term.isEmpty()) {
-                    this.userInterface.showFoundTasks(this.taskList.findTasks(term), term);
-                } else {
+
+                String term = "";
+                try {
+                    term = InputParser.findParser(input);
+                } catch (AdvisorException e) {
                     this.userInterface.showInvalidFind();
+                    break;
                 }
-                break;
+
+                this.userInterface.showFoundTasks(this.taskList.findTasks(term), term);
+
             default:
                 this.userInterface.showInvalidCommand();
 
