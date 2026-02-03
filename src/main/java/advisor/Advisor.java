@@ -32,9 +32,9 @@ public class Advisor {
         this.taskList.populateList();
         this.userInterface.showStart();
 
-        boolean endSession = false;
+        boolean isSessionFinished = false;
 
-        while (!endSession) {
+        while (!isSessionFinished) {
             String input = this.userInterface.readInput();
             String command = this.userInterface.readCommand(input);
 
@@ -44,7 +44,7 @@ public class Advisor {
 
                 this.userInterface.showUpdateFile(updateSuccess);
                 this.userInterface.showExit();
-                endSession = true;
+                isSessionFinished = true;
                 return;
 
             case "list":
@@ -150,8 +150,10 @@ public class Advisor {
                 break;
             default:
                 this.userInterface.showInvalidCommand();
+
             }
         }
+
     }
 
     public static void main(String[] args) {

@@ -81,20 +81,20 @@ public class InputParser {
         } catch (StringIndexOutOfBoundsException e) {
             return null;
         }
-        String[] tt = temp.split("/by");
-        if (tt.length != 2) {
+        String[] deadlineTaskInfo = temp.split("/by");
+        if (deadlineTaskInfo.length != 2) {
             return null;
         }
         try {
-            tt[0] = tt[0].strip();
-            tt[1] = tt[1].strip();
+            deadlineTaskInfo[0] = deadlineTaskInfo[0].strip();
+            deadlineTaskInfo[1] = deadlineTaskInfo[1].strip();
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
-        if (tt[0].isEmpty() || tt[1].isEmpty()) {
+        if (deadlineTaskInfo[0].isEmpty() || deadlineTaskInfo[1].isEmpty()) {
             return null;
         }
-        return tt;
+        return deadlineTaskInfo;
     }
 
 

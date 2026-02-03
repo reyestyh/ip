@@ -18,7 +18,7 @@ public class Storage {
      * @return an ArrayList of String arrays containing parameters for each task
      */
     public ArrayList<String[]> readDataFile() {
-        ArrayList<String[]> res = new ArrayList<>();
+        ArrayList<String[]> tasksStrsList = new ArrayList<>();
         File dataFile = new File(DATA_FILE_NAME);
         try {
             Scanner reader = new Scanner(dataFile);
@@ -27,13 +27,13 @@ public class Storage {
                 if (data != "") {
                     String[] temp = data.split(";;;");
                     if (temp != null) {
-                        res.add(temp);
+                        tasksStrsList.add(temp);
                     }
                 }
 
             }
             reader.close();
-            return res;
+            return tasksStrsList;
         } catch (FileNotFoundException e) {
             System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
             System.out.println("Creating " + DATA_FILE_NAME + " in the current directory: "
@@ -46,7 +46,7 @@ public class Storage {
             }
 
         }
-        return res;
+        return tasksStrsList;
     }
 
     /**
@@ -69,37 +69,37 @@ public class Storage {
         }
         for (int i = 0; i < tasks.size(); i++) {
             Task toAdd =  tasks.get(i);
-            StringBuilder res = new StringBuilder();
+            StringBuilder taskParameters = new StringBuilder();
             String taskType = toAdd.getTaskType();
 
             switch(taskType) {
             case "T":
-                res.append(taskType);
-                res.append(";;;");
-                res.append((toAdd.isFinished() ? "1" : "0"));
-                res.append(";;;");
-                res.append(toAdd.getTaskName());
+                taskParameters.append(taskType);
+                taskParameters.append(";;;");
+                taskParameters.append((toAdd.isFinished() ? "1" : "0"));
+                taskParameters.append(";;;");
+                taskParameters.append(toAdd.getTaskName());
                 break;
 
             case "D":
-                res.append(taskType);
-                res.append(";;;");
-                res.append((toAdd.isFinished() ? "1" : "0"));
-                res.append(";;;");
-                res.append(toAdd.getTaskName());
-                res.append(";;;");
-                res.append(((DeadlineTask) toAdd).getDeadlineInput());
+                taskParameters.append(taskType);
+                taskParameters.append(";;;");
+                taskParameters.append((toAdd.isFinished() ? "1" : "0"));
+                taskParameters.append(";;;");
+                taskParameters.append(toAdd.getTaskName());
+                taskParameters.append(";;;");
+                taskParameters.append(((DeadlineTask) toAdd).getDeadlineInput());
                 break;
 
             case "E":
-                res.append(taskType);
-                res.append(";;;");
-                res.append((toAdd.isFinished() ? "1" : "0"));
-                res.append(";;;");
-                res.append(toAdd.getTaskName());
-                res.append(";;;");
+                taskParameters.append(taskType);
+                taskParameters.append(";;;");
+                taskParameters.append((toAdd.isFinished() ? "1" : "0"));
+                taskParameters.append(";;;");
+                taskParameters.append(toAdd.getTaskName());
+                taskParameters.append(";;;");
                 String[] times = ((EventTask) toAdd).getTimesInput();
-                res.append(times[0]).append(";;;").append(times[1]);
+                taskParameters.append(times[0]).append(";;;").append(times[1]);
                 break;
 
             default:
@@ -113,7 +113,7 @@ public class Storage {
             }
 
             try {
-                writer.write(res.toString());
+                writer.write(taskParameters.toString());
                 writer.write("\n");
             } catch (IOException e) {
                 System.out.println("Something went wrong while writing to the file.");
