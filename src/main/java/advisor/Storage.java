@@ -24,7 +24,7 @@ public class Storage {
             Scanner reader = new Scanner(dataFile);
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
-                if (data != "") {
+                if (!data.isEmpty()) {
                     String[] temp = data.split(";;;");
                     if (temp != null) {
                         tasksStrsList.add(temp);
