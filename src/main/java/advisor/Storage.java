@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to read and store task data in the data file for Advisor
+ */
 public class Storage {
 
     public static String DATA_FILE_NAME = "./AdvisorTaskData.txt";

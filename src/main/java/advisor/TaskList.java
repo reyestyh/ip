@@ -4,6 +4,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to store task data for each session of Advisor
+ * Contains methods manipulating tasks within the TaskList
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;

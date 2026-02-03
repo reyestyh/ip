@@ -2,6 +2,9 @@ package advisor;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Runs the main Advisor chatbot to manage a user's tasks
+ */
 public class Advisor {
 
     private Storage storage;

@@ -3,6 +3,9 @@ package advisor;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class containing methods to show interface to user
+ */
 public class Ui {
 
     private final String logo = "            _       _                \n" +
