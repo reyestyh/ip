@@ -13,6 +13,11 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
+    /**
+     * Constructs a TaskList object to store tasks for the Advisor program,
+     * and storage object for reading and writing to the data file
+     * @param sto
+     */
     public TaskList(Storage sto) {
         this.tasks = new ArrayList<>();
         this.storage = sto;
@@ -120,7 +125,10 @@ public class TaskList {
      * @return List containing matching tasks
      */
     public List<Task> findTasks(String term) {
-        return this.tasks.stream().filter(task -> task.getTaskName().toLowerCase().contains(term.toLowerCase())).toList();
+        return this.tasks.stream().filter(task -> task.getTaskName()
+                                                              .toLowerCase()
+                                                                .contains(term.toLowerCase()))
+                                    .toList();
     }
 
     /**

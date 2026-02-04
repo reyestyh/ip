@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    public static String DATA_FILE_NAME = "./AdvisorTaskData.txt";
+    private String dataFileName = "./AdvisorTaskData.txt";
 
     /**
      * Reads from DATA_FILE_NAME and returns tasks stored.
@@ -22,7 +22,7 @@ public class Storage {
      */
     public ArrayList<String[]> readDataFile() {
         ArrayList<String[]> tasksStrsList = new ArrayList<>();
-        File dataFile = new File(DATA_FILE_NAME);
+        File dataFile = new File(dataFileName);
         try {
             Scanner reader = new Scanner(dataFile);
             while (reader.hasNextLine()) {
@@ -38,8 +38,8 @@ public class Storage {
             reader.close();
             return tasksStrsList;
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
-            System.out.println("Creating " + DATA_FILE_NAME + " in the current directory: "
+            System.out.println("Error: File " + dataFileName + " not found.");
+            System.out.println("Creating " + dataFileName + " in the current directory: "
                     + System.getProperty("user.dir"));
             try {
                 dataFile.createNewFile();
@@ -61,9 +61,9 @@ public class Storage {
     public boolean updateDataFile(ArrayList<Task> tasks) {
         FileWriter writer = null;
         try {
-            writer = new FileWriter(DATA_FILE_NAME);
+            writer = new FileWriter(dataFileName);
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
+            System.out.println("Error: File " + dataFileName + " not found.");
             return false;
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -71,11 +71,11 @@ public class Storage {
             return false;
         }
         for (int i = 0; i < tasks.size(); i++) {
-            Task toAdd =  tasks.get(i);
+            Task toAdd = tasks.get(i);
             StringBuilder taskParameters = new StringBuilder();
             String taskType = toAdd.getTaskType();
 
-            switch(taskType) {
+            switch (taskType) {
             case "T":
                 taskParameters.append(taskType);
                 taskParameters.append(";;;");
