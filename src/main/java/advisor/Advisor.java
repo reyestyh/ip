@@ -11,6 +11,9 @@ public class Advisor {
     private TaskList taskList;
     private Ui userInterface;
 
+    /**
+     * Constructs an Advisor instance with its Ui, storage, and taskList
+     */
     public Advisor() {
         this.userInterface = new Ui();
         this.storage = new Storage();
@@ -165,7 +168,7 @@ public class Advisor {
                 }
 
                 this.userInterface.showFoundTasks(this.taskList.findTasks(term), term);
-
+                break;
             default:
                 this.userInterface.showInvalidCommand();
 
