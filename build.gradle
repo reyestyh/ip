@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("advisor.Advisor")
+    mainClass.set("advisor.Launcher")
 }
 
 shadowJar {
