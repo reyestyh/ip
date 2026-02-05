@@ -20,31 +20,38 @@ public class Ui {
     private final String line = "____________________________________________________________";
     private Scanner input;
 
+    /**
+     * Constructs Ui instance for methods to get Advisor response messages
+     */
     public Ui() {
         this.input = new Scanner(System.in);
     }
 
+    /**
+     * Returns the user inputted command from raw input
+     *
+     * @param input String user's raw input
+     * @return String the command from user
+     */
     public String readCommand(String input) {
         return input.split(" ")[0];
     }
 
     /**
-     * Prints startup logo and welcome message
+     * Returns startup logo and welcome message
      */
-    public void showStart() {
-        System.out.println(logo);
-        System.out.println(line);
-        System.out.println("Hello. I am " + name);
-        System.out.println("What do you want me to do?");
+    public String getStartupMessage() {
+        StringBuilder response = new StringBuilder();
+        response.append("Hello. I am ").append(name).append("\n");
+        response.append("What do you want me to do?");
+        return response.toString();
     }
 
     /**
-     * Prints exit message
+     * Returns exit message
      */
-    public void showExit() {
-        System.out.println(line);
-        System.out.println("End of Session. Goodbye.");
-        System.out.println(line);
+    public String getExitMessage() {
+        return "End of Session. Goodbye!";
     }
 
     /**
@@ -58,176 +65,160 @@ public class Ui {
     }
 
     /**
-     * Prints success/failure message for updating data file AdvisorTaskData.txt
+     * Returns success/failure message for updating data file AdvisorTaskData.txt
      *
-     * @param successfulUpdate boolean of whether file was updated successfully
+     * @param isSuccessfulUpdate boolean of whether file was updated successfully
      */
-    public void showUpdateFile(boolean successfulUpdate) {
-        System.out.println(line);
-        if (successfulUpdate) {
-            System.out.println("Data file successfully updated.");
-        } else {
-            System.out.println("An error occurred while updating the data file.");
-        }
+    public String getUpdateFileMessage(boolean isSuccessfulUpdate) {
+        return isSuccessfulUpdate ? "Data file successfully updated.\n"
+                : "An error occurred while updating the data file.\n";
     }
 
     /**
-     * Prints current tasks in TaskList
+     * Returns current tasks in TaskList as a string
      *
      * @param taskList TaskList object storing tasks in current session
      */
-    public void showTasks(TaskList taskList) {
-        System.out.println(line);
-        System.out.println(taskList.getTasksString());
-        System.out.println(line);
+    public String getCurrentTasks(TaskList taskList) {
+        return taskList.getTasksString();
     }
 
     /**
-     * Prints error message for invalid command
+     * Returns error message for invalid command
      */
-    public void showInvalidCommand() {
-        System.out.println(line);
-        System.out.println("Invalid command. Try again.");
-        System.out.println(line);
+    public String getInvalidCommandMessage() {
+        return "Invalid command. Try again.";
     }
 
     /**
-     * Prints new task added from todo, deadline, or event commands
+     * Returns message for new task added from todo, deadline, or event commands
      *
-     * @param toAdd Task object being added
+     * @param toAdd    Task object being added
      * @param numTasks number of tasks in TaskList
      */
-    public void showNewTask(Task toAdd, int numTasks) {
-        System.out.println(line);
-        System.out.println(line);
-        System.out.println("The following task has been added:");
-        System.out.println("    " + toAdd.toString());
-        System.out.println("There are now " + numTasks + " tasks in the list");
-        System.out.println(line);
+    public String getNewTaskMessage(Task toAdd, int numTasks) {
+        StringBuilder response = new StringBuilder();
+        response.append("The following task has been added:\n");
+        response.append("    ").append(toAdd.toString()).append("\n");
+        response.append("There are now ").append(numTasks).append(" tasks in the list");
+        return response.toString();
     }
 
     /**
-     * Prints error message for command if a non-number was inputted
+     * Returns error message for command if a non-number was inputted
      *
      * @param command command which failed (delete, mark, unmark)
      */
-    public void showNotNumber(String command) {
-        System.out.println(line);
-        System.out.println("Not a number.");
-        System.out.println("Usage: " + command + " <task number>");
-        System.out.println(line);
+    public String getNotNumberMessage(String command) {
+        StringBuilder response = new StringBuilder();
+        response.append("Not a number.\n");
+        response.append("Usage: ").append(command).append(" <task number>");
+        return response.toString();
     }
 
     /**
-     * Prints error message for command if index was out of range
+     * Returns error message for command if index was out of range
      * (delete, mark, unmark)
      */
-    public void showOutOfRange() {
-        System.out.println(line);
-        System.out.println("Out of range.\nType a number within the range of current tasks");
-        System.out.println(line);
+    public String getOutOfRangeMessage() {
+        return "Out of range.\nType a number within the range of current tasks";
     }
 
     /**
-     * Prints message when task is marked as done
+     * Returns message when task is marked as done
      *
      * @param tt Task object marked as done
      */
-    public void showMarked(Task tt) {
-        System.out.println(line);
-        System.out.println("The following task is now marked as done:");
-        System.out.println(tt.toString());
-        System.out.println(line);
+    public String getMarkedMessage(Task tt) {
+        StringBuilder response = new StringBuilder();
+        response.append("The following task is now marked as done:\n");
+        response.append(tt.toString());
+        return response.toString();
     }
 
     /**
-     * Prints message when task is marked as undone
+     * Returns message when task is marked as undone
      *
      * @param tt Task object marked as undone
      */
-    public void showUnmarked(Task tt) {
-        System.out.println(line);
-        System.out.println("The following task is now marked as undone:");
-        System.out.println(tt.toString());
-        System.out.println(line);
+    public String getUnmarkedMessage(Task tt) {
+        StringBuilder response = new StringBuilder();
+        response.append("The following task is now marked as undone:\n");
+        response.append(tt.toString());
+        return response.toString();
+
     }
 
     /**
-     * Prints error message for incorrect todo command usage
+     * Returns error message for incorrect todo command usage
      */
-    public void showInvalidTodo() {
-        System.out.println(line);
-        System.out.println("Missing description.");
-        System.out.println("Usage: todo <task description>");
-        System.out.println(line);
+    public String getInvalidTodoMessage() {
+        return "Missing description.\nUsage: todo <task description>";
     }
 
     /**
-     * Prints error message for incorrect deadline command usage
+     * Returns error message for incorrect deadline command usage
      */
-    public void showInvalidDeadline() {
-        System.out.println(line);
-        System.out.println("Incorrect format");
-        System.out.println("Usage: deadline <task description> /by <deadline>");
-        System.out.println("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
-        System.out.println(line);
+    public String getInvalidDeadlineMessage() {
+        StringBuilder response = new StringBuilder();
+        response.append("Incorrect format\n");
+        response.append("Usage: deadline <task description> /by <deadline>\n");
+        response.append("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format\n");
+        return response.toString();
     }
 
     /**
-     * Prints error message for incorrect event command usage
+     * Returns error message for incorrect event command usage
      */
-    public void showInvalidEvent() {
-        System.out.println(line);
-        System.out.println("Incorrect format");
-        System.out.println("Usage: event <task description> /from <start time> /to <end time>");
-        System.out.println("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format");
-        System.out.println(line);
+    public String getInvalidEventMessage() {
+        StringBuilder response = new StringBuilder();
+        response.append("Incorrect format\n");
+        response.append("Usage: event <task description> /from <start time> /to <end time>\n");
+        response.append("Time format: 'yyyy-MM-dd HHmm' , HHmm is the time in 24H format\n");
+        return response.toString();
     }
 
     /**
-     * Prints message when task is deleted from TaskList
+     * Returns message when task is deleted from TaskList
      *
-     * @param tt Task object removed from TaskList
+     * @param tt       Task object removed from TaskList
      * @param numTasks number of tasks remaining in TaskList
      */
-    public void showTaskDeleted(Task tt, int numTasks) {
-        System.out.println(line);
-        System.out.println("The following task has been removed:");
-        System.out.println(tt.toString());
-        System.out.println("Remaining tasks stored: " + numTasks);
-        System.out.println(line);
+    public String getTaskDeletedMessage(Task tt, int numTasks) {
+        StringBuilder response = new StringBuilder();
+        response.append("The following task has been removed:\n");
+        response.append(tt.toString());
+        response.append("\nRemaining tasks stored: ").append(numTasks);
+        return response.toString();
     }
 
     /**
-     * Prints tasks found for the term searched for using 'find'
-     * If no tasks are found, print message indicating no match
+     * Returns tasks found for the term searched for using 'find'
+     * If no tasks are found, returns message indicating no match
      *
      * @param foundTasks List containing matching tasks containing the search term
-     * @param term String of search term
+     * @param term       String of search term
      */
-    public void showFoundTasks(List<Task> foundTasks, String term) {
-        System.out.println(line);
+    public String getFoundTasksMessage(List<Task> foundTasks, String term) {
+        StringBuilder response = new StringBuilder();
 
         if (foundTasks.isEmpty()) {
-            System.out.println("No matching tasks found for '" + term + "'");
+            return "No matching tasks found for '" + term + "'";
         } else {
-            System.out.println("Matching tasks found for '" + term + "':");
+            response.append("Matching tasks found for '").append(term).append("' :\n");
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println(foundTasks.get(i).toString());
+                response.append(foundTasks.get(i).toString()).append("\n");
             }
         }
 
-        System.out.println(line);
+        return response.toString();
     }
 
     /**
-     * Prints message when find command is in invalid format
+     * Returns message when find command is in invalid format
      */
-    public void showInvalidFind() {
-        System.out.println(line);
-        System.out.println("Invalid format");
-        System.out.println("Usage: find <search term>");
-        System.out.println(line);
+    public String getInvalidFindMessage() {
+        return "Invalid format\nUsage: find <search term>";
     }
 
 }
