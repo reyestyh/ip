@@ -14,6 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Class to form dialog boxes in chatbot GUI
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -47,6 +50,7 @@ public class DialogBox extends HBox {
 
     /**
      * Returns a DialogBox containing the user's inputted text and user image
+     *
      * @param text String of user input
      * @param img Image of user
      * @return DialogBox of user
@@ -57,6 +61,7 @@ public class DialogBox extends HBox {
 
     /**
      * Returns a DialogBox containing the Advisor's response and image
+     *
      * @param text String of advisor response
      * @param img Image of Advisor
      * @return DialogBox of Advisor

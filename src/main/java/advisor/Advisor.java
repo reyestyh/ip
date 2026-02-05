@@ -177,12 +177,24 @@ public class Advisor {
 
     }
 
+    /**
+     * Updates taskList with data from data file. Returns startup message
+     *
+     * @return String the startup message
+     */
     public String setup() {
         this.taskList.populateList();
         return this.userInterface.getStartupMessage();
     }
 
 
+    /**
+     * Takes in user input and executes command from user.
+     * Returns String response from Advisor
+     *
+     * @param userInput String input from user
+     * @return String response from Advisor
+     */
     public String getResponse(String userInput) {
 
         String command = this.userInterface.readCommand(userInput);

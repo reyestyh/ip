@@ -20,10 +20,19 @@ public class Ui {
     private final String line = "____________________________________________________________";
     private Scanner input;
 
+    /**
+     * Constructs Ui instance for methods to get Advisor response messages
+     */
     public Ui() {
         this.input = new Scanner(System.in);
     }
 
+    /**
+     * Returns the user inputted command from raw input
+     *
+     * @param input String user's raw input
+     * @return String the command from user
+     */
     public String readCommand(String input) {
         return input.split(" ")[0];
     }

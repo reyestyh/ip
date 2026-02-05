@@ -52,12 +52,15 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Performs exit functions for Advisor (updating data file) before program is ended.
+     * Performs exit functions for Advisor (updating data file, exit message) before program is ended.
      */
     public void onWindowClose() {
         handleExit();
     }
 
+    /**
+     * Calls 'bye' command to update data file for Advisorf
+     */
     private void handleExit() {
         String input = "bye";
         String response = advisor.getResponse(input);
@@ -67,10 +70,17 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    public void onStartup(){
+    /**
+     * Performs startup functions for advisor
+     * (Welcome message, load data file)
+     */
+    public void onStartup() {
         handleStartup();
     }
 
+    /**
+     * Starts initial advisor setup and creates initial Advisor dialog box
+     */
     private void handleStartup() {
         String startupMessage = advisor.setup();
         dialogContainer.getChildren().addAll(
