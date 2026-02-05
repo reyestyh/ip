@@ -19,7 +19,6 @@ public class Advisor {
         this.userInterface = new Ui();
         this.storage = new Storage();
         this.taskList = new TaskList(this.storage);
-        this.setup();
     }
 
     /**
