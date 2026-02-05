@@ -41,6 +41,8 @@ public class Main extends Application {
                 });
             });
 
+            fxmlLoader.<MainWindow>getController().onStartup();
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

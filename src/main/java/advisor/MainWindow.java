@@ -65,6 +65,18 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getAdvisorDialog(response, advisorImage)
         );
-
     }
+
+    public void onStartup(){
+        handleStartup();
+    }
+
+    private void handleStartup() {
+        String startupMessage = advisor.setup();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAdvisorDialog(startupMessage, advisorImage)
+        );
+    }
+
+
 }

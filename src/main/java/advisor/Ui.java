@@ -33,9 +33,7 @@ public class Ui {
      */
     public String getStartupMessage() {
         StringBuilder response = new StringBuilder();
-        response.append(logo).append("\n");
-        response.append(line).append("\n");
-        response.append("Hello. I am ").append(name);
+        response.append("Hello. I am ").append(name).append("\n");
         response.append("What do you want me to do?");
         return response.toString();
     }

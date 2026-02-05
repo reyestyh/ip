@@ -178,9 +178,9 @@ public class Advisor {
 
     }
 
-    public void setup() {
+    public String setup() {
         this.taskList.populateList();
-        this.userInterface.getStartupMessage();
+        return this.userInterface.getStartupMessage();
     }
 
 
