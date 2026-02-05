@@ -44,10 +44,22 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox containing the user's inputted text and user image
+     * @param text String of user input
+     * @param img Image of user
+     * @return DialogBox of user
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox containing the Advisor's response and image
+     * @param text String of advisor response
+     * @param img Image of Advisor
+     * @return DialogBox of Advisor
+     */
     public static DialogBox getAdvisorDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

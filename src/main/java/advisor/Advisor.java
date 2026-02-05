@@ -1,6 +1,7 @@
 package advisor;
 
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  * Runs the main Advisor chatbot to manage a user's tasks
@@ -18,6 +19,7 @@ public class Advisor {
         this.userInterface = new Ui();
         this.storage = new Storage();
         this.taskList = new TaskList(this.storage);
+        this.setup();
     }
 
     /**
@@ -28,7 +30,6 @@ public class Advisor {
      */
     public void updateToDoList(Task toAdd) {
         this.taskList.addTask(toAdd);
-        this.userInterface.showNewTask(toAdd, this.taskList.getNumTasks());
     }
 
     /**
@@ -173,6 +174,190 @@ public class Advisor {
                 this.userInterface.showInvalidCommand();
 
             }
+        }
+
+    }
+
+    public void setup() {
+        this.taskList.populateList();
+        this.userInterface.showStart();
+    }
+
+
+    public String getResponse(String userInput) {
+
+        boolean isSessionFinished = false;
+
+        StringBuilder advisorResponse = new StringBuilder();
+
+        String command = this.userInterface.readCommand(userInput);
+
+        switch (command) {
+        case "bye":
+            boolean isSuccessfulUpdate = this.taskList.updateStorage();
+
+            String successMessage = isSuccessfulUpdate ? "Data file successfully updated."
+                    : "An error occurred while updating the data file";
+
+            advisorResponse.append(successMessage);
+            advisorResponse.append("\n");
+            advisorResponse.append("Goodbye!");
+            return advisorResponse.toString();
+
+
+        case "list":
+            advisorResponse.append("Current tasks:\n");
+            advisorResponse.append(this.taskList.getTasksString());
+            return advisorResponse.toString();
+
+
+        case "mark":
+            int markIdx = 0;
+
+            try {
+                markIdx = InputParser.markParser(userInput);
+            } catch (AdvisorException e) {
+                advisorResponse.append("Not a number.\n");
+                advisorResponse.append("Usage: ").append(command).append(" <task number>");
+                return advisorResponse.toString();
+
+            }
+
+            markIdx -= 1;
+
+            try {
+                this.taskList.completeTask(markIdx);
+                Task fin = this.taskList.getTask(markIdx);
+                advisorResponse.append("The following task is now marked as done:\n").append(fin);
+            } catch (IndexOutOfBoundsException e) {
+                advisorResponse.append("Out of range.\nType a number within the range of current tasks");
+            }
+            return advisorResponse.toString();
+
+
+        case "unmark":
+            int unmarkIdx = 0;
+
+            try {
+                unmarkIdx = InputParser.unmarkParser(userInput);
+            } catch (AdvisorException e) {
+                advisorResponse.append("Not a number.\n");
+                advisorResponse.append("Usage: ").append(command).append(" <task number>");
+                return advisorResponse.toString();
+
+            }
+
+            unmarkIdx -= 1;
+
+            try {
+                this.taskList.undoTask(unmarkIdx);
+                Task undone = this.taskList.getTask(unmarkIdx);
+                advisorResponse.append("The following task is now marked as undone:\n").append(undone.toString());
+            } catch (IndexOutOfBoundsException e) {
+                advisorResponse.append("Out of range.\nType a number within the range of current tasks");
+            }
+
+            return advisorResponse.toString();
+
+
+        case "todo":
+            String desc = "";
+            try {
+                desc = InputParser.todoParser(userInput);
+            } catch (AdvisorException e) {
+//                this.userInterface.showInvalidTodo();
+                advisorResponse.append("Missing description.\nUsage: todo <task description>");
+                return advisorResponse.toString();
+            }
+
+            Task toAdd = new ToDoTask(desc);
+            updateToDoList(toAdd);
+            advisorResponse.append("The following task has been added:\n    ").append(toAdd).append("\nThere are now ").append(this.taskList.getNumTasks()).append(" tasks in the list.");
+
+            return advisorResponse.toString();
+
+        case "deadline":
+            String[] deadlineData = InputParser.deadlineParser(userInput);
+            if (deadlineData == null) {
+                advisorResponse.append("Invalid format.");
+            } else {
+                try {
+                    toAdd = new DeadlineTask(deadlineData[0], deadlineData[1]);
+                    updateToDoList(toAdd);
+                    advisorResponse.append("The following task has been added:\n    ").append(toAdd).append("\nThere are now ").append(this.taskList.getNumTasks()).append(" tasks in the list.");
+                } catch (DateTimeParseException e) {
+                    advisorResponse.append("Invalid format.");
+                }
+            }
+            return advisorResponse.toString();
+
+
+        case "event":
+            String[] taskData = InputParser.eventParser(userInput);
+            if (taskData == null) {
+                advisorResponse.append("Invalid format.");
+            } else {
+                try {
+                    toAdd = new EventTask(taskData[0], taskData[1], taskData[2]);
+                    updateToDoList(toAdd);
+                    advisorResponse.append("The following task has been added:\n    ").append(toAdd).append("\nThere are now ").append(this.taskList.getNumTasks()).append(" tasks in the list.");
+                } catch (DateTimeParseException e) {
+                    advisorResponse.append("Invalid format.");
+                }
+            }
+            return advisorResponse.toString();
+
+
+        case "delete":
+            int deleteIdx = 0;
+            try {
+                deleteIdx = InputParser.deleteParser(userInput);
+            } catch (AdvisorException e) {
+                advisorResponse.append("Not a number.\n");
+                advisorResponse.append("Usage: ").append(command).append(" <task number>");
+                return advisorResponse.toString();
+
+            }
+            deleteIdx -= 1;
+            try {
+                Task removed = taskList.deleteTask(deleteIdx);
+                advisorResponse.append("The following task has been removed:\n")
+                        .append(removed).append("\nRemaining tasks stored: ")
+                        .append(this.taskList.getNumTasks());
+
+            } catch (IndexOutOfBoundsException e) {
+                advisorResponse.append("Out of range.\nType a number within the range of current tasks");
+            }
+            return advisorResponse.toString();
+
+
+        case "find":
+
+            String term = "";
+            try {
+                term = InputParser.findParser(userInput);
+            } catch (AdvisorException e) {
+                advisorResponse.append("Invalid format.\nUsage: find <search term>");
+                return advisorResponse.toString();
+
+            }
+
+            List<Task> matches = this.taskList.findTasks(term);
+            if (matches.isEmpty()) {
+                advisorResponse.append("No matching tasks found for '").append(term).append("'");
+            } else {
+                advisorResponse.append("Matching tasks found for '").append(term).append("':\n");
+                for (int i = 0; i < matches.size(); i++) {
+                    advisorResponse.append(matches.get(i).toString());
+                }
+            }
+            return advisorResponse.toString();
+
+
+        default:
+            advisorResponse.append("Invalid command. Try again");
+            return advisorResponse.toString();
+
         }
 
     }

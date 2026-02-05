@@ -1,6 +1,7 @@
 package advisor;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,9 +26,26 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setAdvisor(advisor);
+
+            // Update data file when window is closed with 'X'
+            stage.setOnCloseRequest(event -> {
+                event.consume();
+                fxmlLoader.<MainWindow>getController().onWindowClose();
+                javafx.application.Platform.runLater(() -> {
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException ignored) {
+                        // ignore
+                    }
+                    stage.close();
+                });
+            });
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }

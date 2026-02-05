@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -48,5 +49,22 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAdvisorDialog(response, advisorImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Performs exit functions for Advisor (updating data file) before program is ended.
+     */
+    public void onWindowClose() {
+        handleExit();
+    }
+
+    private void handleExit() {
+        String input = "bye";
+        String response = advisor.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getAdvisorDialog(response, advisorImage)
+        );
+
     }
 }
