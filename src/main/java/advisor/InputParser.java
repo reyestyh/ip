@@ -15,6 +15,7 @@ public class InputParser {
      */
     public static Integer deleteParser(String input) throws AdvisorException {
         try {
+            assert(!input.substring(7).isEmpty());
             return Integer.parseInt(input.substring(7));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new AdvisorException("An error occurred when parsing the input for 'delete'");
@@ -30,6 +31,7 @@ public class InputParser {
      */
     public static Integer markParser(String input) throws AdvisorException {
         try {
+            assert(!input.substring(5).isEmpty());
             return Integer.parseInt(input.substring(5));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new AdvisorException("An error occurred when parsing the input for 'mark'");
@@ -45,6 +47,7 @@ public class InputParser {
      */
     public static Integer unmarkParser(String input) throws AdvisorException {
         try {
+            assert(!input.substring(7).isEmpty());
             return Integer.parseInt(input.substring(7));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new AdvisorException("An error occurred when parsing the input for 'unmark'");
@@ -59,7 +62,9 @@ public class InputParser {
      */
     public static String todoParser(String input) throws AdvisorException {
         try {
-            return input.substring(5);
+            String desc = input.substring(5);
+            assert(!desc.isEmpty());
+            return desc;
         } catch (StringIndexOutOfBoundsException e) {
             throw new AdvisorException("No description passed");
         }
@@ -81,19 +86,29 @@ public class InputParser {
         } catch (StringIndexOutOfBoundsException e) {
             return null;
         }
+        assert(!temp.isEmpty());
+
         String[] deadlineTaskInfo = temp.split("/by");
+
         if (deadlineTaskInfo.length != 2) {
             return null;
         }
+        assert(deadlineTaskInfo.length == 2);
+
         try {
             deadlineTaskInfo[0] = deadlineTaskInfo[0].strip();
             deadlineTaskInfo[1] = deadlineTaskInfo[1].strip();
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
+
         if (deadlineTaskInfo[0].isEmpty() || deadlineTaskInfo[1].isEmpty()) {
             return null;
         }
+
+        assert(!deadlineTaskInfo[0].isEmpty());
+        assert(!deadlineTaskInfo[1].isEmpty());
+
         return deadlineTaskInfo;
     }
 
@@ -115,6 +130,8 @@ public class InputParser {
         } catch (StringIndexOutOfBoundsException e) {
             return null;
         }
+        assert(!temp[0].isEmpty());
+
         String taskDesc = temp[0];
         if (temp.length != 2) {
             return null;
@@ -126,6 +143,9 @@ public class InputParser {
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
+        assert(!times[0].isEmpty());
+        assert(!times[1].isEmpty());
+
         if (times.length != 2) {
             return null;
         }
@@ -149,7 +169,9 @@ public class InputParser {
      */
     public static String findParser(String input) throws AdvisorException {
         try {
-            return input.substring(5);
+            String searchTerm = input.substring(5);
+            assert(!searchTerm.isEmpty());
+            return searchTerm;
         } catch (StringIndexOutOfBoundsException e) {
             throw new AdvisorException("No search term found");
         }

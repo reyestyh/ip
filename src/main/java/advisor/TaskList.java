@@ -147,7 +147,7 @@ public class TaskList {
      */
     public String getTasksString() {
         if (this.tasks.isEmpty()) {
-            return "";
+            return "No tasks found.";
         }
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < tasks.size() - 1; i++) {
