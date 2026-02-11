@@ -73,6 +73,8 @@ public class Storage {
             return false;
         }
 
+        assert(writer != null);
+
         for (int i = 0; i < tasks.size(); i++) {
             Task toAdd = tasks.get(i);
             StringBuilder taskParameters = new StringBuilder();
