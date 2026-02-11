@@ -255,6 +255,7 @@ public class Advisor {
             } catch (AdvisorException e) {
                 return this.userInterface.getInvalidTodoMessage();
             }
+            assert(!desc.isEmpty());
 
             Task toAdd = new ToDoTask(desc);
             updateToDoList(toAdd);
@@ -315,8 +316,8 @@ public class Advisor {
                 term = InputParser.findParser(userInput);
             } catch (AdvisorException e) {
                 return this.userInterface.getInvalidFindMessage();
-
             }
+            assert(!term.isEmpty());
 
             List<Task> matches = this.taskList.findTasks(term);
 
