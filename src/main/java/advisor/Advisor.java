@@ -31,151 +31,6 @@ public class Advisor {
         this.taskList.addTask(toAdd);
     }
 
-    /**
-     * Main program of advisor chatbot
-     */
-    public void run() {
-        this.taskList.populateList();
-        this.userInterface.getStartupMessage();
-
-        boolean isSessionFinished = false;
-
-        while (!isSessionFinished) {
-            String input = this.userInterface.readInput();
-            String command = this.userInterface.readCommand(input);
-
-            switch (command) {
-            case "bye":
-                boolean updateSuccess = this.taskList.updateStorage();
-
-                this.userInterface.getUpdateFileMessage(updateSuccess);
-                this.userInterface.getExitMessage();
-                isSessionFinished = true;
-                return;
-
-            case "list":
-                this.userInterface.getCurrentTasks(this.taskList);
-                break;
-
-            case "mark":
-                int markIdx = 0;
-
-                try {
-                    markIdx = InputParser.markParser(input);
-                } catch (AdvisorException e) {
-                    this.userInterface.getNotNumberMessage("mark");
-                    break;
-                }
-
-                markIdx -= 1;
-
-                try {
-                    this.taskList.completeTask(markIdx);
-                    Task fin = this.taskList.getTask(markIdx);
-                    this.userInterface.getMarkedMessage(fin);
-                } catch (IndexOutOfBoundsException e) {
-                    this.userInterface.getOutOfRangeMessage();
-                }
-                break;
-
-            case "unmark":
-                int unmarkIdx = 0;
-
-                try {
-                    unmarkIdx = InputParser.unmarkParser(input);
-                } catch (AdvisorException e) {
-                    this.userInterface.getNotNumberMessage("unmark");
-                    break;
-                }
-
-                unmarkIdx -= 1;
-
-                try {
-                    this.taskList.undoTask(unmarkIdx);
-                    Task undone = this.taskList.getTask(unmarkIdx);
-                    this.userInterface.getUnmarkedMessage(undone);
-                } catch (IndexOutOfBoundsException e) {
-                    this.userInterface.getOutOfRangeMessage();
-                }
-
-                break;
-
-            case "todo":
-                String desc = "";
-                try {
-                    desc = InputParser.todoParser(input);
-                } catch (AdvisorException e) {
-                    this.userInterface.getInvalidTodoMessage();
-                    break;
-                }
-
-                updateToDoList(new ToDoTask(desc));
-
-                break;
-
-            case "deadline":
-                String[] deadlineData = InputParser.deadlineParser(input);
-                if (deadlineData == null) {
-                    this.userInterface.getInvalidDeadlineMessage();
-                } else {
-                    try {
-                        updateToDoList(new DeadlineTask(deadlineData[0], deadlineData[1]));
-                    } catch (DateTimeParseException e) {
-                        this.userInterface.getInvalidDeadlineMessage();
-                    }
-                }
-                break;
-
-            case "event":
-                String[] taskData = InputParser.eventParser(input);
-                if (taskData == null) {
-                    this.userInterface.getInvalidEventMessage();
-                } else {
-                    try {
-                        updateToDoList(new EventTask(taskData[0], taskData[1], taskData[2]));
-                    } catch (DateTimeParseException e) {
-                        this.userInterface.getInvalidEventMessage();
-                    }
-                }
-                break;
-
-            case "delete":
-                int deleteIdx = 0;
-                try {
-                    deleteIdx = InputParser.deleteParser(input);
-                } catch (AdvisorException e) {
-                    this.userInterface.getNotNumberMessage("delete");
-                    break;
-                }
-                deleteIdx -= 1;
-                try {
-                    Task removed = taskList.deleteTask(deleteIdx);
-                    this.userInterface.getTaskDeletedMessage(removed, taskList.getNumTasks());
-                } catch (IndexOutOfBoundsException e) {
-                    this.userInterface.getOutOfRangeMessage();
-                }
-
-                break;
-
-            case "find":
-
-                String term = "";
-                try {
-                    term = InputParser.findParser(input);
-                } catch (AdvisorException e) {
-                    this.userInterface.getInvalidFindMessage();
-                    break;
-                }
-
-                this.userInterface.getFoundTasksMessage(this.taskList.findTasks(term), term);
-                break;
-            default:
-                this.userInterface.getInvalidCommandMessage();
-
-            }
-        }
-
-    }
 
     /**
      * Updates taskList with data from data file. Returns startup message
@@ -198,6 +53,7 @@ public class Advisor {
     public String getResponse(String userInput) {
 
         String command = this.userInterface.readCommand(userInput);
+        int descriptionIndex = 0;
 
         switch (command) {
         case "bye":
@@ -218,6 +74,7 @@ public class Advisor {
                 return this.userInterface.getNotNumberMessage("mark");
             }
 
+            // Converts index input from user to 0-based for code
             markIdx -= 1;
 
             try {
@@ -238,6 +95,7 @@ public class Advisor {
 
             }
 
+            // Converts index input from user to 0-based for code
             unmarkIdx -= 1;
 
             try {
@@ -257,40 +115,48 @@ public class Advisor {
             }
             assert(!desc.isEmpty());
 
-            Task toAdd = new ToDoTask(desc);
-            updateToDoList(toAdd);
-            return this.userInterface.getNewTaskMessage(toAdd, this.taskList.getNumTasks());
+            Task todoToAdd = new ToDoTask(desc);
+            updateToDoList(todoToAdd);
+            return this.userInterface.getNewTaskMessage(todoToAdd, this.taskList.getNumTasks());
 
 
         case "deadline":
+            int deadlineIndex = 1;
+
             String[] deadlineData = InputParser.deadlineParser(userInput);
             if (deadlineData == null) {
                 return this.userInterface.getInvalidDeadlineMessage();
-
-            } else {
-                try {
-                    toAdd = new DeadlineTask(deadlineData[0], deadlineData[1]);
-                    updateToDoList(toAdd);
-                    return this.userInterface.getNewTaskMessage(toAdd, this.taskList.getNumTasks());
-
-                } catch (DateTimeParseException e) {
-                    return this.userInterface.getInvalidDeadlineMessage();
-                }
             }
 
+            Task deadlineToAdd = new DeadlineTask(deadlineData[descriptionIndex], deadlineData[deadlineIndex]);
+            try {
+                updateToDoList(deadlineToAdd);
+                return this.userInterface.getNewTaskMessage(deadlineToAdd, this.taskList.getNumTasks());
+
+            } catch (DateTimeParseException e) {
+                return this.userInterface.getInvalidDeadlineMessage();
+            }
+
+
         case "event":
+            int startTimeIndex = 1;
+            int endTimeIndex = 2;
+
             String[] taskData = InputParser.eventParser(userInput);
             if (taskData == null) {
                 return this.userInterface.getInvalidEventMessage();
-            } else {
-                try {
-                    toAdd = new EventTask(taskData[0], taskData[1], taskData[2]);
-                    updateToDoList(toAdd);
-                    return this.userInterface.getNewTaskMessage(toAdd, this.taskList.getNumTasks());
-                } catch (DateTimeParseException e) {
-                    return this.userInterface.getInvalidEventMessage();
-                }
             }
+
+            Task eventToAdd = new EventTask(taskData[descriptionIndex],
+                                            taskData[startTimeIndex],
+                                            taskData[endTimeIndex]);
+            try {
+                updateToDoList(eventToAdd);
+                return this.userInterface.getNewTaskMessage(eventToAdd, this.taskList.getNumTasks());
+            } catch (DateTimeParseException e) {
+                return this.userInterface.getInvalidEventMessage();
+            }
+
 
         case "delete":
             int deleteIdx = 0;
@@ -300,6 +166,7 @@ public class Advisor {
                 return this.userInterface.getNotNumberMessage("delete");
             }
 
+            // Converts index input from user to 0-based for code
             deleteIdx -= 1;
 
             try {
@@ -328,10 +195,6 @@ public class Advisor {
             return this.userInterface.getInvalidCommandMessage();
         }
 
-    }
-
-    public static void main(String[] args) {
-        new Advisor().run();
     }
 
 

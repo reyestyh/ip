@@ -12,7 +12,9 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String dataFileName = "./AdvisorTaskData.txt";
+    private static final String SPACER = ";;;";
+    private static final String DATA_FILE_NAME = "./AdvisorTaskData.txt";
+
 
     /**
      * Reads from DATA_FILE_NAME and returns tasks stored.
@@ -22,13 +24,13 @@ public class Storage {
      */
     public ArrayList<String[]> readDataFile() {
         ArrayList<String[]> tasksStrsList = new ArrayList<>();
-        File dataFile = new File(dataFileName);
+        File dataFile = new File(DATA_FILE_NAME);
         try {
             Scanner reader = new Scanner(dataFile);
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
                 if (!data.isEmpty()) {
-                    String[] temp = data.split(";;;");
+                    String[] temp = data.split(SPACER);
                     if (temp != null) {
                         tasksStrsList.add(temp);
                     }
@@ -38,8 +40,8 @@ public class Storage {
             reader.close();
             return tasksStrsList;
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File " + dataFileName + " not found.");
-            System.out.println("Creating " + dataFileName + " in the current directory: "
+            System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
+            System.out.println("Creating " + DATA_FILE_NAME + " in the current directory: "
                     + System.getProperty("user.dir"));
             try {
                 dataFile.createNewFile();
@@ -61,9 +63,9 @@ public class Storage {
     public boolean updateDataFile(ArrayList<Task> tasks) {
         FileWriter writer = null;
         try {
-            writer = new FileWriter(dataFileName);
+            writer = new FileWriter(DATA_FILE_NAME);
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File " + dataFileName + " not found.");
+            System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
             return false;
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -81,31 +83,41 @@ public class Storage {
             switch (taskType) {
             case "T":
                 taskParameters.append(taskType);
-                taskParameters.append(";;;");
+                taskParameters.append(SPACER);
+
                 taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-                taskParameters.append(";;;");
+                taskParameters.append(SPACER);
+
                 taskParameters.append(toAdd.getTaskName());
                 break;
 
             case "D":
                 taskParameters.append(taskType);
-                taskParameters.append(";;;");
+                taskParameters.append(SPACER);
+
                 taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-                taskParameters.append(";;;");
+                taskParameters.append(SPACER);
+
                 taskParameters.append(toAdd.getTaskName());
-                taskParameters.append(";;;");
+                taskParameters.append(SPACER);
+
                 taskParameters.append(((DeadlineTask) toAdd).getDeadlineInput());
                 break;
 
             case "E":
+                int startTimeIndex = 0;
+                int endTimeIndex = 1;
                 taskParameters.append(taskType);
-                taskParameters.append(";;;");
+                taskParameters.append(SPACER);
+
                 taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-                taskParameters.append(";;;");
+                taskParameters.append(SPACER);
+
                 taskParameters.append(toAdd.getTaskName());
-                taskParameters.append(";;;");
+                taskParameters.append(SPACER);
+
                 String[] times = ((EventTask) toAdd).getTimesInput();
-                taskParameters.append(times[0]).append(";;;").append(times[1]);
+                taskParameters.append(times[startTimeIndex]).append(SPACER).append(times[endTimeIndex]);
                 break;
 
             default:

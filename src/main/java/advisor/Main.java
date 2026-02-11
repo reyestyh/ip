@@ -16,16 +16,21 @@ public class Main extends Application {
 
     private Advisor advisor = new Advisor();
 
+
     @Override
     public void start(Stage stage) {
+        int minimumHeight = 220;
+        int minimumWidth = 417;
+        int closeDelayTime = 1;
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setTitle("Advisor");
             stage.setScene(scene);
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(minimumHeight);
+            stage.setMinWidth(minimumWidth);
             fxmlLoader.<MainWindow>getController().setAdvisor(advisor);
 
             // Update data file when window is closed with 'X'
@@ -34,9 +39,10 @@ public class Main extends Application {
                 fxmlLoader.<MainWindow>getController().onWindowClose();
                 javafx.application.Platform.runLater(() -> {
                     try {
-                        TimeUnit.SECONDS.sleep(1);
+                        TimeUnit.SECONDS.sleep(closeDelayTime);
                     } catch (InterruptedException ignored) {
-                        // ignore
+                        // ignored as interrupting the closing delay before it ends
+                        // does not impact updating of the data file
                     }
                     stage.close();
                 });
