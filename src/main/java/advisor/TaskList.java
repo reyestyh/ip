@@ -40,16 +40,26 @@ public class TaskList {
      * @return a new Task object
      */
     private Task createTask(String[] data) {
-        String taskType = data[0];
-        boolean isDone = data[1].equals("1");
+        String completeIndicator = "1";
+        int taskTypeIndex = 0;
+        int completionIndex = 1;
+        int descriptionIndex = 2;
+
+        int deadlineIndex = 3;
+
+        int startTimeIndex = 3;
+        int endTimeIndex = 4;
+
+        String taskType = data[taskTypeIndex];
+        boolean isDone = data[completionIndex].equals(completeIndicator);
         try {
             switch (taskType) {
             case "T":
-                return new ToDoTask(data[2], isDone);
+                return new ToDoTask(data[descriptionIndex], isDone);
             case "D":
-                return new DeadlineTask(data[2], data[3], isDone);
+                return new DeadlineTask(data[descriptionIndex], data[deadlineIndex], isDone);
             case "E":
-                return new EventTask(data[2], data[3], data[4], isDone);
+                return new EventTask(data[descriptionIndex], data[startTimeIndex], data[endTimeIndex], isDone);
             default:
                 System.out.println("Error: Invalid task type.");
                 break;
@@ -146,8 +156,9 @@ public class TaskList {
      * @return String of all tasks
      */
     public String getTasksString() {
+        String emptyListMsg = "No tasks found.";
         if (this.tasks.isEmpty()) {
-            return "";
+            return emptyListMsg;
         }
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < tasks.size() - 1; i++) {

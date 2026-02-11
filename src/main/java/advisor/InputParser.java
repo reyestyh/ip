@@ -14,8 +14,9 @@ public class InputParser {
      * @return integer of index of Task in taskList
      */
     public static Integer deleteParser(String input) throws AdvisorException {
+        int offsetFromDelete = 7;
         try {
-            return Integer.parseInt(input.substring(7));
+            return Integer.parseInt(input.substring(offsetFromDelete));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new AdvisorException("An error occurred when parsing the input for 'delete'");
         }
@@ -29,8 +30,9 @@ public class InputParser {
      * @return integer of index of Task in taskList
      */
     public static Integer markParser(String input) throws AdvisorException {
+        int offsetFromMark = 5;
         try {
-            return Integer.parseInt(input.substring(5));
+            return Integer.parseInt(input.substring(offsetFromMark));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new AdvisorException("An error occurred when parsing the input for 'mark'");
         }
@@ -44,8 +46,9 @@ public class InputParser {
      * @return integer of index of Task in taskList
      */
     public static Integer unmarkParser(String input) throws AdvisorException {
+        int offsetFromUnmark = 7;
         try {
-            return Integer.parseInt(input.substring(7));
+            return Integer.parseInt(input.substring(offsetFromUnmark));
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             throw new AdvisorException("An error occurred when parsing the input for 'unmark'");
         }
@@ -58,8 +61,9 @@ public class InputParser {
      * @return description of task
      */
     public static String todoParser(String input) throws AdvisorException {
+        int offsetFromTodo = 5;
         try {
-            return input.substring(5);
+            return input.substring(offsetFromTodo);
         } catch (StringIndexOutOfBoundsException e) {
             throw new AdvisorException("No description passed");
         }
@@ -75,23 +79,31 @@ public class InputParser {
      * @return String array of task data
      */
     public static String[] deadlineParser(String input) {
+        int offsetFromDeadline = 9;
+        int descriptionIndex = 0;
+        int deadlineIndex = 1;
+        int correctInfoArraySize = 2;
+
         String temp = "";
         try {
-            temp = input.substring(9);
+            temp = input.substring(offsetFromDeadline);
         } catch (StringIndexOutOfBoundsException e) {
             return null;
         }
+
         String[] deadlineTaskInfo = temp.split("/by");
-        if (deadlineTaskInfo.length != 2) {
+        if (deadlineTaskInfo.length != correctInfoArraySize) {
             return null;
         }
+
         try {
-            deadlineTaskInfo[0] = deadlineTaskInfo[0].strip();
-            deadlineTaskInfo[1] = deadlineTaskInfo[1].strip();
+            deadlineTaskInfo[descriptionIndex] = deadlineTaskInfo[descriptionIndex].strip();
+            deadlineTaskInfo[deadlineIndex] = deadlineTaskInfo[deadlineIndex].strip();
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
-        if (deadlineTaskInfo[0].isEmpty() || deadlineTaskInfo[1].isEmpty()) {
+
+        if (deadlineTaskInfo[descriptionIndex].isEmpty() || deadlineTaskInfo[deadlineIndex].isEmpty()) {
             return null;
         }
         return deadlineTaskInfo;
@@ -109,32 +121,43 @@ public class InputParser {
      * @return String array of task data
      */
     public static String[] eventParser(String input) {
+        int offsetFromEvent = 6;
+        int descriptionIndex = 0;
+
+        int timesStringIndex = 1;
+
+        int startTimeIndex = 0;
+        int endTimeIndex = 1;
+
+        int correctInfoArraySize = 2;
+
         String[] temp = null;
         try {
-            temp = input.substring(6).split(" /from ");
+            temp = input.substring(offsetFromEvent).split(" /from ");
         } catch (StringIndexOutOfBoundsException e) {
             return null;
         }
-        String taskDesc = temp[0];
-        if (temp.length != 2) {
+        String taskDesc = temp[descriptionIndex];
+        if (temp.length != correctInfoArraySize) {
             return null;
         }
 
         String[] times = null;
         try {
-            times = temp[1].split(" /to ");
+            // temp[1] is "<start time> /to <end time>"
+            times = temp[timesStringIndex].split(" /to ");
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
-        if (times.length != 2) {
+        if (times.length != correctInfoArraySize) {
             return null;
         }
 
-        String startTime = times[0];
+        String startTime = times[startTimeIndex];
         String endTime = "";
 
         try {
-            endTime = times[1];
+            endTime = times[endTimeIndex];
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
@@ -148,8 +171,10 @@ public class InputParser {
      * @return String search term
      */
     public static String findParser(String input) throws AdvisorException {
+        int offsetFromFind = 5;
+
         try {
-            return input.substring(5);
+            return input.substring(offsetFromFind);
         } catch (StringIndexOutOfBoundsException e) {
             throw new AdvisorException("No search term found");
         }
