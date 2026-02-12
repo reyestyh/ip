@@ -51,6 +51,15 @@ public class DeadlineTask extends Task {
         return this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
     }
 
+    /**
+     * Returns deadline of task
+     *
+     * @return LocalDateTime deadline of task
+     */
+    public LocalDateTime getDeadline() {
+        return this.deadline;
+    }
+
     @Override
     public String getTaskType() {
         return "D";
@@ -59,5 +68,25 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.getDeadlineString() + ")";
+    }
+
+    @Override
+    public int compareTo(Task toCompare) {
+        if (toCompare.equals(this)) {
+            return 0;
+        }
+
+        String cmpTaskType = toCompare.getTaskType();
+
+        if (!(toCompare instanceof DeadlineTask)) {
+            if (cmpTaskType.equals("T")) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+        return this.deadline.compareTo(((DeadlineTask)toCompare).getDeadline());
+
     }
 }

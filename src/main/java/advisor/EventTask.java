@@ -14,9 +14,9 @@ public class EventTask extends Task {
     /**
      * Creates EventTask object with a given description, start and end times for the event
      *
-     * @param taskName description of task
+     * @param taskName  description of task
      * @param startTime start time of event in format "yyyy-MM-dd HHmm"
-     * @param endTime end time of event in format "yyyy-MM-dd HHmm"
+     * @param endTime   end time of event in format "yyyy-MM-dd HHmm"
      */
     public EventTask(String taskName, String startTime, String endTime) {
         super(taskName);
@@ -27,10 +27,10 @@ public class EventTask extends Task {
     /**
      * Creates EventTask object with a given description, start and end times for the event, and task completion status
      *
-     * @param taskName description of task
+     * @param taskName  description of task
      * @param startTime start time of event in format "yyyy-MM-dd HHmm"
-     * @param endTime end time of event in format "yyyy-MM-dd HHmm"
-     * @param isDone completion status of task
+     * @param endTime   end time of event in format "yyyy-MM-dd HHmm"
+     * @param isDone    completion status of task
      */
     public EventTask(String taskName, String startTime, String endTime, boolean isDone) {
         super(taskName, isDone);
@@ -60,6 +60,24 @@ public class EventTask extends Task {
         return new String[]{start, end};
     }
 
+    /**
+     * Returns start time of Event task
+     *
+     * @return LocalDateTime start time of event
+     */
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    /**
+     * Returns end time of Event task
+     *
+     * @return LocalDateTime end time of event
+     */
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
     @Override
     public String getTaskType() {
         return "E";
@@ -69,6 +87,32 @@ public class EventTask extends Task {
     public String toString() {
         String[] dt = this.getTimesStr();
         return "[E]" + super.toString() + " (from: " + dt[0] + " || to: " + dt[1] + ")";
+    }
+
+    @Override
+    public int compareTo(Task toCompare) {
+        if (toCompare.equals(this)) {
+            return 0;
+        }
+
+        if (!(toCompare instanceof EventTask)) {
+            return 1;
+        }
+
+        int startsEarlier = this.startTime.compareTo(((EventTask) toCompare).getStartTime());
+        int endsEarlier = this.endTime.compareTo(((EventTask) toCompare).getEndTime());
+
+        if (startsEarlier != 0) {
+            return startsEarlier;
+        }
+
+        if (endsEarlier != 0) {
+            return endsEarlier;
+        }
+
+        return this.getTaskName().compareTo(toCompare.getTaskName());
+
+
     }
 
 }
