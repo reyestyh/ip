@@ -86,7 +86,7 @@ public class DeadlineTask extends Task {
             }
         }
 
-        return this.deadline.compareTo(((DeadlineTask)toCompare).getDeadline());
+        return this.deadline.compareTo(((DeadlineTask) toCompare).getDeadline());
 
     }
 }
