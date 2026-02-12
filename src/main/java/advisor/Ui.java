@@ -80,7 +80,10 @@ public class Ui {
      * @param taskList TaskList object storing tasks in current session
      */
     public String getCurrentTasks(TaskList taskList) {
-        return taskList.getTasksString();
+        StringBuilder response = new StringBuilder();
+        response.append("Current tasks:\n");
+        response.append(taskList.getTasksString());
+        return response.toString();
     }
 
     /**
