@@ -64,6 +64,13 @@ public class Ui {
         return input.nextLine().strip();
     }
 
+    public String getSortedTasks(TaskList taskList) {
+        StringBuilder response = new StringBuilder();
+        response.append("Tasks sorted. \n");
+        response.append(taskList.getTasksString());
+        return response.toString();
+    }
+
     /**
      * Returns success/failure message for updating data file AdvisorTaskData.txt
      *

@@ -65,6 +65,10 @@ public class Advisor {
         case "list":
             return this.userInterface.getCurrentTasks(this.taskList);
 
+        case "sort":
+            this.taskList.sortTasks();
+            return this.userInterface.getSortedTasks(this.taskList);
+
         case "mark":
             int markIdx = 0;
 

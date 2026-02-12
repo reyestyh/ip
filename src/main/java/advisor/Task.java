@@ -3,7 +3,7 @@ package advisor;
 /**
  * Base Task class containing task description and completion status
  */
-public class Task {
+public class Task implements Comparable<Task> {
 
     protected String taskName;
     protected boolean isFinished;
@@ -81,4 +81,8 @@ public class Task {
         return "[" + this.getStatusAsString() + "] " + this.taskName;
     }
 
+    @Override
+    public int compareTo(Task o) {
+        return 0;
+    }
 }

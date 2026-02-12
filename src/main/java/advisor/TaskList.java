@@ -2,6 +2,7 @@ package advisor;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -148,6 +149,20 @@ public class TaskList {
      */
     public boolean updateStorage() {
         return storage.updateDataFile(this.tasks);
+    }
+
+    /**
+     * Sorts the current tasks in the TaskList
+     */
+    public void sortTasks() {
+
+        class TaskComparator implements Comparator<Task> {
+            public int compare(Task o1, Task o2) {
+                return o1.compareTo(o2);
+            }
+        }
+
+        this.tasks.sort(new TaskComparator());
     }
 
     /**

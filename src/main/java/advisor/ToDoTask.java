@@ -35,4 +35,17 @@ public class ToDoTask extends Task {
     }
 
 
+    @Override
+    public int compareTo(Task toCompare) {
+        if (toCompare.equals(this)) {
+            return 0;
+        }
+
+        if (!(toCompare instanceof ToDoTask)) {
+            return -1;
+        }
+
+        return this.getTaskName().compareTo(toCompare.getTaskName());
+
+    }
 }
