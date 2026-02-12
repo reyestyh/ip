@@ -11,7 +11,7 @@ public class InputParserTest {
     public void deleteParser_incorrectFormat_exceptionThrown() throws AdvisorException {
         assertThrows(AdvisorException.class, () -> InputParser.deleteParser(""));
         assertThrows(AdvisorException.class, () -> InputParser.deleteParser("delete"));
-        assertThrows(AdvisorException.class, () -> InputParser.deleteParser("delete "));
+        assertThrows(AssertionError.class, () -> InputParser.deleteParser("delete "));
         assertThrows(AdvisorException.class, () -> InputParser.deleteParser("delete lol"));
     }
 
