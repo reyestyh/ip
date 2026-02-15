@@ -25,6 +25,10 @@ public class Ui {
      * @return String the command from user
      */
     public String readCommand(String input) {
+        // AI noticed an error case where a user may type only spaces
+        if (input.isBlank()) {
+            return "";
+        }
         return input.split(" ")[0];
     }
 
