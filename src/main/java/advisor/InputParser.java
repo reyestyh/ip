@@ -157,12 +157,10 @@ public class InputParser {
         }
 
         String[] times = null;
-        try {
-            // temp[1] is "<start time> /to <end time>"
-            times = temp[timesStringIndex].split(" /to ");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
+
+        // temp[1] is "<start time> /to <end time>"
+        times = temp[timesStringIndex].split(" /to ");
+
 
         if (times.length != correctInfoArraySize) {
             return null;
@@ -171,13 +169,8 @@ public class InputParser {
         assert(!times[endTimeIndex].isEmpty());
 
         String startTime = times[startTimeIndex];
-        String endTime = "";
+        String endTime = times[endTimeIndex];
 
-        try {
-            endTime = times[endTimeIndex];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
         return new String[]{taskDesc, startTime, endTime};
     }
 
