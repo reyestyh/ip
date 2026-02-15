@@ -79,7 +79,7 @@ public class InputParser {
      * @param input user input from deadline command
      * @return String array of task data
      */
-    public static String[] deadlineParser(String input) {
+    public static String[] deadlineParser(String input) throws AdvisorException {
         int offsetFromDeadline = 9;
         int descriptionIndex = 0;
         int deadlineIndex = 1;
@@ -89,24 +89,24 @@ public class InputParser {
         try {
             temp = input.substring(offsetFromDeadline);
         } catch (StringIndexOutOfBoundsException e) {
-            return null;
+            throw new AdvisorException("Invalid format");
         }
 
 
         String[] deadlineTaskInfo = temp.split("/by");
         if (deadlineTaskInfo.length != correctInfoArraySize) {
-            return null;
+            throw new AdvisorException("Invalid format");
         }
 
         try {
             deadlineTaskInfo[descriptionIndex] = deadlineTaskInfo[descriptionIndex].strip();
             deadlineTaskInfo[deadlineIndex] = deadlineTaskInfo[deadlineIndex].strip();
         } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
+            throw new AdvisorException("Invalid format");
         }
 
         if (deadlineTaskInfo[descriptionIndex].isEmpty() || deadlineTaskInfo[deadlineIndex].isEmpty()) {
-            return null;
+            throw new AdvisorException("Invalid format");
         }
 
         return deadlineTaskInfo;
@@ -123,7 +123,7 @@ public class InputParser {
      * @param input user input from event command
      * @return String array of task data
      */
-    public static String[] eventParser(String input) {
+    public static String[] eventParser(String input) throws AdvisorException {
         int offsetFromEvent = 6;
         int descriptionIndex = 0;
 
@@ -138,12 +138,12 @@ public class InputParser {
         try {
             temp = input.substring(offsetFromEvent).split(" /from ");
         } catch (StringIndexOutOfBoundsException e) {
-            return null;
+            throw new AdvisorException("Invalid format");
         }
 
         String taskDesc = temp[descriptionIndex];
         if (temp.length != correctInfoArraySize) {
-            return null;
+            throw new AdvisorException("Invalid format");
         }
 
         String[] times = null;
@@ -153,7 +153,7 @@ public class InputParser {
 
 
         if (times.length != correctInfoArraySize) {
-            return null;
+            throw new AdvisorException("Invalid format");
         }
 
         String startTime = times[startTimeIndex];

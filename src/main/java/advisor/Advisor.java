@@ -126,10 +126,13 @@ public class Advisor {
         int deadlineIndex = 1;
         int correctInfoArraySize = 2;
 
-        String[] deadlineData = InputParser.deadlineParser(userInput);
-        if (deadlineData == null) {
+        String[] deadlineData = null;
+        try {
+            deadlineData = InputParser.deadlineParser(userInput);
+        } catch (AdvisorException e) {
             return this.userInterface.getInvalidDeadlineMessage();
         }
+
         // ChatGPT recommended to add assertion here
         assert deadlineData.length == correctInfoArraySize;
 
@@ -156,10 +159,14 @@ public class Advisor {
         int endTimeIndex = 2;
         int correctInfoArraySize = 3;
 
-        String[] taskData = InputParser.eventParser(userInput);
-        if (taskData == null) {
+        String[] taskData = null;
+        try {
+            taskData = InputParser.eventParser(userInput);
+        } catch (AdvisorException e) {
+            System.out.println(e.getMessage());
             return this.userInterface.getInvalidEventMessage();
         }
+
         // ChatGPT recommended to add assertion here
         assert taskData.length == correctInfoArraySize;
 
