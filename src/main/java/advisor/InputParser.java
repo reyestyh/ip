@@ -172,8 +172,13 @@ public class InputParser {
         int offsetFromFind = 5;
 
         try {
-            String searchTerm = input.substring(offsetFromFind);
+            // ChatGPT caught a possible edge case and suggested a fix
+            String searchTerm = input.substring(offsetFromFind).strip();
+            if (searchTerm.isEmpty()) {
+                throw new AdvisorException("Invalid format");
+            }
             return searchTerm;
+
         } catch (StringIndexOutOfBoundsException e) {
             throw new AdvisorException("No search term found");
         }

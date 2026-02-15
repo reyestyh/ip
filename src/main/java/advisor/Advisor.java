@@ -251,7 +251,7 @@ public class Advisor {
     private String execFindCommand(String userInput) {
         String term = "";
         try {
-            term = InputParser.findParser(userInput);
+            term = InputParser.findParser(userInput.strip());
         } catch (AdvisorException e) {
             return this.userInterface.getInvalidFindMessage();
         }
