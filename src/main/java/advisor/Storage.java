@@ -90,25 +90,30 @@ public class Storage {
             e.printStackTrace();
             return false;
         }
-        assert (writer != null);
 
 
         for (int i = 0; i < tasks.size(); i++) {
             Task toAdd = tasks.get(i);
-            StringBuilder taskParameters = new StringBuilder();
             String taskType = toAdd.getTaskType();
+
+            // ChatGPT recommended to add assertions here
+            assert(taskType != null);
+            assert(!taskType.isEmpty());
+            assert(taskType.equals("T") || taskType.equals("D") || taskType.equals("E"));
+
+            String taskStrToAdd;
 
             switch (taskType) {
             case "T":
-                createTodoDataString(taskParameters, taskType, toAdd);
+                taskStrToAdd = createTodoDataString(taskType, toAdd);
                 break;
 
             case "D":
-                createDeadlineDataString(taskParameters, taskType, toAdd);
+                taskStrToAdd = createDeadlineDataString(taskType, toAdd);
                 break;
 
             case "E":
-                createEventDataString(taskParameters, taskType, toAdd);
+                taskStrToAdd = createEventDataString(taskType, toAdd);
                 break;
 
             default:
@@ -123,7 +128,7 @@ public class Storage {
 
             // add task string to buffer
             try {
-                writer.write(taskParameters.toString());
+                writer.write(taskStrToAdd);
                 writer.write("\n");
             } catch (IOException e) {
                 System.out.println("Something went wrong while writing to the file.");
@@ -144,43 +149,61 @@ public class Storage {
         return true;
     }
 
-    private static void createEventDataString(StringBuilder taskParameters, String taskType, Task toAdd) {
+    private String createEventDataString(String taskType, Task toAdd) {
         int startTimeIndex = 0;
         int endTimeIndex = 1;
-        taskParameters.append(taskType);
-        taskParameters.append(SPACER);
+        int numTimes = 2;
 
-        taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-        taskParameters.append(SPACER);
+        StringBuilder eventParameters = new StringBuilder();
 
-        taskParameters.append(toAdd.getTaskName());
-        taskParameters.append(SPACER);
+        eventParameters.append(taskType);
+        eventParameters.append(SPACER);
+
+        eventParameters.append((toAdd.isFinished() ? "1" : "0"));
+        eventParameters.append(SPACER);
+
+        eventParameters.append(toAdd.getTaskName());
+        eventParameters.append(SPACER);
 
         String[] times = ((EventTask) toAdd).getTimesInput();
-        taskParameters.append(times[startTimeIndex]).append(SPACER).append(times[endTimeIndex]);
+        // ChatGPT suggested assertion here
+        assert(times.length == numTimes);
+        assert(times[startTimeIndex] != null);
+        assert(times[endTimeIndex] != null);
+
+        eventParameters.append(times[startTimeIndex]).append(SPACER).append(times[endTimeIndex]);
+        return eventParameters.toString();
     }
 
-    private static void createDeadlineDataString(StringBuilder taskParameters, String taskType, Task toAdd) {
-        taskParameters.append(taskType);
-        taskParameters.append(SPACER);
+    private String createDeadlineDataString(String taskType, Task toAdd) {
+        StringBuilder deadlineParameters = new StringBuilder();
 
-        taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-        taskParameters.append(SPACER);
+        deadlineParameters.append(taskType);
+        deadlineParameters.append(SPACER);
 
-        taskParameters.append(toAdd.getTaskName());
-        taskParameters.append(SPACER);
+        deadlineParameters.append((toAdd.isFinished() ? "1" : "0"));
+        deadlineParameters.append(SPACER);
 
-        taskParameters.append(((DeadlineTask) toAdd).getDeadlineInput());
+        deadlineParameters.append(toAdd.getTaskName());
+        deadlineParameters.append(SPACER);
+
+        deadlineParameters.append(((DeadlineTask) toAdd).getDeadlineInput());
+
+        return deadlineParameters.toString();
     }
 
-    private static void createTodoDataString(StringBuilder taskParameters, String taskType, Task toAdd) {
-        taskParameters.append(taskType);
-        taskParameters.append(SPACER);
+    private String createTodoDataString(String taskType, Task toAdd) {
+        StringBuilder todoParameters = new StringBuilder();
 
-        taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-        taskParameters.append(SPACER);
+        todoParameters.append(taskType);
+        todoParameters.append(SPACER);
 
-        taskParameters.append(toAdd.getTaskName());
+        todoParameters.append((toAdd.isFinished() ? "1" : "0"));
+        todoParameters.append(SPACER);
+
+        todoParameters.append(toAdd.getTaskName());
+
+        return todoParameters.toString();
     }
 
 

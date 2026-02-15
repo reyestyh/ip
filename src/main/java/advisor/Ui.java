@@ -8,16 +8,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final String logo = "            _       _                \n"
-            + "           | |     (_)               \n"
-            + "   __ _  __| |_   ___ ___  ___  _ __ \n"
-            + "  / _` |/ _` \\ \\ / / / __|/ _ \\| '__|\n"
-            + " | (_| | (_| |\\ V /| \\__ \\ (_) | |   \n"
-            + "  \\__,_|\\__,_| \\_/ |_|___/\\___/|_|   \n"
-            + "                                     \n"
-            + "                                     ";
     private final String name = "Advisor";
-    private final String line = "____________________________________________________________";
     private Scanner input;
 
     /**
@@ -34,11 +25,17 @@ public class Ui {
      * @return String the command from user
      */
     public String readCommand(String input) {
+        // AI noticed an error case where a user may type only spaces
+        if (input.isBlank()) {
+            return "";
+        }
         return input.split(" ")[0];
     }
 
     /**
      * Returns startup logo and welcome message
+     *
+     * @return String the startup message
      */
     public String getStartupMessage() {
         StringBuilder response = new StringBuilder();
@@ -49,6 +46,8 @@ public class Ui {
 
     /**
      * Returns exit message
+     *
+     * @return String the exit message
      */
     public String getExitMessage() {
         return "End of Session. Goodbye!";
@@ -75,6 +74,7 @@ public class Ui {
      * Returns success/failure message for updating data file AdvisorTaskData.txt
      *
      * @param isSuccessfulUpdate boolean of whether file was updated successfully
+     * @return String message indicating success/failure of updating data file
      */
     public String getUpdateFileMessage(boolean isSuccessfulUpdate) {
         return isSuccessfulUpdate ? "Data file successfully updated.\n"
@@ -85,6 +85,7 @@ public class Ui {
      * Returns current tasks in TaskList as a string
      *
      * @param taskList TaskList object storing tasks in current session
+     * @return String message showing current tasks
      */
     public String getCurrentTasks(TaskList taskList) {
         StringBuilder response = new StringBuilder();
@@ -95,6 +96,8 @@ public class Ui {
 
     /**
      * Returns error message for invalid command
+     *
+     * @return String for unrecognized command
      */
     public String getInvalidCommandMessage() {
         return "Invalid command. Try again.";
@@ -105,6 +108,7 @@ public class Ui {
      *
      * @param toAdd    Task object being added
      * @param numTasks number of tasks in TaskList
+     * @return String message showing new task added and updated number of tasks in tasklist
      */
     public String getNewTaskMessage(Task toAdd, int numTasks) {
         StringBuilder response = new StringBuilder();
@@ -118,6 +122,7 @@ public class Ui {
      * Returns error message for command if a non-number was inputted
      *
      * @param command command which failed (delete, mark, unmark)
+     * @return String message for non-number inputted.
      */
     public String getNotNumberMessage(String command) {
         StringBuilder response = new StringBuilder();
@@ -129,6 +134,8 @@ public class Ui {
     /**
      * Returns error message for command if index was out of range
      * (delete, mark, unmark)
+     *
+     * @return message for out of range
      */
     public String getOutOfRangeMessage() {
         return "Out of range.\nType a number within the range of current tasks";
@@ -137,30 +144,34 @@ public class Ui {
     /**
      * Returns message when task is marked as done
      *
-     * @param tt Task object marked as done
+     * @param toMark Task object marked as done
+     * @return String message showing marked task
      */
-    public String getMarkedMessage(Task tt) {
+    public String getMarkedMessage(Task toMark) {
         StringBuilder response = new StringBuilder();
         response.append("The following task is now marked as done:\n");
-        response.append(tt.toString());
+        response.append(toMark.toString());
         return response.toString();
     }
 
     /**
      * Returns message when task is marked as undone
      *
-     * @param tt Task object marked as undone
+     * @param toUnmark Task object marked as undone
+     * @return String message showing unmarked task
      */
-    public String getUnmarkedMessage(Task tt) {
+    public String getUnmarkedMessage(Task toUnmark) {
         StringBuilder response = new StringBuilder();
         response.append("The following task is now marked as undone:\n");
-        response.append(tt.toString());
+        response.append(toUnmark.toString());
         return response.toString();
 
     }
 
     /**
      * Returns error message for incorrect todo command usage
+     *
+     * @return String message for invalid todo command
      */
     public String getInvalidTodoMessage() {
         return "Missing description.\nUsage: todo <task description>";
@@ -168,6 +179,8 @@ public class Ui {
 
     /**
      * Returns error message for incorrect deadline command usage
+     *
+     * @return String message for invalid deadline command
      */
     public String getInvalidDeadlineMessage() {
         StringBuilder response = new StringBuilder();
@@ -179,6 +192,8 @@ public class Ui {
 
     /**
      * Returns error message for incorrect event command usage
+     *
+     * @return String message for invalid event command
      */
     public String getInvalidEventMessage() {
         StringBuilder response = new StringBuilder();
@@ -191,13 +206,14 @@ public class Ui {
     /**
      * Returns message when task is deleted from TaskList
      *
-     * @param tt       Task object removed from TaskList
+     * @param toDelete       Task object removed from TaskList
      * @param numTasks number of tasks remaining in TaskList
+     * @return String the deleted task, and the updated number of tasks in tasklist
      */
-    public String getTaskDeletedMessage(Task tt, int numTasks) {
+    public String getTaskDeletedMessage(Task toDelete, int numTasks) {
         StringBuilder response = new StringBuilder();
         response.append("The following task has been removed:\n");
-        response.append(tt.toString());
+        response.append(toDelete.toString());
         response.append("\nRemaining tasks stored: ").append(numTasks);
         return response.toString();
     }
@@ -208,6 +224,7 @@ public class Ui {
      *
      * @param foundTasks List containing matching tasks containing the search term
      * @param term       String of search term
+     * @return String message showing matching tasks found
      */
     public String getFoundTasksMessage(List<Task> foundTasks, String term) {
         StringBuilder response = new StringBuilder();
@@ -226,9 +243,21 @@ public class Ui {
 
     /**
      * Returns message when find command is in invalid format
+     *
+     * @return String indicating invalid formate for find command
      */
     public String getInvalidFindMessage() {
         return "Invalid format\nUsage: find <search term>";
+    }
+
+
+    /**
+     * Returns a message to indicate no sorting as tasklist is empty
+     *
+     * @return String indicating no sorting
+     */
+    public String getEmptyListNoSortMessage() {
+        return "No tasks found. No sorting performed.";
     }
 
 }
