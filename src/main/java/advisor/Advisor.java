@@ -254,6 +254,9 @@ public class Advisor {
 
 
     private String execSortCommand() {
+        if (this.taskList.getNumTasks() == 0) {
+            return this.userInterface.getNotNumberMessage("sort");
+        }
         this.taskList.sortTasks();
         return this.userInterface.getSortedTasks(this.taskList);
     }
