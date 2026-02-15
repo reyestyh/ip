@@ -250,4 +250,14 @@ public class Ui {
         return "Invalid format\nUsage: find <search term>";
     }
 
+
+    /**
+     * Returns a message to indicate no sorting as tasklist is empty
+     *
+     * @return String indicating no sorting
+     */
+    public String getEmptyListNoSortMessage() {
+        return "No tasks found. No sorting performed.";
+    }
+
 }
