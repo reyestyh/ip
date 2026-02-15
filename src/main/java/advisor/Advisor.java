@@ -126,7 +126,14 @@ public class Advisor {
             return this.userInterface.getInvalidDeadlineMessage();
         }
 
-        Task deadlineToAdd = new DeadlineTask(deadlineData[descriptionIndex], deadlineData[deadlineIndex]);
+        Task deadlineToAdd = null;
+
+        try {
+            deadlineToAdd = new DeadlineTask(deadlineData[descriptionIndex], deadlineData[deadlineIndex]);
+        } catch (DateTimeParseException e) {
+            return this.userInterface.getInvalidDeadlineMessage();
+        }
+
         try {
             updateToDoList(deadlineToAdd);
             return this.userInterface.getNewTaskMessage(deadlineToAdd, this.taskList.getNumTasks());
@@ -146,9 +153,17 @@ public class Advisor {
             return this.userInterface.getInvalidEventMessage();
         }
 
-        Task eventToAdd = new EventTask(taskData[descriptionIndex],
-                taskData[startTimeIndex],
-                taskData[endTimeIndex]);
+        Task eventToAdd = null;
+
+        try {
+            eventToAdd = new EventTask(taskData[descriptionIndex],
+                                       taskData[startTimeIndex],
+                                       taskData[endTimeIndex]);
+        } catch (DateTimeParseException e) {
+            return this.userInterface.getInvalidEventMessage();
+        }
+
+
         try {
             updateToDoList(eventToAdd);
             return this.userInterface.getNewTaskMessage(eventToAdd, this.taskList.getNumTasks());
