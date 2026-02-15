@@ -21,15 +21,15 @@ public class InputParserTest {
     }
 
     @Test
-    public void deadlineParser_incorrectFormat_nullReturned() {
-        assertEquals(null, InputParser.deadlineParser("deadline"));
-        assertEquals(null, InputParser.deadlineParser("deadline /by"));
-        assertEquals(null, InputParser.deadlineParser("deadline huh"));
-        assertEquals(null, InputParser.deadlineParser("deadline huh /by"));
+    public void deadlineParser_incorrectFormat_advisorExceptionThrown() throws AdvisorException {
+        assertThrows(AdvisorException.class, () -> InputParser.deadlineParser("deadline"));
+        assertThrows(AdvisorException.class, () -> InputParser.deadlineParser("deadline /by"));
+        assertThrows(AdvisorException.class, () -> InputParser.deadlineParser("deadline huh"));
+        assertThrows(AdvisorException.class, () -> InputParser.deadlineParser("deadline huh /by"));
     }
 
     @Test
-    public void deadlineParser_sampleCommand_correctParsing() {
+    public void deadlineParser_sampleCommand_correctParsing() throws AdvisorException {
         String[] temp1 = InputParser.deadlineParser("deadline do homework /by tomorrow");
         assertEquals("do homework", temp1[0]);
         assertEquals("tomorrow", temp1[1]);
@@ -39,7 +39,6 @@ public class InputParserTest {
         assertEquals("do homework", temp2[0]);
         assertEquals("2026-01-31 1800", temp2[1]);
     }
-
 
 
 }
