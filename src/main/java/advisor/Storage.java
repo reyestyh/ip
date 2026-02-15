@@ -90,13 +90,16 @@ public class Storage {
             e.printStackTrace();
             return false;
         }
-        assert (writer != null);
 
 
         for (int i = 0; i < tasks.size(); i++) {
             Task toAdd = tasks.get(i);
             StringBuilder taskParameters = new StringBuilder();
             String taskType = toAdd.getTaskType();
+            // ChatGPT recommended to add assertions here
+            assert(taskType != null);
+            assert(!taskType.isEmpty());
+            assert(taskType.equals("T") || taskType.equals("D") || taskType.equals("E"));
 
             switch (taskType) {
             case "T":
@@ -147,6 +150,8 @@ public class Storage {
     private static void createEventDataString(StringBuilder taskParameters, String taskType, Task toAdd) {
         int startTimeIndex = 0;
         int endTimeIndex = 1;
+        int numTimes = 2;
+
         taskParameters.append(taskType);
         taskParameters.append(SPACER);
 
@@ -157,6 +162,10 @@ public class Storage {
         taskParameters.append(SPACER);
 
         String[] times = ((EventTask) toAdd).getTimesInput();
+        // ChatGPT suggested assertion here
+        assert(times.length == numTimes);
+        assert(times[startTimeIndex] != null);
+        assert(times[endTimeIndex] != null);
         taskParameters.append(times[startTimeIndex]).append(SPACER).append(times[endTimeIndex]);
     }
 

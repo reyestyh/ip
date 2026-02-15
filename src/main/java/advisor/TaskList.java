@@ -22,6 +22,8 @@ public class TaskList {
     public TaskList(Storage sto) {
         this.tasks = new ArrayList<>();
         this.storage = sto;
+        // ChatGPT recommended assertion here
+        assert(sto != null);
     }
 
     /**
@@ -41,6 +43,8 @@ public class TaskList {
      * @return a new Task object
      */
     private Task createTask(String[] data) {
+        // ChatGPT recommended assertion here
+        assert(data != null);
         String completeIndicator = "1";
         int taskTypeIndex = 0;
         int completionIndex = 1;

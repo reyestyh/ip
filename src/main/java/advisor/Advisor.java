@@ -53,6 +53,7 @@ public class Advisor {
     public String getResponse(String userInput) {
 
         String command = this.userInterface.readCommand(userInput);
+        assert(command != null); // ChatGPT recommended to add assertion here
         int descriptionIndex = 0;
 
         switch (command) {
@@ -110,7 +111,6 @@ public class Advisor {
         } catch (AdvisorException e) {
             return this.userInterface.getInvalidTodoMessage();
         }
-        assert (!desc.isEmpty());
 
         Task todoToAdd = new ToDoTask(desc);
         updateToDoList(todoToAdd);
@@ -120,11 +120,14 @@ public class Advisor {
 
     private String execDeadlineCommand(String userInput, int descriptionIndex) {
         int deadlineIndex = 1;
+        int correctInfoArraySize = 2;
 
         String[] deadlineData = InputParser.deadlineParser(userInput);
         if (deadlineData == null) {
             return this.userInterface.getInvalidDeadlineMessage();
         }
+        // ChatGPT recommended to add assertion here
+        assert deadlineData.length == correctInfoArraySize;
 
         Task deadlineToAdd = null;
 
@@ -147,11 +150,14 @@ public class Advisor {
     private String execEventCommand(String userInput, int descriptionIndex) {
         int startTimeIndex = 1;
         int endTimeIndex = 2;
+        int correctInfoArraySize = 3;
 
         String[] taskData = InputParser.eventParser(userInput);
         if (taskData == null) {
             return this.userInterface.getInvalidEventMessage();
         }
+        // ChatGPT recommended to add assertion here
+        assert taskData.length == correctInfoArraySize;
 
         Task eventToAdd = null;
 
@@ -245,7 +251,6 @@ public class Advisor {
         } catch (AdvisorException e) {
             return this.userInterface.getInvalidFindMessage();
         }
-        assert (!term.isEmpty());
 
         List<Task> matches = this.taskList.findTasks(term);
 
