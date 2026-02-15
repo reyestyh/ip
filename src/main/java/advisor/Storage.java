@@ -28,30 +28,47 @@ public class Storage {
         try {
             Scanner reader = new Scanner(dataFile);
             while (reader.hasNextLine()) {
-                String data = reader.nextLine();
-                if (!data.isEmpty()) {
-                    String[] temp = data.split(SPACER);
-                    if (temp != null) {
-                        tasksStrsList.add(temp);
-                    }
-                }
+                String dataLine = reader.nextLine();
+                String[] taskParams = getTaskData(dataLine);
+                tasksStrsList.add(taskParams);
 
             }
             reader.close();
             return tasksStrsList;
+
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
-            System.out.println("Creating " + DATA_FILE_NAME + " in the current directory: "
-                    + System.getProperty("user.dir"));
-            try {
-                dataFile.createNewFile();
-            } catch (IOException d) {
-                System.out.println("An error occurred.");
-                d.printStackTrace();
-            }
+            createDataFile(dataFile);
 
         }
         return tasksStrsList;
+    }
+
+    private static void createDataFile(File dataFile) {
+        System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
+        System.out.println("Creating " + DATA_FILE_NAME + " in the current directory: "
+                + System.getProperty("user.dir"));
+
+        boolean successfulFileCreation = false;
+        try {
+            successfulFileCreation = dataFile.createNewFile();
+        } catch (IOException d) {
+            System.out.println("An error occurred.");
+            d.printStackTrace();
+        }
+
+        if (successfulFileCreation) {
+            System.out.println(DATA_FILE_NAME + " created.");
+        } else {
+            System.out.println("Unsuccessful file creation.");
+        }
+    }
+
+    private static String[] getTaskData(String data) {
+        if (data.isEmpty()) {
+            System.out.println("Empty line. Skipping");
+        }
+
+        return data.split(SPACER);
     }
 
     /**
@@ -62,6 +79,7 @@ public class Storage {
      */
     public boolean updateDataFile(ArrayList<Task> tasks) {
         FileWriter writer = null;
+
         try {
             writer = new FileWriter(DATA_FILE_NAME);
         } catch (FileNotFoundException e) {
@@ -72,8 +90,8 @@ public class Storage {
             e.printStackTrace();
             return false;
         }
+        assert (writer != null);
 
-        assert(writer != null);
 
         for (int i = 0; i < tasks.size(); i++) {
             Task toAdd = tasks.get(i);
@@ -82,42 +100,15 @@ public class Storage {
 
             switch (taskType) {
             case "T":
-                taskParameters.append(taskType);
-                taskParameters.append(SPACER);
-
-                taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-                taskParameters.append(SPACER);
-
-                taskParameters.append(toAdd.getTaskName());
+                createTodoDataString(taskParameters, taskType, toAdd);
                 break;
 
             case "D":
-                taskParameters.append(taskType);
-                taskParameters.append(SPACER);
-
-                taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-                taskParameters.append(SPACER);
-
-                taskParameters.append(toAdd.getTaskName());
-                taskParameters.append(SPACER);
-
-                taskParameters.append(((DeadlineTask) toAdd).getDeadlineInput());
+                createDeadlineDataString(taskParameters, taskType, toAdd);
                 break;
 
             case "E":
-                int startTimeIndex = 0;
-                int endTimeIndex = 1;
-                taskParameters.append(taskType);
-                taskParameters.append(SPACER);
-
-                taskParameters.append((toAdd.isFinished() ? "1" : "0"));
-                taskParameters.append(SPACER);
-
-                taskParameters.append(toAdd.getTaskName());
-                taskParameters.append(SPACER);
-
-                String[] times = ((EventTask) toAdd).getTimesInput();
-                taskParameters.append(times[startTimeIndex]).append(SPACER).append(times[endTimeIndex]);
+                createEventDataString(taskParameters, taskType, toAdd);
                 break;
 
             default:
@@ -130,6 +121,7 @@ public class Storage {
                 return false;
             }
 
+            // add task string to buffer
             try {
                 writer.write(taskParameters.toString());
                 writer.write("\n");
@@ -139,6 +131,8 @@ public class Storage {
             }
 
         }
+
+        // write data in buffer to file
         try {
             writer.flush();
             writer.close();
@@ -148,6 +142,45 @@ public class Storage {
         }
 
         return true;
+    }
+
+    private static void createEventDataString(StringBuilder taskParameters, String taskType, Task toAdd) {
+        int startTimeIndex = 0;
+        int endTimeIndex = 1;
+        taskParameters.append(taskType);
+        taskParameters.append(SPACER);
+
+        taskParameters.append((toAdd.isFinished() ? "1" : "0"));
+        taskParameters.append(SPACER);
+
+        taskParameters.append(toAdd.getTaskName());
+        taskParameters.append(SPACER);
+
+        String[] times = ((EventTask) toAdd).getTimesInput();
+        taskParameters.append(times[startTimeIndex]).append(SPACER).append(times[endTimeIndex]);
+    }
+
+    private static void createDeadlineDataString(StringBuilder taskParameters, String taskType, Task toAdd) {
+        taskParameters.append(taskType);
+        taskParameters.append(SPACER);
+
+        taskParameters.append((toAdd.isFinished() ? "1" : "0"));
+        taskParameters.append(SPACER);
+
+        taskParameters.append(toAdd.getTaskName());
+        taskParameters.append(SPACER);
+
+        taskParameters.append(((DeadlineTask) toAdd).getDeadlineInput());
+    }
+
+    private static void createTodoDataString(StringBuilder taskParameters, String taskType, Task toAdd) {
+        taskParameters.append(taskType);
+        taskParameters.append(SPACER);
+
+        taskParameters.append((toAdd.isFinished() ? "1" : "0"));
+        taskParameters.append(SPACER);
+
+        taskParameters.append(toAdd.getTaskName());
     }
 
 
