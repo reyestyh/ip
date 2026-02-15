@@ -107,8 +107,12 @@ public class Advisor {
     private String execTodoCommand(String userInput) {
         String desc = "";
         try {
-            desc = InputParser.todoParser(userInput);
+            desc = InputParser.todoParser(userInput).strip();
         } catch (AdvisorException e) {
+            return this.userInterface.getInvalidTodoMessage();
+        }
+
+        if (desc.isEmpty()) {
             return this.userInterface.getInvalidTodoMessage();
         }
 
