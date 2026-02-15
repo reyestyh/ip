@@ -144,26 +144,26 @@ public class Ui {
     /**
      * Returns message when task is marked as done
      *
-     * @param tt Task object marked as done
+     * @param toMark Task object marked as done
      * @return String message showing marked task
      */
-    public String getMarkedMessage(Task tt) {
+    public String getMarkedMessage(Task toMark) {
         StringBuilder response = new StringBuilder();
         response.append("The following task is now marked as done:\n");
-        response.append(tt.toString());
+        response.append(toMark.toString());
         return response.toString();
     }
 
     /**
      * Returns message when task is marked as undone
      *
-     * @param tt Task object marked as undone
+     * @param toUnmark Task object marked as undone
      * @return String message showing unmarked task
      */
-    public String getUnmarkedMessage(Task tt) {
+    public String getUnmarkedMessage(Task toUnmark) {
         StringBuilder response = new StringBuilder();
         response.append("The following task is now marked as undone:\n");
-        response.append(tt.toString());
+        response.append(toUnmark.toString());
         return response.toString();
 
     }
@@ -206,14 +206,14 @@ public class Ui {
     /**
      * Returns message when task is deleted from TaskList
      *
-     * @param tt       Task object removed from TaskList
+     * @param toDelete       Task object removed from TaskList
      * @param numTasks number of tasks remaining in TaskList
      * @return String the deleted task, and the updated number of tasks in tasklist
      */
-    public String getTaskDeletedMessage(Task tt, int numTasks) {
+    public String getTaskDeletedMessage(Task toDelete, int numTasks) {
         StringBuilder response = new StringBuilder();
         response.append("The following task has been removed:\n");
-        response.append(tt.toString());
+        response.append(toDelete.toString());
         response.append("\nRemaining tasks stored: ").append(numTasks);
         return response.toString();
     }
