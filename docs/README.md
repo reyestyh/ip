@@ -122,7 +122,7 @@ The following task has been removed:
 Remaining tasks stored: 2
 ```
 
-### Task 
+### Other task list operations 
 __Sorting tasks__
 
 This command sorts tasks based on their type, then by its dates if it has a date.
