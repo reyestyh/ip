@@ -134,7 +134,7 @@ This command sorts tasks based on their type, then by its dates if it has a date
 To-do tasks are listed first, followed by deadline tasks, and lastly events.
 Within deadline tasks, tasks with an earlier deadline are listed first.
 Within events, events which start earlier are listed first.
-Each type of task or event is sorted in alphabetical order.
+Each type of task or event is lastly sorted in alphabetical order.
 
 </details>
 
