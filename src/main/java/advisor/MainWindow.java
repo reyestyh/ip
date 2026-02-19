@@ -9,8 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Controller for the main GUI.
  */
@@ -36,13 +34,16 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Advisor instance */
+    /**
+     * Injects the Advisor instance
+     */
     public void setAdvisor(Advisor a) {
         advisor = a;
     }
 
     /**
      * Store stage from MainWindow
+     *
      * @param s stage
      */
     public void setStage(Stage s) {
