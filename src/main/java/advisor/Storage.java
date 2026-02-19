@@ -15,6 +15,13 @@ public class Storage {
     private static final String SPACER = ";;;";
     private static final String DATA_FILE_NAME = "./AdvisorTaskData.txt";
 
+    private static final String TODO_TASK_PREFIX = "T";
+    private static final String DEADLINE_TASK_PREFIX = "D";
+    private static final String EVENT_TASK_PREFIX = "E";
+
+    private static final String TASK_COMPLETED_STRING = "1";
+    private static final String TASK_INCOMPLETE_STRING = "0";
+
 
     /**
      * Reads from DATA_FILE_NAME and returns tasks stored.
@@ -43,6 +50,11 @@ public class Storage {
         return tasksStrsList;
     }
 
+    /**
+     * Creates the data file for usage of Advisor across multiple sessions
+     *
+     * @param dataFile File object of AdvisorTaskData.txt
+     */
     private static void createDataFile(File dataFile) {
         System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
         System.out.println("Creating " + DATA_FILE_NAME + " in the current directory: "
@@ -63,6 +75,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Splits each line of saved data into an array of data related to each task
+     *
+     * @param data Line containing data of a task, with ';;;' as a spacer
+     * @return String array containing data (description, completion status, etc.) for each task
+     */
     private static String[] getTaskData(String data) {
         if (data.isEmpty()) {
             System.out.println("Empty line. Skipping");
@@ -99,21 +117,23 @@ public class Storage {
             // ChatGPT recommended to add assertions here
             assert(taskType != null);
             assert(!taskType.isEmpty());
-            assert(taskType.equals("T") || taskType.equals("D") || taskType.equals("E"));
+            assert(taskType.equals(TODO_TASK_PREFIX)
+                   || taskType.equals(DEADLINE_TASK_PREFIX)
+                   || taskType.equals(EVENT_TASK_PREFIX));
 
             String taskStrToAdd;
 
             switch (taskType) {
-            case "T":
-                taskStrToAdd = createTodoDataString(taskType, toAdd);
+            case TODO_TASK_PREFIX:
+                taskStrToAdd = createTodoDataString(toAdd);
                 break;
 
-            case "D":
-                taskStrToAdd = createDeadlineDataString(taskType, toAdd);
+            case DEADLINE_TASK_PREFIX:
+                taskStrToAdd = createDeadlineDataString(toAdd);
                 break;
 
             case "E":
-                taskStrToAdd = createEventDataString(taskType, toAdd);
+                taskStrToAdd = createEventDataString(toAdd);
                 break;
 
             default:
@@ -149,17 +169,23 @@ public class Storage {
         return true;
     }
 
-    private String createEventDataString(String taskType, Task toAdd) {
+    /**
+     * Create a string representation of an event task to be saved into the data file
+     *
+     * @param toAdd Task object to get data from
+     * @return String data string of event task to be written into file
+     */
+    private String createEventDataString(Task toAdd) {
         int startTimeIndex = 0;
         int endTimeIndex = 1;
         int numTimes = 2;
 
         StringBuilder eventParameters = new StringBuilder();
 
-        eventParameters.append(taskType);
+        eventParameters.append(EVENT_TASK_PREFIX);
         eventParameters.append(SPACER);
 
-        eventParameters.append((toAdd.isFinished() ? "1" : "0"));
+        eventParameters.append((toAdd.isFinished() ? TASK_COMPLETED_STRING : TASK_INCOMPLETE_STRING));
         eventParameters.append(SPACER);
 
         eventParameters.append(toAdd.getTaskName());
@@ -175,13 +201,19 @@ public class Storage {
         return eventParameters.toString();
     }
 
-    private String createDeadlineDataString(String taskType, Task toAdd) {
+    /**
+     * Create a string representation of a deadline task to be saved into the data file
+     *
+     * @param toAdd Task object to get data from
+     * @return String data string of deadline task to be written into file
+     */
+    private String createDeadlineDataString(Task toAdd) {
         StringBuilder deadlineParameters = new StringBuilder();
 
-        deadlineParameters.append(taskType);
+        deadlineParameters.append(DEADLINE_TASK_PREFIX);
         deadlineParameters.append(SPACER);
 
-        deadlineParameters.append((toAdd.isFinished() ? "1" : "0"));
+        deadlineParameters.append((toAdd.isFinished() ? TASK_COMPLETED_STRING : TASK_INCOMPLETE_STRING));
         deadlineParameters.append(SPACER);
 
         deadlineParameters.append(toAdd.getTaskName());
@@ -192,13 +224,19 @@ public class Storage {
         return deadlineParameters.toString();
     }
 
-    private String createTodoDataString(String taskType, Task toAdd) {
+    /**
+     * Create a string representation of a todo task to be saved into the data file
+     *
+     * @param toAdd Task object to get data from
+     * @return String data string of todo task to be written into file
+     */
+    private String createTodoDataString(Task toAdd) {
         StringBuilder todoParameters = new StringBuilder();
 
-        todoParameters.append(taskType);
+        todoParameters.append(TODO_TASK_PREFIX);
         todoParameters.append(SPACER);
 
-        todoParameters.append((toAdd.isFinished() ? "1" : "0"));
+        todoParameters.append((toAdd.isFinished() ? TASK_COMPLETED_STRING : "0"));
         todoParameters.append(SPACER);
 
         todoParameters.append(toAdd.getTaskName());
