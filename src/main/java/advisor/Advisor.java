@@ -53,8 +53,7 @@ public class Advisor {
     public String getResponse(String userInput) {
 
         String command = this.userInterface.readCommand(userInput);
-        assert(command != null); // ChatGPT recommended to add assertion here
-        int descriptionIndex = 0;
+        assert (command != null); // ChatGPT recommended to add assertion here
 
         switch (command) {
         case "bye":
@@ -76,10 +75,10 @@ public class Advisor {
             return execTodoCommand(userInput);
 
         case "deadline":
-            return execDeadlineCommand(userInput, descriptionIndex);
+            return execDeadlineCommand(userInput);
 
         case "event":
-            return execEventCommand(userInput, descriptionIndex);
+            return execEventCommand(userInput);
 
         case "delete":
             return execDeleteCommand(userInput);
@@ -123,6 +122,8 @@ public class Advisor {
 
 
     private String execDeadlineCommand(String userInput, int descriptionIndex) {
+    private String execDeadlineCommand(String userInput) {
+        int descriptionIndex = 0;
         int deadlineIndex = 1;
         int correctInfoArraySize = 2;
 
@@ -155,6 +156,8 @@ public class Advisor {
 
 
     private String execEventCommand(String userInput, int descriptionIndex) {
+    private String execEventCommand(String userInput) {
+        int descriptionIndex = 0;
         int startTimeIndex = 1;
         int endTimeIndex = 2;
         int correctInfoArraySize = 3;
