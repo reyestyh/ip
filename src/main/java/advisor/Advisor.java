@@ -325,7 +325,7 @@ public class Advisor {
      * Executes the sort command to sort tasks based on predefined order
      *
      * @return String message of sorted tasks according to order,
-     * or message indicating no sorting as the list is empty
+     *         or message indicating no sorting as the list is empty
      */
     private String execSortCommand() {
         if (this.taskList.getNumTasks() == 0) {
