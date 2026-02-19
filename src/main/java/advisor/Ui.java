@@ -63,6 +63,13 @@ public class Ui {
         return input.nextLine().strip();
     }
 
+    /**
+     * Returns a message indicating the sorting has successfully executed,
+     * as well as the current sorted task list.
+     *
+     * @param taskList the sorted tasklist
+     * @return String message indicating tasks are sorted, and sorted tasks
+     */
     public String getSortedTasks(TaskList taskList) {
         StringBuilder response = new StringBuilder();
         response.append("Tasks sorted. \n");

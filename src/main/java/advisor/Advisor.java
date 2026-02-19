@@ -92,17 +92,33 @@ public class Advisor {
 
     }
 
+    /**
+     * Executes the list command to list current tasks
+     *
+     * @return String Current tasks in task list, or a message indicating no tasks
+     */
     private String execListCommand() {
         return this.userInterface.getCurrentTasks(this.taskList);
     }
 
 
+    /**
+     * Executes the bye command by updating storage
+     *
+     * @return String message indicating successful/unsuccessful bye command execution
+     */
     private String execByeCommand() {
         boolean isSuccessfulUpdate = this.taskList.updateStorage();
         return userInterface.getUpdateFileMessage(isSuccessfulUpdate) + this.userInterface.getExitMessage();
     }
 
 
+    /**
+     * Executes the todo command by adding a todo task
+     *
+     * @param userInput user input of form "todo ..."
+     * @return String message of task added, or error message if input in wrong format
+     */
     private String execTodoCommand(String userInput) {
         String desc = "";
         try {
@@ -121,7 +137,12 @@ public class Advisor {
     }
 
 
-    private String execDeadlineCommand(String userInput, int descriptionIndex) {
+    /**
+     * Executes the deadline command by adding a deadline task
+     *
+     * @param userInput user input of form "deadline ..."
+     * @return String message of task added, or error message if input in wrong format
+     */
     private String execDeadlineCommand(String userInput) {
         int descriptionIndex = 0;
         int deadlineIndex = 1;
@@ -154,8 +175,12 @@ public class Advisor {
         }
     }
 
-
-    private String execEventCommand(String userInput, int descriptionIndex) {
+    /**
+     * Executes the event command by adding an event task
+     *
+     * @param userInput user input of form "event ..."
+     * @return String message of task added, or error message if input in wrong format
+     */
     private String execEventCommand(String userInput) {
         int descriptionIndex = 0;
         int startTimeIndex = 1;
@@ -193,6 +218,12 @@ public class Advisor {
     }
 
 
+    /**
+     * Executes the mark command to mark a task as done.
+     *
+     * @param userInput user input of form "mark ..."
+     * @return String message of task marked as done, or error message if input in wrong format
+     */
     private String execMarkCommand(String userInput) {
         int markIdx = 0;
 
@@ -215,6 +246,12 @@ public class Advisor {
     }
 
 
+    /**
+     * Executes the mark command to ummark a task (i.e. mark as incomplete).
+     *
+     * @param userInput user input of form "unmark ..."
+     * @return String message of task unmarked, or error message if input in wrong format
+     */
     private String execUnmarkCommand(String userInput) {
         int unmarkIdx = 0;
 
@@ -238,6 +275,12 @@ public class Advisor {
     }
 
 
+    /**
+     * Executes the delete command to delete a task
+     *
+     * @param userInput user input of form "delete ..."
+     * @return String message of task deleted, or error message if input in wrong format
+     */
     private String execDeleteCommand(String userInput) {
         int deleteIdx = 0;
         try {
@@ -258,6 +301,12 @@ public class Advisor {
     }
 
 
+    /**
+     * Executes the find command to find tasks based on a criteria
+     *
+     * @param userInput user input of form "find ..."
+     * @return String message of tasks found matching search term, or error message if input in wrong format
+     */
     private String execFindCommand(String userInput) {
         String term = "";
         try {
@@ -272,6 +321,12 @@ public class Advisor {
     }
 
 
+    /**
+     * Executes the sort command to sort tasks based on predefined order
+     *
+     * @return String message of sorted tasks according to order,
+     * or message indicating no sorting as the list is empty
+     */
     private String execSortCommand() {
         if (this.taskList.getNumTasks() == 0) {
             return this.userInterface.getEmptyListNoSortMessage();

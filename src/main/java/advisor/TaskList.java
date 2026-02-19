@@ -157,6 +157,10 @@ public class TaskList {
 
     /**
      * Sorts the current tasks in the TaskList
+     * Sorting is done in the following order: todo, deadline, event
+     * Between todo tasks, in alphabetical order
+     * Between deadline tasks, the one with the earliest date is 'lower'
+     * Between event tasks, the one with the earlier start date is 'lower'
      */
     public void sortTasks() {
 
