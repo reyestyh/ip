@@ -72,6 +72,8 @@ public class TaskList {
         } catch (DateTimeParseException d) {
             System.out.println("Error: Incorrect date format when reading from file.");
             return null;
+        } catch (AdvisorException e) {
+            System.out.println("Error in parsing task.");
         }
         return null;
     }

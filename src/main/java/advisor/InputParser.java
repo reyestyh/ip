@@ -30,7 +30,7 @@ public class InputParser {
 
         try {
             return Integer.parseInt(indexStr);
-        }  catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new AdvisorException("An error occurred when parsing the input for '" + command + "'");
         }
 

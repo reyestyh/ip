@@ -16,12 +16,17 @@ public class EventTask extends Task {
      *
      * @param taskName  description of task
      * @param startTime start time of event in format "yyyy-MM-dd HHmm"
-     * @param endTime   end time of event in format "yyyy-MM-dd HHmm"
+     * @throws AdvisorException when end time is before start time
      */
-    public EventTask(String taskName, String startTime, String endTime) {
+    public EventTask(String taskName, String startTime, String endTime) throws AdvisorException {
         super(taskName);
         this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+
+        if (this.endTime.isBefore(this.startTime)) {
+            throw new AdvisorException("End time before start time");
+        }
+
     }
 
     /**
@@ -31,11 +36,17 @@ public class EventTask extends Task {
      * @param startTime start time of event in format "yyyy-MM-dd HHmm"
      * @param endTime   end time of event in format "yyyy-MM-dd HHmm"
      * @param isDone    completion status of task
+     * @throws AdvisorException when end time is before start time
      */
-    public EventTask(String taskName, String startTime, String endTime, boolean isDone) {
+    public EventTask(String taskName, String startTime, String endTime, boolean isDone) throws AdvisorException {
         super(taskName, isDone);
         this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+
+        if (this.endTime.isBefore(this.startTime)) {
+            throw new AdvisorException("End time before start time");
+        }
+
     }
 
     /**

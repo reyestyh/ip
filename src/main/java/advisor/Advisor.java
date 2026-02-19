@@ -204,7 +204,7 @@ public class Advisor {
             eventToAdd = new EventTask(taskData[descriptionIndex],
                                        taskData[startTimeIndex],
                                        taskData[endTimeIndex]);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | AdvisorException e) {
             return this.userInterface.getInvalidEventMessage();
         }
 
