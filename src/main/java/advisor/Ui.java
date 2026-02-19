@@ -110,7 +110,8 @@ public class Ui {
         return """
                 Invalid command. Try again.
                 Commands:
-                list, todo, deadline, event, mark, unmark, delete, find, sort, bye""";
+                list, todo, deadline, event, mark, unmark, delete, find, sort, bye
+                """;
     }
 
     /**
@@ -124,7 +125,7 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         response.append("The following task has been added:\n");
         response.append("    ").append(toAdd.toString()).append("\n");
-        response.append("There are now ").append(numTasks).append(" tasks in the list");
+        response.append("There are now ").append(numTasks).append(" tasks in the list.");
         return response.toString();
     }
 
@@ -160,6 +161,7 @@ public class Ui {
     public String getMarkedMessage(Task toMark) {
         StringBuilder response = new StringBuilder();
         response.append("The following task is now marked as done:\n");
+        response.append("    ");
         response.append(toMark.toString());
         return response.toString();
     }
@@ -173,6 +175,7 @@ public class Ui {
     public String getUnmarkedMessage(Task toUnmark) {
         StringBuilder response = new StringBuilder();
         response.append("The following task is now marked as undone:\n");
+        response.append("    ");
         response.append(toUnmark.toString());
         return response.toString();
 
@@ -223,6 +226,7 @@ public class Ui {
     public String getTaskDeletedMessage(Task toDelete, int numTasks) {
         StringBuilder response = new StringBuilder();
         response.append("The following task has been removed:\n");
+        response.append("    ");
         response.append(toDelete.toString());
         response.append("\nRemaining tasks stored: ").append(numTasks);
         return response.toString();
@@ -244,6 +248,7 @@ public class Ui {
         } else {
             response.append("Matching tasks found for '").append(term).append("' :\n");
             for (int i = 0; i < foundTasks.size(); i++) {
+                response.append("    ");
                 response.append(foundTasks.get(i).toString()).append("\n");
             }
         }
