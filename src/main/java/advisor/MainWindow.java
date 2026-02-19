@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for the main GUI.
@@ -20,6 +23,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+
+    private Stage stage;
 
     private Advisor advisor;
 
@@ -37,6 +42,14 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Store stage from MainWindow
+     * @param s stage
+     */
+    public void setStage(Stage s) {
+        stage = s;
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Advisor's reply and then
      * appends them to the dialog container. Clears the user input after processing.
      */
@@ -49,6 +62,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAdvisorDialog(response, advisorImage)
         );
         userInput.clear();
+
+        if (input.equals("bye")) {
+            stage.close();
+        }
+
     }
 
     /**
@@ -59,7 +77,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Calls 'bye' command to update data file for Advisorf
+     * Calls 'bye' command to update data file for Advisor
      */
     private void handleExit() {
         String input = "bye";

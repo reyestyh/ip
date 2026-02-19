@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Advisor advisor = new Advisor();
+    private Stage stage;
 
 
     @Override
@@ -32,6 +33,7 @@ public class Main extends Application {
             stage.setMinHeight(minimumHeight);
             stage.setMinWidth(minimumWidth);
             fxmlLoader.<MainWindow>getController().setAdvisor(advisor);
+            fxmlLoader.<MainWindow>getController().setStage(stage);
 
             // Update data file when window is closed with 'X'
             stage.setOnCloseRequest(event -> {
