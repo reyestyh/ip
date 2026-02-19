@@ -62,7 +62,9 @@ public class InputParser {
      * @return String array of task data
      */
     public static String[] deadlineParser(String input) throws AdvisorException {
-        int offsetFromDeadline = 9;
+        int deadlineStringLength = 8;
+
+        int offsetFromDeadline = input.indexOf("deadline") + deadlineStringLength;
         int descriptionIndex = 0;
         int deadlineIndex = 1;
         int correctInfoArraySize = 2;
@@ -106,7 +108,9 @@ public class InputParser {
      * @return String array of task data
      */
     public static String[] eventParser(String input) throws AdvisorException {
-        int offsetFromEvent = 6;
+        int eventStringLength = 5;
+        int offsetFromEvent = input.indexOf("event") + eventStringLength;
+
         int descriptionIndex = 0;
 
         int timesStringIndex = 1;
