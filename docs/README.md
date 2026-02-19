@@ -175,7 +175,10 @@ The `bye` command can be used to exit the app.
 
 Usage: `bye`
 
-Expected output: Window is closed 
-
+Expected output:
+```
+Data file successfully updated.
+End of Session. Goodbye!
+```
 Closing the window also triggers the `bye` command.
 
