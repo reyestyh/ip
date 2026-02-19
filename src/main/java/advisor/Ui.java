@@ -100,7 +100,10 @@ public class Ui {
      * @return String for unrecognized command
      */
     public String getInvalidCommandMessage() {
-        return "Invalid command. Try again.";
+        return """
+                Invalid command. Try again.
+                Commands:
+                list, todo, deadline, event, mark, unmark, delete, find, sort, bye""";
     }
 
     /**
@@ -206,7 +209,7 @@ public class Ui {
     /**
      * Returns message when task is deleted from TaskList
      *
-     * @param toDelete       Task object removed from TaskList
+     * @param toDelete Task object removed from TaskList
      * @param numTasks number of tasks remaining in TaskList
      * @return String the deleted task, and the updated number of tasks in tasklist
      */
