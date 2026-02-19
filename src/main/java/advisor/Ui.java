@@ -29,7 +29,7 @@ public class Ui {
         if (input.isBlank()) {
             return "";
         }
-        return input.split(" ")[0];
+        return input.trim().split(" ")[0];
     }
 
     /**

@@ -9,15 +9,15 @@ public class InputParserTest {
 
     @Test
     public void deleteParser_incorrectFormat_exceptionThrown() throws AdvisorException {
-        assertThrows(AdvisorException.class, () -> InputParser.deleteParser(""));
-        assertThrows(AdvisorException.class, () -> InputParser.deleteParser("delete"));
-        assertThrows(AdvisorException.class, () -> InputParser.deleteParser("delete "));
-        assertThrows(AdvisorException.class, () -> InputParser.deleteParser("delete lol"));
+        assertThrows(AdvisorException.class, () -> InputParser.commandIndexParser("", "delete"));
+        assertThrows(AdvisorException.class, () -> InputParser.commandIndexParser("delete", "delete"));
+        assertThrows(AdvisorException.class, () -> InputParser.commandIndexParser("delete ", "delete"));
+        assertThrows(AdvisorException.class, () -> InputParser.commandIndexParser("delete lol", "delete"));
     }
 
     @Test
     public void deleteParser_correctFormat_correctNumberReturned() throws AdvisorException {
-        assertEquals(7, InputParser.deleteParser("delete 7"));
+        assertEquals(7, InputParser.commandIndexParser("delete 7", "delete"));
     }
 
     @Test

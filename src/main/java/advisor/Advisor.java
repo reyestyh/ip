@@ -52,7 +52,7 @@ public class Advisor {
      */
     public String getResponse(String userInput) {
 
-        String command = this.userInterface.readCommand(userInput);
+        String command = this.userInterface.readCommand(userInput).trim();
         assert (command != null); // ChatGPT recommended to add assertion here
 
         switch (command) {
@@ -228,7 +228,7 @@ public class Advisor {
         int markIdx = 0;
 
         try {
-            markIdx = InputParser.markParser(userInput);
+            markIdx = InputParser.commandIndexParser(userInput, "mark");
         } catch (AdvisorException e) {
             return this.userInterface.getNotNumberMessage("mark");
         }
@@ -256,7 +256,7 @@ public class Advisor {
         int unmarkIdx = 0;
 
         try {
-            unmarkIdx = InputParser.unmarkParser(userInput);
+            unmarkIdx = InputParser.commandIndexParser(userInput, "unmark");
         } catch (AdvisorException e) {
             return this.userInterface.getNotNumberMessage("unmark");
 
@@ -284,7 +284,7 @@ public class Advisor {
     private String execDeleteCommand(String userInput) {
         int deleteIdx = 0;
         try {
-            deleteIdx = InputParser.deleteParser(userInput);
+            deleteIdx = InputParser.commandIndexParser(userInput, "delete");
         } catch (AdvisorException e) {
             return this.userInterface.getNotNumberMessage("delete");
         }

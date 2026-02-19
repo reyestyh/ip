@@ -7,51 +7,33 @@ public class InputParser {
 
 
     /**
-     * Returns the index of the task to be deleted from user input
-     * If not a number or no number inputted, return -1
+     * Returns the index of the task to perform the specified command on
+     * If error occurs during parsing, throw an AdvisorException
      *
-     * @param input user input from delete command
-     * @return integer of index of Task in taskList
+     * @param input user input from delete, mark, or unmark
+     * @param command command user is executing
+     * @return Integer index of task to be edited
+     * @throws AdvisorException when no number is in the input, or a non-number is in the input
      */
-    public static Integer deleteParser(String input) throws AdvisorException {
-        int offsetFromDelete = 7;
-        try {
-            return Integer.parseInt(input.substring(offsetFromDelete));
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new AdvisorException("An error occurred when parsing the input for 'delete'");
-        }
-    }
 
-    /**
-     * Returns the index of the task to be marked as complete from user input
-     * If not a number or no number inputted, return -1
-     *
-     * @param input user input from mark command
-     * @return integer of index of Task in taskList
-     */
-    public static Integer markParser(String input) throws AdvisorException {
-        int offsetFromMark = 5;
-        try {
-            return Integer.parseInt(input.substring(offsetFromMark));
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new AdvisorException("An error occurred when parsing the input for 'mark'");
-        }
-    }
+    public static Integer commandIndexParser(String input, String command) throws AdvisorException {
+        int correctInfoArraySize = 2;
+        int specifiedIdx = 1;
 
-    /**
-     * Returns the index of the task to be marked as incomplete from user input
-     * If not a number or no number inputted, return -1
-     *
-     * @param input user input from unmark command
-     * @return integer of index of Task in taskList
-     */
-    public static Integer unmarkParser(String input) throws AdvisorException {
-        int offsetFromUnmark = 7;
-        try {
-            return Integer.parseInt(input.substring(offsetFromUnmark));
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            throw new AdvisorException("An error occurred when parsing the input for 'unmark'");
+
+        String[] splitByCmd = input.split(command);
+
+        if (splitByCmd.length != correctInfoArraySize) {
+            throw new AdvisorException("An error occurred when parsing the input for '" + command + "'");
         }
+        String indexStr = splitByCmd[specifiedIdx].trim();
+
+        try {
+            return Integer.parseInt(indexStr);
+        }  catch (NumberFormatException e) {
+            throw new AdvisorException("An error occurred when parsing the input for '" + command + "'");
+        }
+
     }
 
     /**
