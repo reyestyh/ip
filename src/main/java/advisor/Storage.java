@@ -100,10 +100,6 @@ public class Storage {
 
         try {
             writer = new FileWriter(DATA_FILE_NAME);
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: File " + DATA_FILE_NAME + " not found.");
-            System.out.println("Making " + DATA_FILE_NAME + " in the current directory.");
-            createDataFile(new File(DATA_FILE_NAME));
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
