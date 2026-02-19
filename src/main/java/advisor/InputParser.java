@@ -85,6 +85,7 @@ public class InputParser {
         try {
             deadlineTaskInfo[descriptionIndex] = deadlineTaskInfo[descriptionIndex].strip();
             deadlineTaskInfo[deadlineIndex] = deadlineTaskInfo[deadlineIndex].strip();
+            deadlineTaskInfo[deadlineIndex] = deadlineTaskInfo[deadlineIndex].replaceAll("\\s+", " ");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new AdvisorException("Invalid format");
         }
@@ -127,7 +128,7 @@ public class InputParser {
             throw new AdvisorException("Invalid format");
         }
 
-        String taskDesc = temp[descriptionIndex];
+        String taskDesc = temp[descriptionIndex].strip();
         if (temp.length != correctInfoArraySize) {
             throw new AdvisorException("Invalid format");
         }
@@ -142,8 +143,8 @@ public class InputParser {
             throw new AdvisorException("Invalid format");
         }
 
-        String startTime = times[startTimeIndex];
-        String endTime = times[endTimeIndex];
+        String startTime = times[startTimeIndex].strip().replaceAll("\\s+", " ");
+        String endTime = times[endTimeIndex].strip().replaceAll("\\s+", " ");
 
         return new String[]{taskDesc, startTime, endTime};
     }
