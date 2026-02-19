@@ -19,7 +19,7 @@ To get started, simply
 
 ### Tasks
 
-__To-do tasks__
+__todo__
 
 This command adds a todo task with no fixed deadline or time.
 
@@ -34,7 +34,7 @@ The following task has been added:
 There are now 1 tasks in the list.
 ```
 
-__Tasks with deadlines__
+__deadline__
 
 This command adds a task with a deadline.
 
@@ -49,7 +49,7 @@ The following task has been added:
 There are now 2 tasks in the list.
 ```
 
-__Events__
+__event__
 
 This command adds an event with a specified start time and end time.
 
@@ -64,7 +64,7 @@ The following task has been added:
 There are now 3 tasks in the list.
 ```
 
-__Listing tasks__
+__list__
 
 This command lists all tasks with their description, completion status, and any other relevant information.
 
@@ -79,7 +79,7 @@ Current tasks:
 ```
 
 ### Editing tasks
-__Marking tasks__
+__mark__
 
 This command marks a task as complete, specified using its index.
 
@@ -93,7 +93,7 @@ The following task is now marked as done:
     [D][X] Complete homework (by: Mar 4 2026 3:00 pm)
 ```
 
-__Unmarking tasks__
+__unmark__
 
 This command marks a task as incomplete, specified using its index.
 
@@ -107,7 +107,7 @@ The following task is now marked as undone:
     [D][ ] Complete homework (by: Mar 4 2026 3:00 pm)
 ```
 
-__Deleting tasks__
+__delete__
 
 This command deletes a stored task, specified using its index.
 
@@ -123,7 +123,7 @@ Remaining tasks stored: 2
 ```
 
 ### Other task list operations 
-__Sorting tasks__
+__sort__
 
 This command sorts tasks based on their type, then by its dates if it has a date.
 
@@ -154,7 +154,7 @@ Tasks sorted.
 ```
 
 
-__Finding tasks__
+__find__
 
 This command finds tasks matching a keyword, specified by user input.
 
