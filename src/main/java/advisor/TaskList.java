@@ -17,7 +17,8 @@ public class TaskList {
     /**
      * Constructs a TaskList object to store tasks for the Advisor program,
      * and storage object for reading and writing to the data file
-     * @param sto
+     *
+     * @param sto Storage object to read and update data
      */
     public TaskList(Storage sto) {
         this.tasks = new ArrayList<>();
