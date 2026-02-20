@@ -32,7 +32,10 @@ public class TaskList {
     public void populateList() {
         ArrayList<String[]> dataArr = this.storage.readDataFile();
         for (int i = 0; i < dataArr.size(); i++) {
-            tasks.add(createTask(dataArr.get(i)));
+            Task toAdd = createTask(dataArr.get(i));
+            if (toAdd != null) {
+                this.tasks.add(toAdd);
+            }
         }
     }
 
@@ -73,6 +76,8 @@ public class TaskList {
             System.out.println("Error: Incorrect date format when reading from file.");
             return null;
         } catch (AdvisorException e) {
+            System.out.println("Error in parsing task.");
+        } catch (ArrayIndexOutOfBoundsException ae) {
             System.out.println("Error in parsing task.");
         }
         return null;
